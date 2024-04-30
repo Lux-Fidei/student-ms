@@ -82,7 +82,7 @@ foreach($results as $row)
 	<div class="container">
 			<div class="testimonial-nfo">
         <h3>Public Notice</h3>
-         <marquee  style="height:350px;" direction ="up" onmouseover="this.stop();" onmouseout="this.start();">
+        <marquee  style="height:350px;" direction ="up" onmouseover="this.stop();" onmouseout="this.start();">
 				<?php
 $sql="SELECT * from tblpublicnotice";
 $query = $dbh -> prepare($sql);
@@ -93,12 +93,9 @@ if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?>
-
- 
 		<a href="view-public-notice.php?viewid=<?php echo htmlentities ($row->ID);?>" target="_blank" style="color:#fff;">
           <?php  echo htmlentities($row->NoticeTitle);?>(<?php  echo htmlentities($row->CreationDate);?>)</a>
           <hr /><br />
-				    
 			<?php $cnt=$cnt+1;}} ?>
 	</marquee></div>
 	</div>
