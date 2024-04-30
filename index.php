@@ -41,59 +41,23 @@ include('includes/dbconnection.php');
 	<body>
 <?php include_once('includes/header.php');?>
       </div>
-  </div>
-  <script src="js/responsiveslides.min.js"></script>
-  <script>
-    $(function () {
-      $("#slider").responsiveSlides({
-        auto: true,
-        nav: true,
-        speed: 500,
-        namespace: "callbacks",
-        pager: true,
-      });
-    });
-  </script>
-<div class="slider">
-      <div class="callbacks_container">
-        <ul class="rslides" id="slider">
-        <li>     
-          <h3>MSU-MSHS PORTAL</h3>      
-          <p>Registered students can sign in here</p>             
-          <div class="readmore">
-            <a href="user/login.php">Sign in<i class="glyphicon glyphicon-menu-right"> </i></a>
-          </div>
-        </li>
+   </div>
+<div class="slideshow">
+  <li>
+    <span>Slide One</span> </li>
+  <li> <span>Slide Two</span> </li>
+  <li> <span>Slide Three</span> </li>
+  <li> <span>Slide Four</span> </li>
+</div>
 
-        </ul>
       </div>
     </div>
 </div>      
   </div>
 <div class="welcome">
-      <div class="logo3">
-        <img src="images/Borderlogo.png">
-      </div>
-        <div class="logo4">
-          <img src="images/Borderlogo1.png">
-        </div>
+<style>
 
-        <style>
-          div.logo3 img{
-    vertical-align: middle;
-    width: 421px;
-    margin-left: 67em;
-    margin-top: 4em;
-    margin-bottom: -43em;
-            }
-            div.logo4 img{              
-    vertical-align: middle;
-    width: 466px;
-    margin-left: -61em;
-    margin-top: -15em;
-    margin-bottom: -40em;
-            }
-        </style>
+  </style>
 	<div class="container">
 		<?php
 $sql="SELECT * from tblpage where PageType='mission-vision'";
@@ -117,8 +81,8 @@ foreach($results as $row)
 <div class="testimonials">
 	<div class="container">
 			<div class="testimonial-nfo">
-        <h3>Public Notices</h3>
-        <marquee  style="height:350px;" direction ="up" onmouseover="this.stop();" onmouseout="this.start();">
+        <h3>Public Notice</h3>
+         <marquee  style="height:350px;" direction ="up" onmouseover="this.stop();" onmouseout="this.start();">
 				<?php
 $sql="SELECT * from tblpublicnotice";
 $query = $dbh -> prepare($sql);
@@ -130,7 +94,7 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
 
-
+ 
 		<a href="view-public-notice.php?viewid=<?php echo htmlentities ($row->ID);?>" target="_blank" style="color:#fff;">
           <?php  echo htmlentities($row->NoticeTitle);?>(<?php  echo htmlentities($row->CreationDate);?>)</a>
           <hr /><br />

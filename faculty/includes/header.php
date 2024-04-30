@@ -1,11 +1,12 @@
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+ <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="dashboard.php">
             <strong style="color: white;">SMS</strong>
           </a>
+         
         </div>
         <?php
-$uid= $_SESSION['sturecmfacaid'];
+         $uid= $_SESSION['sturecmfacaid'];
 $sql="SELECT * from tblfaculty where ID=:uid";
 
 $query = $dbh -> prepare($sql);
@@ -22,13 +23,13 @@ foreach($results as $row)
           <h5 class="greetings">Hello, Faculty <?php  echo htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
-              {
-                font-size: 1.5em;
-                font-family: math;
+                   {
+           font-size: 1.5em;
+          font-family: math;
               }
           </style>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-          
+           
         
       
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
@@ -52,4 +53,4 @@ foreach($results as $row)
             <span class="icon-menu"></span>
           </button>
         </div>
-</nav>
+      </nav>

@@ -4,8 +4,6 @@
     <div class="container">
       <div class="col-md-6 footer-left">
         <ul>
-          
-       
       </div>
       <div class="col-md-3 footer-middle">
         <?php
@@ -21,8 +19,7 @@ foreach($results as $row)
 {               ?>
        
       <?php $cnt=$cnt+1;}} ?></div>
-      
-      
+    
     <!-- //container -->
   </div>
 <!--/footer-->

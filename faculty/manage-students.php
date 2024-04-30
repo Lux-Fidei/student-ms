@@ -71,6 +71,7 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                                 <tr>
                                                     <th class="font-weight-bold">Student No.</th>
                                                     <th class="font-weight-bold">LRN</th>
+                                                   
                                                     <th class="font-weight-bold">Complete Name</th>
                                                     <th class="font-weight-bold">Institutional Email</th>
                                                     <th class="font-weight-bold">Admission Date</th>

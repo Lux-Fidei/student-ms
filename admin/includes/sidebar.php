@@ -8,7 +8,7 @@
                 </div>
                 <div class="text-wrapper">
                   <?php
-        $aid= $_SESSION['sturecmsaid'];
+         $aid= $_SESSION['sturecmsaid'];
 $sql="SELECT * from tbladmin where ID=:aid";
 
 $query = $dbh -> prepare($sql);
@@ -24,6 +24,7 @@ foreach($results as $row)
                   <p class="profile-name"><?php  echo htmlentities($row->AdminName);?></p>
                   <p class="designation"><?php  echo htmlentities($row->Email);?></p><?php $cnt=$cnt+1;}} ?>
                 </div>
+               
               </a>
             </li>
             <li class="nav-item nav-category">

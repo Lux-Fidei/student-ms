@@ -1,6 +1,5 @@
 <?php
 session_start();
-include('includes/dbconnection.php');
 if (empty($_SESSION['record_examineer_id'])) {
     header('location:login.php'); // Redirect to the login page
     exit();

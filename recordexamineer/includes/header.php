@@ -5,9 +5,10 @@
         </a>
     </div>
     <?php
+    include('includes/dbconnection.php');
     if(isset($_SESSION['record_examineer_id'])) {
         $uid = $_SESSION['record_examineer_id'];
-        $sql = "SELECT * FROM tbl_record_examineer WHERE ID=:uid";
+        $sql = "SELECT * FROM tbl_record_examineer WHERE ID = :uid";
         $query = $dbh -> prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
         $query->execute();
@@ -34,7 +35,6 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
                         <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-
                         <p class="mb-1 mt-3"><?php echo htmlentities($row->uname); ?></p>
                         <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email); ?></p>
                         <?php $cnt = $cnt + 1; ?>

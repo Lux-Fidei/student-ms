@@ -5,12 +5,13 @@ include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmsaid']==0)) {
     header('location:logout.php');
 } else {
-
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Student Management System || Dashboard</title>
+   
+    <title>Student  Management System || Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
@@ -25,6 +26,7 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
     <!-- Layout styles -->
     <link rel="stylesheet" href="css/style.css">
     <!-- End layout styles -->
+   
 </head>
 <body>
     <div class="container-scroller">
@@ -159,6 +161,8 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
                             </div>
                         </div>
                     </div>
+                   
+                    
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
