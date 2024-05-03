@@ -2,82 +2,32 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
-  } else{
-   if(isset($_POST['submit']))
-  {
- $stuname=$_POST['stuname'];
- $stuemail=$_POST['stuemail'];
- $gender=$_POST['gender'];
- $dob=$_POST['dob'];
- $stuid=$_POST['stuid'];
- $fname=$_POST['fname'];
- $mname=$_POST['mname'];
- $connum=$_POST['connum'];
- $altconnum=$_POST['altconnum'];
- $address=$_POST['address'];
- $uname=$_POST['uname'];
- $password=md5($_POST['password']);
- $image=$_FILES["image"]["name"];
- $ret="select UserName from tblstudent where UserName=:uname || StuID=:stuid";
- $query= $dbh -> prepare($ret);
-$query->bindParam(':uname',$uname,PDO::PARAM_STR);
-$query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
-$query-> execute();
-     $results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() == 0)
-{
-$extension = substr($image,strlen($image)-4,strlen($image));
-$allowed_extensions = array(".jpg","jpeg",".png",".gif");
-if(!in_array($extension,$allowed_extensions))
-{
-echo "<script>alert('Logo has Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
-}
-else
-{
-$image=md5($image).time().$extension;
- move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$image);
-$sql="insert into tblstudent(StudentName,StudentEmail,Gender,DOB,StuID,FatherName,MotherName,ContactNumber,AltenateNumber,Address,UserName,Password,Image)values(:stuname,:stuemail,:gender,:dob,:stuid,:fname,:mname,:connum,:altconnum,:address,:uname,:password,:image)";
-$query=$dbh->prepare($sql);
-$query->bindParam(':stuname',$stuname,PDO::PARAM_STR);
-$query->bindParam(':stuemail',$stuemail,PDO::PARAM_STR);
-$query->bindParam(':gender',$gender,PDO::PARAM_STR);
-$query->bindParam(':dob',$dob,PDO::PARAM_STR);
-$query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
-$query->bindParam(':fname',$fname,PDO::PARAM_STR);
-$query->bindParam(':mname',$mname,PDO::PARAM_STR);
-$query->bindParam(':connum',$connum,PDO::PARAM_STR);
-$query->bindParam(':altconnum',$altconnum,PDO::PARAM_STR);
-$query->bindParam(':address',$address,PDO::PARAM_STR);
-$query->bindParam(':uname',$uname,PDO::PARAM_STR);
-$query->bindParam(':password',$password,PDO::PARAM_STR);
-$query->bindParam(':image',$image,PDO::PARAM_STR);
- $query->execute();
-   $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
-    echo '<script>alert("Student has been added.")</script>';
-echo "<script>window.location.href ='add-students.php'</script>";
-  }
-  else
-    {
-         echo '<script>alert("Something Went Wrong. Please try again")</script>';
+
+// Check if the user is logged in
+if (strlen($_SESSION['sturecmsaid'] == 0)) {
+    header('location:logout.php');
+} else {
+    if (isset($_POST['submit'])) {
+        $subjectname = $_POST['subjectname'];
+        $subjecttype = $_POST['subjecttype'];
+        $sql = "INSERT INTO tblsubjects (SubjectName, subject_type) VALUES (:subjectname, :subjecttype)";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':subjectname', $subjectname, PDO::PARAM_STR);
+        $query->bindParam(':subjecttype', $subjecttype, PDO::PARAM_STR);
+        if ($query->execute()) {
+            echo '<script>alert("Subject has been added.")</script>';
+            echo "<script>window.location.href ='add-subject.php'</script>";
+        } else {
+            echo '<script>alert("Something went wrong. Please try again.")</script>';
+        }
     }
-}}
-
-else
-{
-
-echo "<script>alert('Username or Student Id  already exist. Please try again');</script>";
 }
-}
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-   
-    <title>Student  Management System|| Add Students</title>
-    <!-- plugins:css -->
+<head>
+    <title>Student Management System || Add Subject</title>
+    <!-- Include CSS and other necessary files here -->
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -90,132 +40,112 @@ echo "<script>alert('Username or Student Id  already exist. Please try again');<
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="css/style.css" />
-    
-  </head>
-  <body>
+</head>
+<body>
     <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title"> Add Student </h3>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"> Add Students</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="row">
-          
-              <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Add Student</h4>
-                   
-                    <form class="forms-sample" method="post" enctype="multipart/form-data">
-                      
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Name</label>
-                        <input type="text" name="stuname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Email</label>
-                        <input type="text" name="stuemail" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Gender</label>
-                        <select name="gender" value="" class="form-control" required='true'>
-                          <option value="">Choose Gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Date of Birth</label>
-                        <input type="date" name="dob" value="" class="form-control" required='true'>
-                      </div>
-                     
-                      <div class="form-group">
-                        <label for="exampleInputName1">Learner Reference Number</label>
-                        <input type="text" name="stuid" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Photo</label>
-                        <input type="file" name="image" value="" class="form-control" required='true'>
-                      </div>
-                      <h3>Parent's/Guardian's Details</h3>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Father's Name</label>
-                        <input type="text" name="fname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Mother's Name</label>
-                        <input type="text" name="mname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Contact Number</label>
-                        <input type="text" name="connum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Alternate Contact Number</label>
-                        <input type="text" name="altconnum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Address</label>
-                        <textarea name="address" class="form-control" required='true'></textarea>
-                      </div>
-<h3>Login Details</h3>
-<div class="form-group">
-                        <label for="exampleInputName1">Username</label>
-                        <input type="text" name="uname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Password</label>
-                        <input type="Password" name="password" value="" class="form-control" required='true'>
-                      </div>
-                      <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
-                     
-                    </form>
-                  </div>
+        <!-- Include header -->
+        <?php include_once('includes/header.php');?>
+        <div class="container-fluid page-body-wrapper">
+            <!-- Include sidebar -->
+            <?php include_once('includes/sidebar.php');?>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">Add Subject</h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Subject</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title" style="text-align: center;">Add Subject</h4>
+                                    <form class="forms-sample" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Subject Name</label>
+                                            <input type="text" name="subjectname" value="" class="form-control" required='true'>
+                                        </div>
+                                        <!-- Add Subject Type dropdown -->
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Subject Type</label>
+                                            <select class="form-control" name="subjecttype" required>
+                                                <option value="">Select Subject Type</option>
+                                                <option value="Core">Core</option>
+                                                <option value="Specialized">Specialized</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Table to display added subjects -->
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">List of Added Subjects</h4>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Subject ID</th>
+                                                    <th>Subject Name</th>
+                                                    <th>Subject Type</th> <!-- New column for subject type -->
+                                                    <th>Action</th> <!-- New column for actions -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $sql3 = "SELECT * FROM tblsubjects";
+                                                $query3 = $dbh->prepare($sql3);
+                                                $query3->execute();
+                                                $results = $query3->fetchAll(PDO::FETCH_OBJ);
+                                                if ($query3->rowCount() > 0) {
+                                                    foreach ($results as $row) {
+                                                ?>
+                                                        <tr>
+                                                            <td><?php echo htmlentities($row->SubjectID); ?></td>
+                                                            <td><?php echo htmlentities($row->SubjectName); ?></td>
+                                                            <td><?php echo htmlentities($row->subject_type); ?></td> <!-- Display subject type -->
+                                                            <td>
+                                                                <a href="edit-subject.php?id=<?php echo $row->SubjectID; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="delete-subject.php?id=<?php echo $row->SubjectID; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this subject?')">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                } else {
+                                                ?>
+                                                    <tr>
+                                                        <td colspan="4">No subjects found</td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <!-- Include footer -->
+                <?php include_once('includes/footer.php');?>
             </div>
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
-          <!-- partial -->
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+    <!-- Include JS files -->
     <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
     <script src="vendors/select2/select2.min.js"></script>
     <script src="vendors/typeahead.js/typeahead.bundle.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
     <script src="js/off-canvas.js"></script>
     <script src="js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
     <script src="js/typeahead.js"></script>
     <script src="js/select2.js"></script>
-    <!-- End custom js for this page -->
-  </body>
-</html><?php }  ?>
+</body>
+</html>
