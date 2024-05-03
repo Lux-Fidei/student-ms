@@ -25,7 +25,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     <!-- Layout styles -->
     <link rel="stylesheet" href="./style.css">
     <!-- End layout styles -->
-   
+    
   </head>
   <body>
     <div class="container-scroller">
@@ -52,7 +52,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+        <?php include_once('includes/footer.php');?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

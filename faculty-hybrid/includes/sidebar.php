@@ -56,7 +56,6 @@
             <a class="nav-link" href="add-grades.php">
                 <span class="menu-title">Grade Slip</span>
                 <i class="icon-book-open menu-icon"></i>
-
             </a>
         </li>
     </ul>

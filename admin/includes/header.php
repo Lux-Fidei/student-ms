@@ -1,11 +1,11 @@
- <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="dashboard.php">
             <strong style="color: white;">MSU MSHS</strong>
           </a>
           <a class="navbar-brand brand-logo-mini" href="dashboard.php"><img src="images/logo-mini.svg" alt="logo" /></a>
         </div><?php
-         $aid= $_SESSION['sturecmsaid'];
+        $aid= $_SESSION['sturecmsaid'];
 $sql="SELECT * from tbladmin where ID=:aid";
 
 $query = $dbh -> prepare($sql);
@@ -22,8 +22,8 @@ foreach($results as $row)
           <h5 class="greetings">Hello, Adminstrator <?php  echo htmlentities($row->AdminName);?>!</h5>
           <style>
             .greetings
-                   {
-           font-size: 1.5em;
+                  {
+          font-size: 1.5em;
           font-family: math;
               }
           </style>

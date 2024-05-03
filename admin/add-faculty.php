@@ -13,6 +13,9 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $gender = $_POST['gender'];
         $address = $_POST['address'];
         $contact = $_POST['contact'];
+        $position = $_POST['position'];
+        $assigned_strand = isset($_POST['assigned_strand']) ? $_POST['assigned_strand'] : '';
+        $advisory_class = isset($_POST['advisory_class']) ? $_POST['advisory_class'] : '';
         $uname = $_POST['uname'];
         $password = md5($_POST['password']);
         $image = $_FILES["image"]["name"];
@@ -23,7 +26,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $image = md5($image) . time() . $extension;
             move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $image);
 
-            $sql = "INSERT INTO tblfaculty (FirstName, LastName, Email, Age,Gender, Address, Contact, UserName, Password, Image) VALUES (:fname, :lname, :email, :age, :gender, :address, :contact, :uname, :password, :image)";
+            $sql = "INSERT INTO tblfaculty (FirstName, LastName, Email, Age,Gender, Address, Contact, position, assignedStrand, advisoryClasses, UserName, Password, Image) VALUES (:fname, :lname, :email, :age, :gender, :address, :contact, :position, :assigned_strand, :advisory_class, :uname, :password, :image)";
             $query = $dbh->prepare($sql);
             $query->bindParam(':fname', $fname, PDO::PARAM_STR);
             $query->bindParam(':lname', $lname, PDO::PARAM_STR);
@@ -32,15 +35,17 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $query->bindParam(':gender', $gender, PDO::PARAM_STR);
             $query->bindParam(':address', $address, PDO::PARAM_STR);
             $query->bindParam(':contact', $contact, PDO::PARAM_STR);
+            $query->bindParam(':position', $position, PDO::PARAM_STR);
+            $query->bindParam(':assigned_strand', $assigned_strand, PDO::PARAM_STR);
+            $query->bindParam(':advisory_class', $advisory_class, PDO::PARAM_STR);
             $query->bindParam(':uname', $uname, PDO::PARAM_STR);
             $query->bindParam(':password', $password, PDO::PARAM_STR);
             $query->bindParam(':image', $image, PDO::PARAM_STR);
 
-            if ($query->execute()) {
-                echo '<script>alert("Faculty member has been added.")</script>';
-                echo "<script>window.location.href ='add-faculty.php'</script>";
-            } else {
-                echo '<script>alert("Something went wrong. Please try again.")</script>';
+            try {
+                $query->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
             }
         } else {
             echo '<script>alert("Logo has Invalid format. Only jpg / jpeg/ png /gif format allowed")</script>';
@@ -73,11 +78,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"> Add Faculty </h3>
+                        <h3 class="page-title"> Add Personnel</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Faculty</li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Personnel</li>
                             </ol>
                         </nav>
                     </div>
@@ -86,7 +91,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Add Faculty</h4>
+                                    <h4 class="card-title" style="text-align: center;">Add Personnel</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
     <label for="exampleInputName1">First Name</label>
@@ -119,6 +124,55 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 <div class="form-group">
     <label for="exampleInputName1">Contact Number</label>
     <input type="text" name="contact" class="form-control" required>
+</div>
+<div class="form-group">
+    <div class="form-group">
+        <label for="exampleInputName1">Position</label>
+        <select name="position" class="form-control" required>
+            <option value="">Choose Faculty Type</option>
+            <option value="Visiting Teacher">Visiting Teacher</option>
+            <option value="Adviser (Subject)">Adviser (Subject)</option>
+            <option value="Chairperson (Subject)">Chairperson (Subject)</option>
+            <option value="Chairperson (Adviser & Subject)">Chairperson (Adviser & Subject)</option>
+        </select>
+    </div>
+    <div id="additional-fields"></div>
+
+    <script>
+        document.querySelector('select[name="position"]').addEventListener('change', function() {
+            var position = this.value;
+            var additionalFields = document.getElementById('additional-fields');
+
+            if (position === 'Chairperson (Subject)') {
+                additionalFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="exampleInputName1">Assigned Strand/Track</label>
+                        <input type="text" name="assigned_strand" class="form-control" required>
+                    </div>
+                `;
+            } else if (position === 'Adviser (Subject)') {
+                additionalFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="exampleInputName1">Advisory Class/es</label>
+                        <input type="text" name="advisory_class" class="form-control" required>
+                    </div>
+                `;
+            } else if (position === 'Chairperson (Adviser & Subject)'){
+                additionalFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="exampleInputName1">Assigned Strand/Track</label>
+                        <input type="text" name="assigned_strand" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Advisory Class/es</label>
+                        <input type="text" name="advisory_class" class="form-control" required>
+                    </div>
+                `;
+            } else {
+                additionalFields.innerHTML = '';
+            }
+        });
+    </script>
 </div>
 <div class="form-group">
     <label for="exampleInputName1">Username</label>
