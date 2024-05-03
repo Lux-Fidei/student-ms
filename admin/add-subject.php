@@ -1,4 +1,4 @@
-<?php
+\<?php
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
@@ -9,9 +9,11 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
 } else {
     if (isset($_POST['submit'])) {
         $subjectname = $_POST['subjectname'];
-        $sql = "INSERT INTO tblsubjects (SubjectName) VALUES (:subjectname)";
+        $subjecttype = $_POST['subjecttype'];
+        $sql = "INSERT INTO tblsubjects (SubjectName, subject_type) VALUES (:subjectname, :subjecttype)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':subjectname', $subjectname, PDO::PARAM_STR);
+        $query->bindParam(':subjecttype', $subjecttype, PDO::PARAM_STR);
         if ($query->execute()) {
             echo '<script>alert("Subject has been added.")</script>';
             echo "<script>window.location.href ='add-subject.php'</script>";
@@ -67,6 +69,15 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                             <label for="exampleInputName1">Subject Name</label>
                                             <input type="text" name="subjectname" value="" class="form-control" required='true'>
                                         </div>
+                                        <!-- Add Subject Type dropdown -->
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Subject Type</label>
+                                            <select class="form-control" name="subjecttype" required>
+                                                <option value="">Select Subject Type</option>
+                                                <option value="Core">Core</option>
+                                                <option value="Specialized">Specialized</option>
+                                            </select>
+                                        </div>
                                         <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
                                     </form>
                                 </div>
@@ -85,6 +96,8 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                 <tr>
                                                     <th>Subject ID</th>
                                                     <th>Subject Name</th>
+                                                    <th>Subject Type</th> <!-- New column for subject type -->
+                                                    <th>Action</th> <!-- New column for actions -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -99,13 +112,18 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                         <tr>
                                                             <td><?php echo htmlentities($row->SubjectID); ?></td>
                                                             <td><?php echo htmlentities($row->SubjectName); ?></td>
+                                                            <td><?php echo htmlentities($row->subject_type); ?></td> <!-- Display subject type -->
+                                                            <td>
+                                                                <a href="edit-subject.php?id=<?php echo $row->SubjectID; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="delete-subject.php?id=<?php echo $row->SubjectID; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this subject?')">Delete</a>
+                                                            </td>
                                                         </tr>
                                                 <?php
                                                     }
                                                 } else {
                                                 ?>
                                                     <tr>
-                                                        <td colspan="2">No subjects found</td>
+                                                        <td colspan="4">No subjects found</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
