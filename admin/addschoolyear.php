@@ -9,7 +9,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
 } else {
     if (isset($_POST['submit'])) {
         $semestername = $_POST['semestername'];
-        $sql = "INSERT INTO tblsemesters (SemesterName) VALUES (:semestername)";
+        $sql = "INSERT INTO tblschoolyear (id, schoolyear) VALUES (:semestername)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':semestername', $semestername, PDO::PARAM_STR);
         if ($query->execute()) {
@@ -49,11 +49,11 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title">Add Semester</h3>
+                        <h3 class="page-title">School Year</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Semester</li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add School Year</li>
                             </ol>
                         </nav>
                     </div>
@@ -61,10 +61,10 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Add Semester</h4>
+                                    <h4 class="card-title" style="text-align: center;">Add School Year</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Semester Name</label>
+                                            <label for="exampleInputName1">Input School Year</label>
                                             <input type="text" name="semestername" value="" class="form-control" required='true'>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
@@ -78,18 +78,19 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">List of Added Semesters</h4>
+                                    <h4 class="card-title">List of Added School Year</h4>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Semester ID</th>
-                                                    <th>Semester Name</th>
+                                                    <th>SY. ID</th>
+                                                    <th>School Year</th>
+                                                    <th>Action</th> <!-- New column for actions -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql3 = "SELECT * FROM tblsemesters";
+                                                $sql3 = "SELECT * FROM tblschoolyear";
                                                 $query3 = $dbh->prepare($sql3);
                                                 $query3->execute();
                                                 $results = $query3->fetchAll(PDO::FETCH_OBJ);
@@ -97,15 +98,19 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                     foreach ($results as $row) {
                                                 ?>
                                                         <tr>
-                                                            <td><?php echo htmlentities($row->SemesterID); ?></td>
-                                                            <td><?php echo htmlentities($row->SemesterName); ?></td>
+                                                            <td><?php echo htmlentities($row->id); ?></td>
+                                                            <td><?php echo htmlentities($row->schoolyear); ?></td>
+                                                            <td>
+                                                                <a href="edit-schoolyear.php?id=<?php echo $row->id; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="delete-schoolyear.php?id=<?php echo $row->id; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this school year?')">Delete</a>
+                                                            </td>
                                                         </tr>
                                                 <?php
                                                     }
                                                 } else {
                                                 ?>
                                                     <tr>
-                                                        <td colspan="2">No semesters found</td>
+                                                        <td colspan="3">No semesters found</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
