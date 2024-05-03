@@ -56,6 +56,7 @@ if (!isset($_SESSION['sturecmsaid']) || strlen($_SESSION['sturecmsaid']) == 0) {
                                                     <th>Strand Name</th>
                                                     <th>Strand Description</th>
                                                     <th>Date Created</th>
+                                                    <th>Action</th> <!-- New column for actions -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -67,21 +68,25 @@ if (!isset($_SESSION['sturecmsaid']) || strlen($_SESSION['sturecmsaid']) == 0) {
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                                 if ($query->rowCount() > 0) {
                                                     foreach ($results as $result) {
-                                                        ?>
+                                                ?>
                                                         <tr>
                                                             <td><?php echo htmlentities($result->course_id); ?></td>
                                                             <td><?php echo htmlentities($result->course_name); ?></td>
                                                             <td><?php echo htmlentities($result->course_description); ?></td>
                                                             <td><?php echo htmlentities($result->date_created); ?></td>
+                                                            <td>
+                                                                <a href="edit-course.php?id=<?php echo $result->course_id; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="delete-course.php?id=<?php echo $result->course_id; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
+                                                            </td>
                                                         </tr>
-                                                        <?php
+                                                <?php
                                                     }
                                                 } else {
-                                                    ?>
+                                                ?>
                                                     <tr>
-                                                        <td colspan="4" style="text-align:center;">No courses found</td>
+                                                        <td colspan="5" style="text-align:center;">No courses found</td>
                                                     </tr>
-                                                    <?php
+                                                <?php
                                                 }
                                                 ?>
                                             </tbody>
