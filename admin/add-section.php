@@ -93,35 +93,44 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                 <h4 class="card-title">List of Added Sections</h4>
                                 <div class="table-responsive">
                                     <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Section ID</th>
-                                                <th>Section Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $sql = "SELECT * FROM tbl_section";
-                                            $query = $dbh->prepare($sql);
-                                            $query->execute();
-                                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                            $cnt = 1;
-                                            if ($query->rowCount() > 0) {
-                                                foreach ($results as $row) {
-                                            ?>
-                                                    <tr>
-                                                        <td><?php echo htmlentities($cnt); ?></td>
-                                                        <td><?php echo htmlentities($row->Section); ?></td>
-                                                    </tr>
-                                            <?php
-                                                    $cnt++;
-                                                }
-                                            } else {
-                                            ?>
-                                                <tr>
-                                                    <td colspan="2">No sections found</td>
-                                                </tr>
-                                            <?php } ?>
+                                    <thead>
+    <tr>
+        <th>Section ID</th>
+        <th>Section Name</th>
+        <th>Action</th> <!-- New column for action buttons -->
+    </tr>
+</thead>
+<tbody>
+    <?php
+    $sql = "SELECT * FROM tbl_section";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+    $cnt = 1;
+    if ($query->rowCount() > 0) {
+        foreach ($results as $row) {
+            ?>
+            <tr>
+                <td><?php echo htmlentities($cnt); ?></td>
+                <td><?php echo htmlentities($row->Section); ?></td>
+                <td>
+                    <a href="edit-section.php?id=<?php echo htmlentities($row->ID); ?>" class="btn btn-info btn-sm">Edit</a>
+                    <a href="delete-section.php?id=<?php echo htmlentities($row->ID); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this section?')">Delete</a>
+                </td>
+            </tr>
+            <?php
+            $cnt++;
+        }
+    } else {
+        ?>
+        <tr>
+            <td colspan="3">No sections found</td>
+        </tr>
+        <?php
+    }
+    ?>
+</tbody>
+
                                         </tbody>
                                     </table>
                                 </div>
