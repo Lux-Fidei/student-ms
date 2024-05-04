@@ -25,7 +25,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     <!-- Layout styles -->
     <link rel="stylesheet" href="./style.css">
     <!-- End layout styles -->
-   
+  
   </head>
   <body>
     <div class="container-scroller">
@@ -47,27 +47,60 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <label for="faculty">Select Faculty:</label>
                         <select class="form-control" id="faculty" name="faculty">
                           <option value="">Select Faculty</option>
-                          <option value="">Faculty 1</option>
-                          <option value="">Faculty 2</option>
-                          <option value="">Faculty 3</option>
+                          <?php
+                          $uid=$_SESSION['sturecmfacaid'];
+                          $sql="SELECT * from tblfaculty";
+                          $query = $dbh -> prepare($sql);
+                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
+                          $query->execute();
+                          $results=$query->fetchAll(PDO::FETCH_OBJ);
+                          $cnt=1;
+                          if($query->rowCount() > 0)
+                          {
+                          foreach($results as $row)
+                          { ?>
+                          <option value="<?php echo htmlentities($row->ID);?>"><?php echo htmlentities($row->FirstName);?> <?php echo htmlentities($row->LastName);?></option>
+                          <?php }} ?>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Subject:</label>
                         <select class="form-control" id="subject" name="subject">
-                          <option value="">Select subject</option>
-                          <option value="">subject 1</option>
-                          <option value="">subject 2</option>
-                          <option value="">subject 3</option>
+                          <option value="">Select Subject</option>
+                          <?php
+                          $uid=$_SESSION['sturecmfacaid'];
+                          $sql="SELECT * from tblsubjects";
+                          $query = $dbh -> prepare($sql);
+                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
+                          $query->execute();
+                          $results=$query->fetchAll(PDO::FETCH_OBJ);
+                          $cnt=1;
+                          if($query->rowCount() > 0)
+                          {
+                          foreach($results as $row)
+                          { ?>
+                          <option value="<?php echo htmlentities($row->SubjectName);?>"><?php echo htmlentities($row->SubjectName);?></option>
+                          <?php }} ?>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Strand:</label>
                         <select class="form-control" id="subject" name="subject">
                           <option value="">Select strand</option>
-                          <option value="">strand 1</option>
-                          <option value="">strand 2</option>
-                          <option value="">strand 3</option>
+                          <?php
+                          $uid=$_SESSION['sturecmfacaid'];
+                          $sql="SELECT * from tbl_course";
+                          $query = $dbh -> prepare($sql);
+                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
+                          $query->execute();
+                          $results=$query->fetchAll(PDO::FETCH_OBJ);
+                          $cnt=1;
+                          if($query->rowCount() > 0)
+                          {
+                          foreach($results as $row)
+                          { ?>
+                          <option value="<?php echo htmlentities($row->course_name);?>"><?php echo htmlentities($row->course_name);?></option>
+                          <?php }} ?>
                         </select>
                       </div>
                       <div class="form-group">
@@ -81,27 +114,14 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Building:</label>
-                        <select class="form-control" id="subject" name="subject">
-                          <option value="">Select Building</option>
-                          <option value="">Building 1</option>
-                          <option value="">Building 2</option>
-                          <option value="">Building 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="building" name="building" required="true">
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Room:</label>
-                        <select class="form-control" id="subject" name="subject">
-                          <option value="">Select Room</option>
-                          <option value="">Room 1</option>
-                          <option value="">Room 2</option>
-                          <option value="">Room 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="room" name="room" required="true">
                       </div>
                       <div class="form-group text-right">
                         <button class="btn btn-primary">Add Handle</button>
-                        <button class="btn btn-primary">Done</button>
-                      </div>
-                      <div class="form-group text-right">
                         <button class="btn btn-primary">SEND</button>
                       </div>
                     </form>

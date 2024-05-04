@@ -3,10 +3,10 @@
           <a class="navbar-brand brand-logo" href="dashboard.php">
             <strong style="color: white;">SMS</strong>
           </a>
-         
+        
         </div>
         <?php
-         $uid= $_SESSION['sturecmfacaid'];
+        $uid= $_SESSION['sturecmfacaid'];
 $sql="SELECT * from tblfaculty where ID=:uid";
 
 $query = $dbh -> prepare($sql);
@@ -20,16 +20,16 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="greetings">Hello, Faculty <?php  echo htmlentities($row->FirstName);?>!</h5>
+            <h5 class="greetings">Hello, <?php  echo htmlentities($row->position) . ' ' . htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
-                   {
-           font-size: 1.5em;
+                  {
+          font-size: 1.5em;
           font-family: math;
               }
           </style>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-           
+          
         
       
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
