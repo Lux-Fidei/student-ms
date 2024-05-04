@@ -15,7 +15,7 @@ if(isset($_POST['login'])) {
 
     if($query->rowCount() > 0) {
         foreach ($results as $result) {
-    $_SESSION['sturecmfacaid'] = $result->ID;
+            $_SESSION['sturecmfacaid'] = $result->ID;
         }
 
         if(!empty($_POST["remember"])) {
