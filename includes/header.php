@@ -81,6 +81,7 @@
               <li><a href="about.php">About</a></li>
               <li><a href="#" onclick="openPopup()">Director</a></li>
               <li><a href="#" onclick="openChartPopup()">Chart</a></li>
+              <li><a href="admin/calendar.php" onclick="openChartPopup()">Calendar</a></li>
         <!-- Add more dropdown items here if needed -->
     </ul>
 </li>
@@ -91,6 +92,7 @@
               <li><a href="admin/login.php">Admin</a></li>
               <li><a href="user/login.php">Student</a></li>
               <li><a href="faculty/login.php">Faculty</a></li>
+              <li><a href="recordexamineer/login.php">Examiner</a></li>
               <style>
               ul.nav.navbar-nav.navbar-right.margin-top {
                 margin-top: 11px;
