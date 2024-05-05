@@ -9,12 +9,12 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
 } else {
     if (isset($_POST['submit'])) {
         $semestername = $_POST['semestername'];
-        $sql = "INSERT INTO tblschoolyear (id, schoolyear) VALUES (:semestername)";
+        $sql = "INSERT INTO tblschoolyear (schoolyear) VALUES (:semestername)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':semestername', $semestername, PDO::PARAM_STR);
         if ($query->execute()) {
-            echo '<script>alert("Semester has been added.")</script>';
-            echo "<script>window.location.href ='semester.php'</script>";
+            echo '<script>alert("School Year has been added.")</script>';
+            echo "<script>window.location.href ='addschoolyear.php'</script>";
         } else {
             echo '<script>alert("Something went wrong. Please try again.")</script>';
         }
