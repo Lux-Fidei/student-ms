@@ -56,7 +56,13 @@
             <a class="nav-link" href="add-grades.php">
                 <span class="menu-title">Add Grades</span>
                 <i class="icon-book-open menu-icon"></i>
-
+                 </li>
+            <li class="nav-item">
+                <a class="nav-link" href="manage-club.php">
+                    <span class="menu-title">Club</span>
+                    <i class="icon-book-open menu-icon"></i>
+                </a>
+                </li>
             </a>
         </li>
     </ul>
