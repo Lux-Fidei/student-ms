@@ -91,7 +91,7 @@
             <h4>Marawi City</h4>
         </div>
     </div>
-    <hr style="border-color:black;border:1px solid gold"></hr>
+    <hr style="border-color:black; border:1px solid gold"></hr>
     
     <h2>SCHOOL CALENDAR</h2>
     <h4 class="semester">Second Semester SY <?php echo date('Y'); ?></h4> <!-- Fetch the school year -->

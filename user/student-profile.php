@@ -88,40 +88,6 @@ else {
                         </div>
                       </div>
                     </div>
-                    <!-- <div style="border: 1px solid black; width: 320px; padding: 16px; border-radius: 16px">
-                      <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 8px">
-                        <span style="font-weight: bold" >Name:</span>
-                        <i class="icon-user" style="color: orange; border-radius: 50%;"></i>
-                      </div>
-                      <div style="color: #a4a4a4; margin-bottom: 16px">
-                        <?php echo $results[0]->StudentName;?>
-                        
-                      </div>
-                      <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 8px">
-                        <span style="font-weight: bold" >Gender:</span>
-                      </div>
-                      <div style="color: #a4a4a4; margin-bottom: 16px">
-                        <?php echo $results[0]->Gender;?>
-                      </div>
-                      <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 8px">
-                        <span style="font-weight: bold" >Learner Reference Number (LRN)</span>
-                      </div>
-                      <div style="color: #a4a4a4; margin-bottom: 16px">
-                        <?php echo $results[0]->StuID;?>
-                      </div>
-                      <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 8px">
-                        <span style="font-weight: bold" >Father's Name:</span>
-                      </div>
-                      <div style="color: #a4a4a4; margin-bottom: 16px">
-                        <?php echo $results[0]->FatherName;?>
-                      </div>
-                      <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 8px">
-                        <span style="font-weight: bold" >Mother's Name:</span>
-                      </div>
-                      <div style="color: #a4a4a4">
-                        <?php echo $results[0]->MotherName;?>
-                      </div>
-                    </div> -->
                 </div>
               </div>
             </div>

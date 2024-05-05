@@ -65,7 +65,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Subject:</label>
-                        <select class="form-control" id="subject" name="subject">
+                        <select class="form-control" id="subject" name="subject" >
+
                           <option value="">Select Subject</option>
                           <?php
                           $uid=$_SESSION['sturecmfacaid'];
@@ -79,7 +80,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           {
                           foreach($results as $row)
                           { ?>
-                          <option value="<?php echo htmlentities($row->SubjectName);?>"><?php echo htmlentities($row->SubjectName);?></option>
+                          <option value="<?php echo htmlentities($row->SubjectName);?>"><?php echo htmlentities($row->SubjectName);?> (<?php echo htmlentities($row->units)?> Units)</option>
                           <?php }} ?>
                         </select>
                       </div>
@@ -104,12 +105,28 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="faculty">Select Timeslot:</label>
-                        <select class="form-control" id="subject" name="subject">
+                        <label for="timeslot">Select Timeslot:</label>
+                        <select class="form-control" id="timeslot" name="timeslot">
                           <option value="">Select Timeslot</option>
-                          <option value="">Timeslot 1</option>
-                          <option value="">Timeslot 2</option>
-                          <option value="">Timeslot 3</option>
+                          <script>
+                            var selectedSubject = document.getElementById("subject").value;
+                            var units = selectedSubject[selectedSubject[selectedSubject.indexOf("(") + 1]];
+                            var timeslots = [];
+                            if (units == 3) {
+                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM"];
+                            } else if (units == 2) {
+                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM"];
+                            } else if (units == 1) {
+                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "5:00 PM - 7:00 PM"];
+                            }
+
+                            for (var i = 0; i < timeslots.length; i++) {
+                              var option = document.createElement("option");
+                              option.text = timeslots[i];
+                              option.value = timeslots[i];
+                              document.getElementById("timeslot").appendChild(option);
+                            }
+                          </script>
                         </select>
                       </div>
                       <div class="form-group">
