@@ -53,7 +53,7 @@
                 </li>
 
                 <li class="nav-item">
-            <a class="nav-link" href="add-grades.php">
+            <a class="nav-link" href="grade-slip.php">
                 <span class="menu-title">Grade Slip</span>
                 <i class="icon-book-open menu-icon"></i>
             </a>
