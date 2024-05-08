@@ -4,7 +4,7 @@ session_start();
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmfacaid']==0)) {
   header('location:logout.php');
-} else{
+} else {
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +57,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <td></td>
                         <th style="width: 192px"><span>First Name</span></th>
                         <th style="width: 192px"><span>Last Name</span></th>
+                        <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
+                        <th style="width: 192px"><span>email</span></th>
                         <th style="width: 192px"><span>Action</span></th>
                       </tr>
                     </thead>
@@ -80,7 +82,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           }
                           echo "<td>" . $firstName . "</td>";
                           echo "<td>" . $lastName . "</td>";
-                          echo "<td><a href='#' onclick='showGradeSlipModal()'>View Grade Slip</a></td>";
+                          echo "<td>" . $row->StuID . "</td>";
+                          echo "<td>" . $row->StudentEmail . "</td>";
+                          echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
                           $count++;
                         }
                       }
@@ -89,10 +93,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   </table>
                 </div>
                 <script>
-                  function showGradeSlipModal() {
-                    $(document).ready(function() {
-                      $('#gradeSlipModal').modal('show')
-                    });
+                  function goTo() {
+                    var stuID = event.target.parentNode.parentNode.cells[3].innerText;
+                    window.location.href = "view-grade-slip.php?stuID=" + stuID;
                   }
                   function filterTable() {
                     var gradeLevel = document.getElementById("subject").value;
@@ -117,26 +120,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     </div>
     <?php include_once('includes/footer.php');?>
     
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="gradeSlipModal" tabindex="-1" role="dialog" aria-labelledby="gradeSlipModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="gradeSlipModalLabel">Grade Slip</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <!-- Add the content of the grade slip here -->
-          Hello World!!!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
   </div>
 </body>
 </html>

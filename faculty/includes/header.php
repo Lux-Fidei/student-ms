@@ -3,10 +3,10 @@
           <a class="navbar-brand brand-logo" href="dashboard.php">
             <strong style="color: white;">SMS</strong>
           </a>
-         
+        
         </div>
         <?php
-         $uid= $_SESSION['sturecmfacaid'];
+        $uid= $_SESSION['sturecmfacaid'];
 $sql="SELECT * from tblfaculty where ID=:uid";
 
 $query = $dbh -> prepare($sql);

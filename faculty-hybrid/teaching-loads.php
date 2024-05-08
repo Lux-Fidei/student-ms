@@ -139,7 +139,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       </div>
                       <div class="form-group text-right">
                         <button class="btn btn-primary">Add Handle</button>
-                        <button class="btn btn-primary">SEND</button>
+                        <button class="btn btn-primary" type="submit">SEND</button>
                       </div>
                     </form>
                   </div>

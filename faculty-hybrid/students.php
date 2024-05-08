@@ -24,7 +24,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
       <!-- Layout styles -->
       <link rel="stylesheet" href="./style.css">
       <!-- End layout styles -->
-    
     </head>
     <body>
       <div class="container-scroller">
