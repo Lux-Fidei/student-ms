@@ -96,8 +96,11 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                               echo "<td>" . $lastName . "</td>";
                               $count++;
                             }
+                          } else {
+                            echo "<tr><td colspan='3'>No students found!</td></tr>";
                           }
                         ?>
+                        <div id="noStudentsFound" style="display: none">No students found!</div>
                       </tbody>
                     </table>
                   </div>

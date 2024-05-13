@@ -64,8 +64,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
                           echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand) . "</span>";
-                          echo "<span>" . htmlentities($row->grade_level) . "</span>";
+                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . '11' . "</span>";
                         }
                       ?>
                     </div>
@@ -192,8 +192,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
                           echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand) . "</span>";
-                          echo "<span>" . htmlentities($row->grade_level) . "</span>";
+                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . '11' . "</span>";
                         }
                       ?>
                     </div>
@@ -322,8 +322,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
                           echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand) . "</span>";
-                          echo "<span>" . htmlentities($row->grade_level) . "</span>";
+                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . 12 . "</span>";
                         }
                       ?>
                     </div>
@@ -450,8 +450,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
                           echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand) . "</span>";
-                          echo "<span>" . htmlentities($row->grade_level) . "</span>";
+                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . 12 . "</span>";
                         }
                       ?>
                     </div>

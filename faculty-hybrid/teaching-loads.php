@@ -51,7 +51,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           $uid=$_SESSION['sturecmfacaid'];
                           $sql="SELECT * from tblfaculty";
                           $query = $dbh -> prepare($sql);
-                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
                           $query->execute();
                           $results=$query->fetchAll(PDO::FETCH_OBJ);
                           $cnt=1;
@@ -65,14 +64,12 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       </div>
                       <div class="form-group">
                         <label for="faculty">Select Subject:</label>
-                        <select class="form-control" id="subject" name="subject" >
-
+                        <select class="form-control" id="subject" name="subject" onchange="updateTimeslot()">
                           <option value="">Select Subject</option>
                           <?php
                           $uid=$_SESSION['sturecmfacaid'];
                           $sql="SELECT * from tblsubjects";
                           $query = $dbh -> prepare($sql);
-                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
                           $query->execute();
                           $results=$query->fetchAll(PDO::FETCH_OBJ);
                           $cnt=1;
@@ -80,7 +77,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           {
                           foreach($results as $row)
                           { ?>
-                          <option value="<?php echo htmlentities($row->SubjectName);?>"><?php echo htmlentities($row->SubjectName);?> (<?php echo htmlentities($row->units)?> Units)</option>
+                          <option value="<?php echo htmlentities($row->SubjectName); echo '('; echo htmlentities($row->units); echo ' units)'?>"><?php echo htmlentities($row->SubjectName);?> (<?php echo htmlentities($row->units)?> Units)</option>
                           <?php }} ?>
                         </select>
                       </div>
@@ -92,7 +89,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           $uid=$_SESSION['sturecmfacaid'];
                           $sql="SELECT * from tbl_course";
                           $query = $dbh -> prepare($sql);
-                          $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
                           $query->execute();
                           $results=$query->fetchAll(PDO::FETCH_OBJ);
                           $cnt=1;
@@ -109,22 +105,58 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <select class="form-control" id="timeslot" name="timeslot">
                           <option value="">Select Timeslot</option>
                           <script>
-                            var selectedSubject = document.getElementById("subject").value;
-                            var units = selectedSubject[selectedSubject[selectedSubject.indexOf("(") + 1]];
-                            var timeslots = [];
-                            if (units == 3) {
-                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM"];
-                            } else if (units == 2) {
-                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM"];
-                            } else if (units == 1) {
-                              timeslots = ["8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "5:00 PM - 7:00 PM"];
-                            }
-
-                            for (var i = 0; i < timeslots.length; i++) {
-                              var option = document.createElement("option");
-                              option.text = timeslots[i];
-                              option.value = timeslots[i];
-                              document.getElementById("timeslot").appendChild(option);
+                            function updateTimeslot() {
+                              var selectedSubject = document.getElementById("subject").value;
+                              var selectedSubjectUnits = selectedSubject[selectedSubject.indexOf("(") + 1];
+                              var timeslot = document.getElementById("timeslot");
+                              timeslot.innerHTML = "";
+                              if (selectedSubjectUnits == 3) {
+                                var option = document.createElement("option");
+                                option.text = "Select Timeslot";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "7:30 - 9:00";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "9:00 - 10:30";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "10:30 - 12:00";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "1:00 - 2:30";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "2:30 - 4:00";
+                                timeslot.add(option);
+                              } else if (selectedSubjectUnits == 2) {
+                                var option = document.createElement("option");
+                                option.text = "Select Timeslot"
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "7:30 - 9:00";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "9:00 - 10:30";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "10:30 - 12:00";
+                                timeslot.add(option);
+                              } else if (selectedSubjectUnits == 1) {
+                                var option = document.createElement("option");
+                                option.text = "Select Timeslot";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "7:30 - 9:00";
+                                timeslot.add(option);
+                                option = document.createElement("option");
+                                option.text = "9:00 - 10:30";
+                                timeslot.add(option);
+                              } else {
+                                var option = document.createElement("option");
+                                option.text = "No TimeSlot Available";
+                                timeslot.add(option);
+                              }
                             }
                           </script>
                         </select>
@@ -138,10 +170,44 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <input type="text" class="form-control" id="room" name="room" required="true">
                       </div>
                       <div class="form-group text-right">
-                        <button class="btn btn-primary">Add Handle</button>
-                        <button class="btn btn-primary" type="submit">SEND</button>
+                        <button class="btn btn-primary" type="submit">Add Schedule</button>
                       </div>
                     </form>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Faculty</th>
+                          <th>Subject</th>
+                          <th>Strand</th>
+                          <th>Timeslot</th>
+                          <th>Building</th>
+                          <th>Room</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          $uid=$_SESSION['sturecmfacaid'];
+                          $sql = "SELECT f.FirstName, f.LastName, s.SubjectName, c.course_name, sc.timeslot, sc.building, sc.room
+                          FROM schedule sc
+                          JOIN tblfaculty f ON sc.faculty_id = f.ID
+                          JOIN tblsubjects s ON sc.subject_id = s.SubjectID
+                          JOIN tbl_course c ON sc.strand_id = c.course_id;";
+                          $query = $dbh->prepare($sql);
+                          $query->execute();
+                          $results = $query->fetchAll(PDO::FETCH_OBJ);
+                          foreach($results as $row) {
+                            echo '<tr>';
+                            echo '<td>' . $row->FirstName . '</td>';
+                            echo '<td>' . $row->SubjectName . '</td>';
+                            echo '<td>' . $row->course_name . '</td>';
+                            echo '<td>' . $row->timeslot . '</td>';
+                            echo '<td>' . $row->building . '</td>';
+                            echo '<td>' . $row->room . '</td>';
+                            echo '</tr>';
+                          }
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

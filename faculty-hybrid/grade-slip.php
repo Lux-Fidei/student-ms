@@ -65,8 +65,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                     <tbody>
                       <?php
                       $query = "SELECT * FROM tblstudent";
-                      $query = $dbh->prepare($query);
-                      $query->bindParam(':gradeLevel', $row->grade_level, PDO::PARAM_STR); // Use the grade_level value from the tblstudent table
+                      $query = $dbh->prepare($query); // Use the grade_level value from the tblstudent table
                       $query->execute();
                       $results = $query->fetchAll(PDO::FETCH_OBJ);
                       if ($query->rowCount() > 0) {
