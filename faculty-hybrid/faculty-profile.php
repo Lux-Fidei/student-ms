@@ -59,6 +59,14 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
             background-color: #f7ecd6;
             position: relative;
             overflow: hidden;
+            background-image: url(images/watermark.png);
+            background-size: 500px;
+            background-repeat: no-repeat;
+            background-position:center;
+            
+            
+            
+
         
         }
 

@@ -59,7 +59,12 @@ if (strlen($_SESSION['sturecmsstuid']) == 0) {
             background-color: #f0f0f0;
             position: relative;
             overflow: hidden;
-        
+            background-image: url(images/watermark.png);
+            background-size: 400px;
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            
         }
 
         .subheading {
@@ -110,7 +115,11 @@ if (strlen($_SESSION['sturecmsstuid']) == 0) {
                             <div class="card-body">
                                 <?php
                                 $sid = $_SESSION['sturecmsstuid'];
-                                $sql = "SELECT tblstudent.LastName, tblstudent.FirstName, tblstudent.MiddleInitial, tblstudent.Gender, tblstudent.Age, tblstudent.DOB, tblstudent.PlaceOfBirth, tblstudent.CurrentAddress, tblstudent.PermanentAddress, tblstudent.ContactNo, tblstudent.EmailAddress, tblstudent.Strand, tblstudent.GradeLevel, tblstudent.LRN, tblstudent.FatherName, tblstudent.MotherName, tblstudent.Image, tblstudent.SchoolLastAttended, tblstudent.FatherContactNumber, tblstudent.MotherContactNumber, tblstudent.EmergencyContactNumber, tblstudent.YearAdmitted FROM tblstudent WHERE tblstudent.LRN=:sid";
+                                $sql = "SELECT s.*, c.ClubName, cm.Position
+                                        FROM tblstudent s
+                                        LEFT JOIN tbl_club_members cm ON s.ID = cm.StudentID
+                                        LEFT JOIN tbl_club c ON cm.ClubID = c.ClubID
+                                        WHERE s.LRN = :sid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':sid', $sid, PDO::PARAM_STR);
                                 $query->execute();
@@ -134,7 +143,7 @@ if (strlen($_SESSION['sturecmsstuid']) == 0) {
                                             <img src="../admin/images/<?php echo $results[0]->Image; ?>"
                                                  width="200" height="200" style="border:solid 1px #000; border-radius: 50%">
                                             <span style="color: #000; font-weight: bold; margin-top: 8px;"><?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName .' | ' . $results[0]->Strand .' '. $results[0]->GradeLevel?></span>
-                                        </div>
+                                        </div><br>
                                         <div class="subheading">PERSONAL INFORMATION</div>
                                         <div
                                             style="display: flex; flex-direction: row; justify-content: left; margin-top: 32px;">
@@ -148,79 +157,104 @@ if (strlen($_SESSION['sturecmsstuid']) == 0) {
                                                     <span style="color: #000; margin-bottom: 8px">Date of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Place of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Current Address:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Permanent Address:</span>
+                                                    <span style="color: #000; margin-bottom: 8px">Permanent                                             Address:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Contact Number:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Email Address:</span>
-                                                </div>
-                                           
-                                                <div style="display: flex; flex-direction: column">
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LastName;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FirstName;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MiddleInitial;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Gender;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Age;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->DOB;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PlaceOfBirth;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->CurrentAddress;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PermanentAddress;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->ContactNo;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->EmailAddress;?></span>
-                                                </div>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column">
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LastName;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FirstName;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MiddleInitial;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Gender;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Age;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->DOB;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PlaceOfBirth;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->CurrentAddress;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PermanentAddress;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->ContactNo;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->EmailAddress;?></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="subheading">ACADEMIC DETAILS</div>
-                                    <div class="content-section">
-                                        <div style="display: flex;">
-                                            <div style="display: flex; flex-direction: column; margin-right: 21px">
-                                                <span style="color: #000; margin-bottom: 8px">Track/Strand:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Grade Level:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Learner Reference Number:</span>
-                                                <span style="color: #000; margin-bottom: 8px">School Last Attended:</span>
-                                            </div>
-                                            <div style="display: flex; flex-direction: column">
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Strand;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->GradeLevel;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LRN;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->SchoolLastAttended;?></span>
-                                            </div>
+                                </div>
+                                <br>
+                                <div class="subheading">ACADEMIC DETAILS</div>
+                                <div class="content-section">
+                                    <div style="display: flex;">
+                                        <div style="display: flex; flex-direction: column; margin-right: 21px">
+                                            <span style="color: #000; margin-bottom: 8px">Track/Strand:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Grade Level:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Learner's Reference Number:</span>
+                                            <span style="color: #000; margin-bottom: 8px">School Last Attended:</span>
+                                        </div>
+                                        <div style="display: flex; flex-direction: column">
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Strand;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->GradeLevel;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LRN;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->SchoolLastAttended;?></span>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="subheading">PARENTS/GUARDIANS DETAILS</div>
-                                    <div class="content-section">
-                                        <div style="display: flex;">
-                                            <div style="display: flex; flex-direction: column; margin-right: 21px">
-                                                <span style="color: #000; margin-bottom: 8px">Father's Name:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Father's Contact Number:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Mother’s Name:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Mother's Contact Number:</span>
-                                                <span style="color: #000; margin-bottom: 8px">Contact Number (in case of emergency):</span>
-                                                <span style="color: #000; margin-bottom: 8px">Year Admitted:</span>
-                                            </div>
-                                            <div style="display: flex; flex-direction: column">
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FatherName;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FatherContactNumber;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MotherName;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MotherContactNumber;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->EmergencyContactNumber?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->YearAdmitted;?></span>
-                                            </div>
+                                </div>
+                                <br>
+                                <div class="subheading">PARENTS/GUARDIANS DETAILS</div>
+                                <div class="content-section">
+                                    <div style="display: flex;">
+                                        <div style="display: flex; flex-direction: column; margin-right: 21px">
+                                            <span style="color: #000; margin-bottom: 8px">Father's Name:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Father's Contact Number:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Mother’s Name:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Mother's Contact Number:</span>
+                                            <span style="color: #000; margin-bottom: 8px">Contact Number (in case of emergency):</span>
+                                            <span style="color: #000; margin-bottom: 8px">Year Admitted:</span>
+                                        </div>
+                                        <div style="display: flex; flex-direction: column">
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FatherName;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FatherContactNumber;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MotherName;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MotherContactNumber;?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->EmergencyContactNumber?></span>
+                                            <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->YearAdmitted;?></span>
                                         </div>
                                     </div>
-
                                 </div>
 
+                                <br>
+                                <div class="subheading">CLUB MEMBERSHIP</div>
+                                        <div class="content-section">
+                                            <?php if (!empty($results[0]->ClubName)): ?>
+                                                    <div class="content-section">
+                                                        <div style="display: flex;">
+                                                            <div style="display: flex; flex-direction: column; margin-right: 21px">
+                                                                <span style="color: #000; margin-bottom: 8px">Club Name:</span>
+                                                                <span style="color: #000; margin-bottom: 8px">Position:</span>
+                                                            </div>
+                                                            <div style="display: flex; flex-direction: column">
+                                                                <?php foreach ($results as $row): ?>
+                                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $row->ClubName;?></span>
+                                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $row->Position;?></span>
+                                                                <?php endforeach;?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <p>No club membership information available.</p>
+                                            <?php endif; ?>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+</div>
 </div>
 </body>
 </html>
 <?php } ?>
-
