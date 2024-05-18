@@ -33,14 +33,14 @@
             <span class="nav-link">Dashboard</span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="teaching-loads.php">
-                <span class="menu-title">Teaching Loads</span>
+            <a class="nav-link" href="viewGradeSlipList.php?sort=name&order=asc">
+                <span class="menu-title">Grade Slip List</span>
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="section.php">
-                <span class="menu-title">Section</span>
+                <li class="nav-item">
+            <a class="nav-link" href="requestList.php">
+                <span class="menu-title">Requests</span>
                 <i class="icon-book-open menu-icon"></i>
                 </a>
                 </li>
@@ -48,13 +48,6 @@
                 <li class="nav-item">
             <a class="nav-link" href="students.php">
                 <span class="menu-title">Students</span>
-                <i class="icon-book-open menu-icon"></i>
-                </a>
-                </li>
-
-                <li class="nav-item">
-            <a class="nav-link" href="grade-slip.php">
-                <span class="menu-title">Grade Slip</span>
                 <i class="icon-book-open menu-icon"></i>
             </a>
         </li>

@@ -39,15 +39,23 @@ foreach($results as $row)
             <li class="nav-item nav-category">
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="viewgrades.php" >
-                <span class="menu-title">View Grade</span>
+              <a class="nav-link" href="viewCOR.php" >
+                <span class="menu-title">COR</span>
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-                
-
-              
+            <li class="nav-item">
+              <a class="nav-link" href="viewCertification.php" >
+                <span class="menu-title">Certification</span>
+                <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="viewGradeslip.php" >
+                <span class="menu-title">Gradeslip</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
+
           </ul>
         </nav>

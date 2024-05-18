@@ -1,10 +1,8 @@
-
-
 <?php
 session_start();
 //error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsstuid']==0)) {
+if (strlen($_SESSION['sturecmfacaid']==0)) {
   header('location:logout.php');
   } else{
   
@@ -26,7 +24,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./style.css">
     <!-- End layout styles -->
   
   </head>
@@ -43,20 +41,49 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
           <div class="content-wrapper">
             <div class="row purchace-popup">
               <div class="col-12 stretch-card grid-margin">
-                <div class="card card-secondary">
-                  <span class="card-body d-lg-flex align-items-center">
-                    <p class="mb-lg-0">Notices from the school kindly check! </p>
-                    <a href="view-notice.php" target="_blank" class="btn btn-warning purchase-button btn-sm my-1 my-sm-0 ml-auto">View Notice</a>
-                  
-                  </span>
+                <div class="card card-secondary" style="padding: 16px">
+                  <h4>Request List</h4>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Name of Requester</th>
+                        <th>Purpose</th>
+                        <th>Date of Request</th>
+                        <th style="text-align: center">Approve</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Add your PHP code here to fetch and display the data from the database -->
+                      <?php
+                      // Mock data for demonstration purposes
+                      $mockData = [
+                        ['John Doe', 'Request for Leave', '2022-08-15'],
+                        ['Jane Smith', 'Request for Transcript', '2022-08-16'],
+                        ['Michael Johnson', 'Request for Course Change', '2022-08-17'],
+                        ['Emily Davis', 'Request for Scholarship', '2022-08-18'],
+                        ['David Wilson', 'Request for Internship', '2022-08-19']
+                      ];
+
+                      foreach ($mockData as $data) {
+                        echo "<tr>";
+                        echo "<td>".$data[0]."</td>";
+                        echo "<td>".$data[1]."</td>";
+                        echo "<td>".$data[2]."</td>";
+                        echo "<td style='text-align: center'><a href='#'><i class='icon-check'></i></a></td>";
+                        echo "</tr>";
+                      }
+                      ?>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+                </div>
             </div>
           </div>
+          <!-- partial -->
+          
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <?php include_once('includes/footer.php');?>
-          <!-- partial -->
         </div>
         <!-- main-panel ends -->
       </div>

@@ -123,38 +123,41 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="images/MSU copy.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
-        <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
-        <div>
-            <h4>Republic Of The Philippines</h4>
-            <h4 class="university-name">MINDANAO STATE UNIVERSITY</h4>
-            <h4 class="school">SENIOR HIGH SCHOOL</h4>
-            <h4>Marawi City</h4>
+    <div>
+        <div class="header">
+            <img src="images/MSU copy.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
+            <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
+            <div>
+                <h4>Republic Of The Philippines</h4>
+                <h4 class="university-name">MINDANAO STATE UNIVERSITY</h4>
+                <h4 class="school">SENIOR HIGH SCHOOL</h4>
+                <h4>Marawi City</h4>
+            </div>
         </div>
+        <hr style="border-color:black;border:1px solid gold;"></hr>
+
+        <h1>CERTIFICATION</h1>
+
+        <p class="paragraph"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp This is to certify that based on the records available in this school,<strong> Mr. Ammar
+    M. Ampuan</strong>, with LRN 478017150966, is officially
+    enrolled as a<strong> Grade 12 student</strong> under the <strong>Technical-Vocational-Livelihood Track –
+    Information and Communications Technology (ICT) strand</strong> this first semester,
+    academic year 2023 – 2024.</p>
+
+    <p class="paragraph1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp This certification is issued on January 12, 2024 upon the request of Mr. Ampuan in support of his registration for a scholarship.</p>
+
+
+    <p class="prepared">Prepared by</p>
+
+    <p class="chairperson">Ms. Haniah Krys E. Illupa</p>
+    <p class="track">TVL Track Chairperson</p>
+
+    <p class="approved">Approved by</p>
+
+    <p class="director">Junaina M. Dimalna, MAELT</p>
+    <p class="position">Director</p>
     </div>
-    <hr style="border-color:black;border:1px solid gold;"></hr>
-
-    <h1>CERTIFICATION</h1>
-
-    <p class="paragraph"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp This is to certify that based on the records available in this school,<strong> Mr. Ammar
-M. Ampuan</strong>, with LRN 478017150966, is officially
-enrolled as a<strong> Grade 12 student</strong> under the <strong>Technical-Vocational-Livelihood Track –
-Information and Communications Technology (ICT) strand</strong> this first semester,
-academic year 2023 – 2024.</p>
-
-<p class="paragraph1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp This certification is issued on January 12, 2024 upon the request of Mr. Ampuan in support of his registration for a scholarship.</p>
-
-
-<p class="prepared">Prepared by</p>
-
-<p class="chairperson">Ms. Haniah Krys E. Illupa</p>
-<p class="track">TVL Track Chairperson</p>
-
-<p class="approved">Approved by</p>
-
-<p class="director">Junaina M. Dimalna, MAELT</p>  
-<p class="position">Director</p> 
+    
 
     
     

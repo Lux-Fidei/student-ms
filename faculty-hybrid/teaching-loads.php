@@ -79,14 +79,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       $query->bindParam(':room',$room,PDO::PARAM_STR);
                       $query->execute();
                       $lastInsertId = $dbh->lastInsertId();
-                      if($lastInsertId)
-                      {
-                        echo "<script>alert('Schedule added successfully');</script>";
-                      }
-                      else
-                      {
-                        echo "<script>alert('Something went wrong. Please try again');</script>";
-                      }
                       }
                       ?>
                       <div class="form-group">

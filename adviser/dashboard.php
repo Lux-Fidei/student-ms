@@ -15,6 +15,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+    
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="./vendors/daterangepicker/daterangepicker.css">
@@ -41,7 +42,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                   <span class="card-body d-lg-flex align-items-center justify-content-center  ">
-                    <p class="mb-lg-0">Hello World!</p>
+                    <p class="mb-lg-0 house">Hello World!</p>
                   </span>
                 </div>
               </div>

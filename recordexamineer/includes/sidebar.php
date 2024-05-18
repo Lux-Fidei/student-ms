@@ -38,5 +38,11 @@
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="requestCOR.php">
+                <span class="menu-title">COR</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+            </a>
+        </li>
     </ul>
 </nav>
