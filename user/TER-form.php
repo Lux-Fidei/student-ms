@@ -52,10 +52,78 @@ if (isset($_POST['teacher_name'])) {
         $query->execute();
     }
 
-    // Display a thank you message
-    echo "<h2>Thank you for submitting the evaluation!</h2>";
-    echo "<p>Your feedback has been recorded.</p>";
-    echo "<p><a href='dashboard.php'>Back to Home</a></p>";
+    echo "
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <style>
+            .modal {
+                display: block;
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 600px;
+                text-align: center;
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div id='myModal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <h2>Thank you for submitting the evaluation!</h2>
+        <p>Your feedback has been recorded.</p>
+        <p><a href='dashboard.php'>Back to Home</a></p>
+      </div>
+    </div>
+    
+    <script>
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName('close')[0];
+        span.onclick = function() {
+            modal.style.display = 'none';
+            window.location.href = 'dashboard.php';
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                window.location.href = 'dashboard.php';
+            }
+        }
+    </script>
+    
+    </body>
+    </html>
+    ";
     exit;
 }
 
@@ -180,6 +248,27 @@ if (!$isTerActive) {
             font-family: 'Times New Roman', Times, serif;
             font-size: larger;
         }
+
+        .btn-primary {
+            background-color: #ecd55e;
+            border-color: #007bff;
+            color: #fffbfb;
+            padding: 10px 20px;
+            border-radius: 45px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn {
+        font-size: 0.875rem;
+        line-height: 1;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-top: -7em;
+        }
     </style>
 </head>
 <body>
@@ -196,11 +285,12 @@ if (!$isTerActive) {
     <hr></hr>
 
     <div class="container">
+    <a href="dashboard.php" class="btn btn-primary"><</a>
         <h2><i class="bi bi-people"></i> Teacher Efficiency Records</h2>
         <h2 style="background-image: url(images/okirr1.jpg);background-size: contain;">.</h2>
 
         <form method="post">    
-            <label for="teacher_name">Select Teacher:</label>
+            <label for="teacher_name" style="font-weight: bold;">Select Teacher:</label>
             <select id="teacher_name" name="teacher_name" required>
                 <option value="">Select Teacher</option>
                 <?php

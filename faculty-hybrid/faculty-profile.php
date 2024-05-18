@@ -110,7 +110,10 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                             <div class="card-body">
                                 <?php
                                 $fid = $_SESSION['sturecmfacaid'];
-                                $sql = "SELECT * FROM tblfaculty WHERE ID=:fid";
+                                $sql = "SELECT f.*, c.ClubName 
+                                        FROM tblfaculty f 
+                                        LEFT JOIN tbl_club c ON f.ID = c.AdviserID 
+                                        WHERE f.ID = :fid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':fid', $fid, PDO::PARAM_STR);
                                 $query->execute();
@@ -133,11 +136,18 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                                             <img src="../admin/images/<?php echo $results[0]->Image; ?>"
                                                  width="200" height="200" style="border: solid 1px #000; border-radius: 50%">
-                                            <span style="color: #000; font-weight: bold; margin-top: 8px;"><?php echo $results[0]->FirstName . ' ' .$results[0]->MiddleInitial . ' ' . $results[0]->LastName. ' | ' . $results[0]->position  ?></span>
-                                        </div>
+                                            <span style="color: #000; font-weight: bold; margin-top: 8px;">
+                                                <?php 
+                                                echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName . ' | ' . $results[0]->position;
+                                                if (isset($results[0]->ClubName)) {
+                                                    echo ' | Club Adviser: ' . $results[0]->ClubName;
+                                                }
+                                                ?>
+                                                
+                                            </span>
+                                        </div><br>
                                         <div class="subheading" style="font-weight: bold; align-items: center; color:#181824; font-family:'Times New Roman', Times, serif">PERSONAL INFORMATION</div>
-                                        <div
-                                            style="display: flex; flex-direction: row; justify-content: left; margin-top: 32px;">
+                                        <div style="display: flex; flex-direction: row; justify-content: left; margin-top: 32px;">
                                             <div style="display: flex;">
                                                 <div style="display: flex; flex-direction: column; margin-right: 16px">
                                                     <span style="color: #000; margin-bottom: 8px">Last Name:</span>
@@ -147,14 +157,14 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                                     <span style="color: #000; margin-bottom: 8px">Age:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Gender:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Address:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Contact Number:</span>
+                                                    <span
+                                                    style="color: #000; margin-bottom: 8px">Contact Number:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Position</span>
                                                     <!-- Add other fields here -->
                                                 </div>
-                                           
                                                 <div style="display: flex; flex-direction: column">
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LastName;?></span>
-                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FirstName;;?></span>
+                                                    <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FirstName;?></span>
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MiddleInitial;?></span>
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Email;?></span>
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Age;?></span>
@@ -186,4 +196,3 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
 </body>
 </html>
 <?php } ?>
-

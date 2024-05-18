@@ -23,6 +23,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to the login page
-header('location:index.php');
+header('location:login.php');
 exit();
 ?>

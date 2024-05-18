@@ -173,6 +173,11 @@ foreach($results as $row)
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="manageTER.php">
+                <span class="menu-title">TER</span>
+                <i class="icon-notebook menu-icon"></i>
+              </a>
               <li class="nav-item">
               <a class="nav-link" href="between-dates-reports.php">
                 <span class="menu-title">Reports</span>
