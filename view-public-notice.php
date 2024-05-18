@@ -46,7 +46,21 @@ include('includes/dbconnection.php');
 	</div>
 </div>
 <!--weelcome-->
-<div class="welcome">
+<div class="notice">
+	<style>
+		.notice{
+			width:auto;
+			height: 34em;
+			background-image: url(images/publicnotice.png);
+			background-size: cover;
+			color: white;
+		}
+		.table {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 3em;
+}
+	</style>
 	<div class="container">
 		<table border="1" class="table table-bordered mg-b-0">
                       <?php
@@ -62,7 +76,7 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
 <tr class="table-info">
-    <th>Notice Announced Date</th>
+    <th>Announced Date</th>
     <td><?php  echo $row->CreationDate;?></td>
   </tr>
     <tr class="table-info">
@@ -83,4 +97,5 @@ foreach($results as $row)
 <?php include_once('includes/footer.php');?>
 <!--/copy-rights-->
 	</body>
+</body>
 </html>

@@ -90,11 +90,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                 ?>
                                                     <tr>
                                                         <td><?php echo htmlentities($cnt); ?></td>
-                                                        <td><?php echo htmlentities($row->StuID); ?></td>
+                                                        <td><?php echo htmlentities($row->LRN); ?></td>
                                                 
-                                                        <td><?php echo htmlentities($row->StudentName); ?></td>
-                                                        <td><?php echo htmlentities($row->StudentEmail); ?></td>
-                                                        <td><?php echo htmlentities($row->DateofAdmission); ?></td>
+                                                        <td><?php echo htmlentities($row->FirstName); ?></td>
+                                                        <td><?php echo htmlentities($row->EmailAddress); ?></td>
+                                                        <td><?php echo htmlentities($row->YearAdmitted); ?></td>
                                                         <td>
                                                             <div>
                                                                 <a href="edit-student-detail.php?editid=<?php echo htmlentities($row->ID); ?>"><i class="icon-eye"></i></a>

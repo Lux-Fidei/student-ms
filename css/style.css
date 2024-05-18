@@ -259,7 +259,7 @@ div#bs-example-navbar-collapse-1 {
     width: 100%;
     padding: 0px 100px;
     background:transparent;
-	backdrop-filter: blur(2px);
+	backdrop-filter: blur(4px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -788,13 +788,14 @@ fieldset#body {
   padding: 0 16px;
 }
 .welcome {
-padding: 28em 0px 0em;
+padding: 33em 0px 0em;
   text-align: center;
   background-image: url(../images/strands.png);
   color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
+  height: auto;
 	
 }
 .welcome h2 {
@@ -1053,7 +1054,7 @@ img.zoom-img:hover {
   background-size: cover;
   background-position: center;
   margin-top: -5em;
-  width: 97em;
+  width: auto;
 }
 .footer-left ul{
 	padding:0;

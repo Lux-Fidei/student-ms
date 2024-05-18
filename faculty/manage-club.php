@@ -1,24 +1,24 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+    <?php
+    session_start();
+    error_reporting(0);
+    include('includes/dbconnection.php');
 
-// Check if the user is logged in
-if (empty($_SESSION['sturecmfacaid'])) {
+    // Check if the user is logged in
+    if (empty($_SESSION['sturecmfacaid'])) {
     header('location:logout.php');
     exit;
-} 
+    } 
 
-// Function to handle database errors
-function handleDBError($message) {
+    // Function to handle database errors
+    function handleDBError($message) {
     echo '<script>alert("' . $message . '")</script>';
-}
+    }
 
-$isClubAdviser = false;
-$clubName = '';
+    $isClubAdviser = false;
+    $clubName = '';
 
-// Check if the logged-in user is a club adviser
-if (!empty($_SESSION['sturecmfacaid'])) {
+    // Check if the logged-in user is a club adviser
+    if (!empty($_SESSION['sturecmfacaid'])) {
     $adviserID = $_SESSION['sturecmfacaid'];
     $sql = "SELECT * FROM tblfaculty WHERE ID = :adviser_id";
     try {

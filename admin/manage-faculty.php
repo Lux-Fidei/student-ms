@@ -21,7 +21,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Student Management System|||Manage Faculty</title>
+    <title>Student Management System || Manage Faculty</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
@@ -70,10 +70,8 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                         <thead>
                                         <tr>
                                             <th class="font-weight-bold">Faculty ID</th>
-
-                                            <th class="font-weight-bold">First Name</th>
-                                            <th class="font-weight-bold">Last Name</th>
-                                            <th class="font-weight-bold">Faculty Email</th>
+                                            <th class="font-weight-bold">Name</th>
+                                            <th class="font-weight-bold">Email</th>
                                             <th class="font-weight-bold">Action</th>
                                         </tr>
                                         </thead>
@@ -83,26 +81,26 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                         $query = $dbh->prepare($sql);
                                         $query->execute();
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                        $cnt = 1;
                                         if ($query->rowCount() > 0) {
                                             foreach ($results as $row) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo htmlentities($row->ID); ?></td>
-                                                    <td><?php echo htmlentities($row->FirstName); ?></td>
-                                                    <td><?php echo htmlentities($row->LastName); ?></td>
+                                                    <td><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></td>
                                                     <td><?php echo htmlentities($row->Email); ?></td>
                                                     <td>
-                                                        <a href="edit-faculty.php?editid=<?php echo htmlentities($row->ID); ?>"><i
-                                                                    class="icon-eye"></i></a>
-                                                        || <a href="manage-faculty.php?delid=<?php echo ($row->ID); ?>"
-                                                               onclick="return confirm('Do you really want to Delete ?');"> <i
-                                                                    class="icon-trash"></i></a>
+                                                        <a href="edit-faculty.php?editid=<?php echo htmlentities($row->ID); ?>"><i class="icon-eye"></i></a>
+                                                        || <a href="manage-faculty.php?delid=<?php echo ($row->ID); ?>" onclick="return confirm('Do you really want to Delete ?');"><i class="icon-trash"></i></a>
                                                     </td>
                                                 </tr>
-                                                <?php $cnt = $cnt + 1;
+                                                <?php
                                             }
-                                        } ?>
+                                        } else {
+                                            ?>
+                                            <tr>
+                                                <td colspan="4" class="text-center">No faculty records found</td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>

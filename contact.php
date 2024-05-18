@@ -76,7 +76,7 @@ include('includes/dbconnection.php');
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
   }
 
   .slider-container{
@@ -255,7 +255,7 @@ include('includes/dbconnection.php');
       <button class="zoom-out">-</button>
     </div>
   </div>
-
+</div>
   <!-- //container -->
   <?php include_once('includes/footer.php');?>
   <!--/copy-rights-->

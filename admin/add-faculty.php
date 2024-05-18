@@ -1,12 +1,13 @@
 <?php
 session_start();
 include('includes/dbconnection.php');
-
+include_once('./account_helper.php');
 if (strlen($_SESSION['sturecmsaid']) == 0) {
     header('location:logout.php');
 } else {
     if (isset($_POST['submit'])) {
         $fname = $_POST['fname'];
+        $mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $age = $_POST['age'];
@@ -21,14 +22,16 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $image = $_FILES["image"]["name"];
         $extension = substr($image, strlen($image) - 4, strlen($image));
         $allowed_extensions = array(".jpg", ".jpeg", ".png", ".gif");
-
+        $uid = createAccount($uname, $password, 'faculty');
+       
         if (in_array($extension, $allowed_extensions)) {
             $image = md5($image) . time() . $extension;
             move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $image);
 
-            $sql = "INSERT INTO tblfaculty (FirstName, LastName, Email, Age,Gender, Address, Contact, position, assignedStrand, advisoryClasses, UserName, Password, Image) VALUES (:fname, :lname, :email, :age, :gender, :address, :contact, :position, :assigned_strand, :advisory_class, :uname, :password, :image)";
+            $sql = "INSERT INTO tblfaculty (FirstName, LastName,MiddleInitial, Email, Age,Gender, Address, Contact, position, assignedStrand, advisoryClasses, UserAccountID, Image) VALUES (:fname, :lname,:mname, :email, :age, :gender, :address, :contact, :position, :assigned_strand, :advisory_class, :useraccountid, :image)";
             $query = $dbh->prepare($sql);
             $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':mname', $mname, PDO::PARAM_STR);
             $query->bindParam(':lname', $lname, PDO::PARAM_STR);
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':age', $age, PDO::PARAM_INT);
@@ -38,8 +41,9 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $query->bindParam(':position', $position, PDO::PARAM_STR);
             $query->bindParam(':assigned_strand', $assigned_strand, PDO::PARAM_STR);
             $query->bindParam(':advisory_class', $advisory_class, PDO::PARAM_STR);
-            $query->bindParam(':uname', $uname, PDO::PARAM_STR);
-            $query->bindParam(':password', $password, PDO::PARAM_STR);
+            // $query->bindParam(':uname', $uname, PDO::PARAM_STR);
+            // $query->bindParam(':password', $password, PDO::PARAM_STR);
+            $query->bindParam(':useraccountid', $uid, PDO::PARAM_INT);
             $query->bindParam(':image', $image, PDO::PARAM_STR);
 
             try {
@@ -78,11 +82,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"> Add Personnel</h3>
+                        <h3 class="page-title"> Add Faculty</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Personnel</li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Faculty</li>
                             </ol>
                         </nav>
                     </div>
@@ -91,11 +95,15 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Add Personnel</h4>
+                                    <h4 class="card-title" style="text-align: center;">Faculty</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
     <label for="exampleInputName1">First Name</label>
     <input type="text" name="fname" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="exampleInputName1">Middle Name</label>
+    <input type="text" name="mname" class="form-control" required>
 </div>
 <div class="form-group">
     <label for="exampleInputName1">Last Name</label>

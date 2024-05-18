@@ -3,7 +3,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
@@ -21,8 +21,8 @@ if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?>
-                  <p class="profile-name"><?php  echo htmlentities($row->StudentName);?></p>
-                  <p class="designation"><?php  echo htmlentities($row->StudentEmail);?></p><?php $cnt=$cnt+1;}} ?>
+                  <p class="profile-name"><?php  echo htmlentities($row->FirstName);?></p>
+                  <p class="designation"><?php  echo htmlentities($row->EmailAddress);?></p><?php $cnt=$cnt+1;}} ?>
                 </div>
              
               </a>
@@ -51,9 +51,13 @@ foreach($results as $row)
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="viewGradeslip.php" >
-                <span class="menu-title">Gradeslip</span>
+              <a class="nav-link" href="TER-form.php" >
+                <span class="menu-title">Evaluation</span>
                 <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
+                
+              
               </a>
             </li>
 

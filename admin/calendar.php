@@ -82,7 +82,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="images/MSU copy.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
+        <img src="images/GRADIENT.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
         <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
         <div>
             <h4>Republic Of The Philippines</h4>

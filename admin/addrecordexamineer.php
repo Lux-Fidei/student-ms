@@ -75,11 +75,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"> Add Record Examiner </h3>
+                        <h3 class="page-title"> Add Staff </h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Record Examiner</li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Staff</li>
                             </ol>
                         </nav>
                     </div>
@@ -88,7 +88,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Add Record Examiner</h4>
+                                    <h4 class="card-title" style="text-align: center;">Staff</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="exampleInputName1">First Name</label>

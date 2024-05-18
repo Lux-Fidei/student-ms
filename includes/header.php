@@ -74,25 +74,20 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right margin-top cl-effect-2">
-          <li><a href="index.php"><span data-hover="Home"><strong>Home</strong></span></a></li>
+          <li><a href="index.php"><span data-h  over="Home"><strong>Home</strong></span></a></li>
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>About</strong> <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="about.php">About</a></li>
               <li><a href="#" onclick="openPopup()">Director</a></li>
               <li><a href="#" onclick="openChartPopup()">Chart</a></li>
-              <li><a href="admin/calendar.php" onclick="openChartPopup()">Calendar</a></li>
+              <li><a href="admin/calendar.php">Calendar</a></li>
         <!-- Add more dropdown items here if needed -->
     </ul>
 </li>
           <li><a href="contact.php"><span data-hover="Contact"><strong>VMGO</strong></span></a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Users</strong> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="admin/login.php">Admin</a></li>
-              <li><a href="user/login.php">Student</a></li>
-              <li><a href="faculty/login.php">Faculty</a></li>
-              <li><a href="recordexamineer/login.php">Examiner</a></li>
+          <li><a href="user/login.php"><span data-hover="Login"><strong>Login</strong></span></a></li>
+
               <style>
               ul.nav.navbar-nav.navbar-right.margin-top {
                 margin-top: 11px;

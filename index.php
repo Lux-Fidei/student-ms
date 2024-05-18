@@ -40,42 +40,20 @@ include('includes/dbconnection.php');
 </head>
 	<body>
 <?php include_once('includes/header.php');?>
-      </div>
-   </div>
 <div class="slideshow">
   <li>
     <span>Slide One</span> </li>
   <li> <span>Slide Two</span> </li>
   <li> <span>Slide Three</span> </li>
-  <li> <span>Slide Four</span> </li>
+  <li> <span>Slide Four</span> </li>	
 </div>
+	</body>>
 
-      </div>
-    </div>
-</div>      
-  </div>
 <div class="welcome">
-<style>
-
-  </style>
 	<div class="container">
-		<?php
-$sql="SELECT * from tblpage where PageType='mission-vision'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-		<h2><?php  echo htmlentities($row->PageTitle);?></h2>
-		<p><?php  echo ($row->PageDescription);?></p><?php $cnt=$cnt+1;}} ?>
+		
 	</div>
 </div>
-<!--/welcome-->
-
 
 <!--testmonials-->
 <div class="testimonials">
@@ -97,14 +75,15 @@ foreach($results as $row)
           <?php  echo htmlentities($row->NoticeTitle);?>(<?php  echo htmlentities($row->CreationDate);?>)</a>
           <hr /><br />
 			<?php $cnt=$cnt+1;}} ?>
-	</marquee></div>
+	</marquee>
+       </div>
 	</div>
 </div>
+
 <!--\testmonials-->
 <!--specfication-->
 
 <!--/specfication-->
 <?php include_once('includes/footer.php');?>
-<!--/copy-rights-->
 	</body>
 </html>

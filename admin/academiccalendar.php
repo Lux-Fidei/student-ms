@@ -100,6 +100,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                         <button type="submit" class="btn btn-danger mr-2" name="submit">Submit</button>
                                     </form>
                                     
+                                    
                                     <!-- Table with edit and delete buttons -->
                                     <div class="table-responsive">
                                         <table class="table">

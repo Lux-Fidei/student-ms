@@ -3,7 +3,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                <img class="img-xs rounded-circle" src="images/Director.jpg" width="32" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
@@ -21,7 +21,7 @@ if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?>
-                  <p class="profile-name"><?php  echo htmlentities($row->AdminName);?></p>
+                  <p class="profile-name"><?php  echo htmlentities($row->LastName).' '.htmlentities ($row->FirstName)?></p>
                   <p class="designation"><?php  echo htmlentities($row->Email);?></p><?php $cnt=$cnt+1;}} ?>
                 </div>
               
@@ -34,6 +34,13 @@ foreach($results as $row)
               <a class="nav-link" href="dashboard.php">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="history_logs.php">
+                <span class="menu-title">History of Transaction</span>
+                <i class="icon-doc menu-icon"></i>
               </a>
             </li>
 
@@ -85,7 +92,7 @@ foreach($results as $row)
               
               <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth4" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">Add Personnel</span>
+                <span class="menu-title">Faculty</span>
                 <i class="icon-people menu-icon"></i>
               </a>
               <div class="collapse" id="auth4">
@@ -98,13 +105,13 @@ foreach($results as $row)
 
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth7" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">Record Examineer</span>
+                <span class="menu-title">Staff</span>
                 <i class="icon-people menu-icon"></i>
               </a>
               <div class="collapse" id="auth7">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="addrecordexamineer.php"> Add Record Examineer </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="managerecordexam.php"> Manage Record Examineer </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="addrecordexamineer.php"> Add Staff</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="managerecordexam.php"> Manage Staff</a></li>
                 </ul>
               </div>
             </li>
@@ -114,13 +121,19 @@ foreach($results as $row)
               <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
                 <span class="menu-title">Student</span>
                 <i class="icon-people menu-icon"></i>
-              </a>
+              </a>  
               <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="add-students.php">Add Student</a></li>
                   <li class="nav-item"> <a class="nav-link" href="manage-students.php">Manage Student</a></li>
                 </ul>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="add-club.php">
+                <span class="menu-title">Club</span>
+                <i class="icon-notebook menu-icon"></i>
+              </a>
             </li>
 
             <li class="nav-item">

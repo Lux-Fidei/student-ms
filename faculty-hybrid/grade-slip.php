@@ -4,7 +4,7 @@ session_start();
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmfacaid']==0)) {
   header('location:logout.php');
-} else {
+} else  {
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +59,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <th style="width: 192px"><span>Last Name</span></th>
                         <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
                         <th style="width: 192px"><span>email</span></th>
+                        <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
+                        <th style="width: 192px"><span>email</span></th>
                         <th style="width: 192px"><span>Action</span></th>
                       </tr>
                     </thead>
@@ -84,6 +86,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           echo "<td>" . $row->StuID . "</td>";
                           echo "<td>" . $row->StudentEmail . "</td>";
                           echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
+                          echo "<td>" . $row->StuID . "</td>";
+                          echo "<td>" . $row->StudentEmail . "</td>";
+                          echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
                           $count++;
                         }
                       }
@@ -92,6 +97,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   </table>
                 </div>
                 <script>
+                  function goTo() {
+                    var stuID = event.target.parentNode.parentNode.cells[3].innerText;
+                    window.location.href = "view-grade-slip.php?stuID=" + stuID;
                   function goTo() {
                     var stuID = event.target.parentNode.parentNode.cells[3].innerText;
                     window.location.href = "view-grade-slip.php?stuID=" + stuID;

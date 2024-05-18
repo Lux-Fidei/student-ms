@@ -41,11 +41,6 @@ foreach($results as $row)
           <li><a href="#" class="twitter dribbble"> </a></li>
         </ul>
       </div>
-      <div class="clearfix"> </div>
-      
-    </div>
-    <!-- //container -->  
-    <!---->
 <script type="text/javascript">
     $(document).ready(function() {
         /*
@@ -59,6 +54,5 @@ foreach($results as $row)
     $().UItoTop({ easingType: 'easeOutQuart' });
 });
 </script>
-<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-<!----> 
-  </div>
+
+ </div>

@@ -48,15 +48,11 @@ include('includes/dbconnection.php');
 	 <div class="container">
 		 <div class="about-info-grids">
 			 <div class="col-md-5 abt-pic">
-				 <img src="images/Staff.jpg" class="img-responsive" alt=""/>
+				 <img src="images/Staff.jpg" class="img-responsive" alt="">
 				 <style> 
-                                 img {
-									background-size: cover;
-                                    width: 300em;
-                                    height: 90px;
-                                    margin-top: 2.2em; /* Adjust the top margin */
-                                   margin-left: -1px; /* Adjust the left margin */
-                                    }
+                                .img-responsive{
+								margin-top: 2em;
+								}
                                 </style>
 
 			 </div>

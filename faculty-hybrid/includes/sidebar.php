@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
                 <div class="profile-image">
-                    <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                <img class="img-xs rounded-circle" src="../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
@@ -33,9 +33,15 @@
             <span class="nav-link">Dashboard</span>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="dashboard.php">
+                <span class="menu-title">Dashboard</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="teaching-loads.php">
                 <span class="menu-title">Teaching Loads</span>
-                <i class="icon-screen-desktop menu-icon"></i>
+                <i class="icon-book-open menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
@@ -55,6 +61,12 @@
                 <li class="nav-item">
             <a class="nav-link" href="grade-slip.php">
                 <span class="menu-title">Grade Slip</span>
+                <i class="icon-book-open menu-icon"></i>
+                </a>
+                </li>
+                 <li class="nav-item">
+            <a class="nav-link" href="manage-club.php">
+                <span class="menu-title">Club</span>
                 <i class="icon-book-open menu-icon"></i>
             </a>
         </li>

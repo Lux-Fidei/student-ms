@@ -19,7 +19,7 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="greetings">Hello, Adminstrator <?php  echo htmlentities($row->AdminName);?>!</h5>
+          <h5 class="greetings">Hello, Adminstrator <?php  echo htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
                   {
@@ -30,11 +30,11 @@ foreach($results as $row)
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img class="img-xs rounded-circle ml-2" src="images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->AdminName);?> </span></a>
+                <img class="img-xs rounded-circle ml-2" src="images/Director.jpg" alt="Profile image"width="32" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->FirstName);?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-                  <p class="mb-1 mt-3"><?php  echo htmlentities($row->AdminName);?></p>
+                <img class="img-md rounded-circle" src="images/Director.jpg" width="168" alt="Profile image">
+                  <p class="mb-1 mt-3"><?php  echo htmlentities($row->FirstName);?></p>
                   <p class="font-weight-light text-muted mb-0"><?php  echo htmlentities($row->Email);?></p>
                 </div><?php $cnt=$cnt+1;}} ?>
                 <a class="dropdown-item" href="profile.php"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile</a>

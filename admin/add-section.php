@@ -114,8 +114,8 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                 <td><?php echo htmlentities($cnt); ?></td>
                 <td><?php echo htmlentities($row->Section); ?></td>
                 <td>
-                    <a href="edit-section.php?id=<?php echo htmlentities($row->ID); ?>" class="btn btn-info btn-sm">Edit</a>
-                    <a href="delete-section.php?id=<?php echo htmlentities($row->ID); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this section?')">Delete</a>
+                    <a href="edit-section.php?id=<?php echo htmlentities($row->ID); ?>"class="icon-eye"></a>
+                    <a href="delete-section.php?id=<?php echo htmlentities($row->ID); ?>"class="icon-trash" onclick="return confirm('Are you sure you want to delete this section?')"></a>
                 </td>
             </tr>
             <?php

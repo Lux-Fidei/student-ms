@@ -31,11 +31,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"> View Record Examiner </h3>
+                        <h3 class="page-title"> View Staff </h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> View Record Examiner</li>
+                                <li class="breadcrumb-item active" aria-current="page"> View Staff</li>
                             </ol>
                         </nav>
                     </div>
@@ -44,7 +44,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Record Examiners List</h4>
+                                    <h4 class="card-title" style="text-align: left;">Manage Staff</h4>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>

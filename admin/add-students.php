@@ -1,221 +1,246 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
-  } else{
-   if(isset($_POST['submit']))
-  {
- $stuname=$_POST['stuname'];
- $stuemail=$_POST['stuemail'];
- $gender=$_POST['gender'];
- $dob=$_POST['dob'];
- $stuid=$_POST['stuid'];
- $fname=$_POST['fname'];
- $mname=$_POST['mname'];
- $connum=$_POST['connum'];
- $altconnum=$_POST['altconnum'];
- $address=$_POST['address'];
- $uname=$_POST['uname'];
- $password=md5($_POST['password']);
- $image=$_FILES["image"]["name"];
- $ret="select UserName from tblstudent where UserName=:uname || StuID=:stuid";
- $query= $dbh -> prepare($ret);
-$query->bindParam(':uname',$uname,PDO::PARAM_STR);
-$query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
-$query-> execute();
-     $results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() == 0)
-{
-$extension = substr($image,strlen($image)-4,strlen($image));
-$allowed_extensions = array(".jpg","jpeg",".png",".gif");
-if(!in_array($extension,$allowed_extensions))
-{
-echo "<script>alert('Logo has Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
-}
-else
-{
-$image=md5($image).time().$extension;
- move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$image);
-$sql="insert into tblstudent(StudentName,StudentEmail,Gender,DOB,StuID,FatherName,MotherName,ContactNumber,AltenateNumber,Address,UserName,Password,Image)values(:stuname,:stuemail,:gender,:dob,:stuid,:fname,:mname,:connum,:altconnum,:address,:uname,:password,:image)";
-$query=$dbh->prepare($sql);
-$query->bindParam(':stuname',$stuname,PDO::PARAM_STR);
-$query->bindParam(':stuemail',$stuemail,PDO::PARAM_STR);
-$query->bindParam(':gender',$gender,PDO::PARAM_STR);
-$query->bindParam(':dob',$dob,PDO::PARAM_STR);
-$query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
-$query->bindParam(':fname',$fname,PDO::PARAM_STR);
-$query->bindParam(':mname',$mname,PDO::PARAM_STR);
-$query->bindParam(':connum',$connum,PDO::PARAM_STR);
-$query->bindParam(':altconnum',$altconnum,PDO::PARAM_STR);
-$query->bindParam(':address',$address,PDO::PARAM_STR);
-$query->bindParam(':uname',$uname,PDO::PARAM_STR);
-$query->bindParam(':password',$password,PDO::PARAM_STR);
-$query->bindParam(':image',$image,PDO::PARAM_STR);
- $query->execute();
-   $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
-    echo '<script>alert("Student has been added.")</script>';
-echo "<script>window.location.href ='add-students.php'</script>";
-  }
-  else
-    {
-         echo '<script>alert("Something Went Wrong. Please try again")</script>';
+include_once('./account_helper.php');
+if (strlen($_SESSION['sturecmsaid'])==0) {
+    header('location:logout.php');
+} else {
+    $sqlSemester = "SELECT * FROM tblsemesters";
+    $sqlStrand = "SELECT * FROM tbl_course";
+
+    $querySemester = $dbh->prepare($sqlSemester);
+    $querySemester->execute();
+    $semesters = $querySemester->fetchAll(PDO::FETCH_ASSOC);
+
+    $queryStrand = $dbh->prepare($sqlStrand);
+    $queryStrand->execute();
+    $strands = $queryStrand->fetchAll(PDO::FETCH_ASSOC);
+
+    if(isset($_POST['submit'])) {
+        $lastname = $_POST['lastname'];
+        $firstname = $_POST['firstname'];
+        $middleinitial = $_POST['middleinitial'];
+        $gender = $_POST['gender'];
+        $age = $_POST['age'];
+        $dob = $_POST['dob'];
+        $placeofbirth = $_POST['placeofbirth'];
+        $currentaddress = $_POST['currentaddress'];
+        $permanentaddress = $_POST['permanentaddress'];
+        $contactno = $_POST['contactno'];
+        $email = $_POST['email'];
+        $strand = $_POST['strand'];
+        $gradelevel = $_POST['gradelevel'];
+        $lrn = $_POST['lrn'];
+        $schoollastattended = $_POST['schoollastattended'];
+        $fathername = $_POST['fathername'];
+        $fathercontactnumber = $_POST['fathercontactnumber'];
+        $mothername = $_POST['mothername'];
+        $mothercontactnumber = $_POST['mothercontactnumber'];
+        $emergencycontactnumber = $_POST['emergencycontactnumber'];
+        $uname = $_POST['uname'];
+        $password = md5($_POST['password']);
+        $image = $_FILES["image"]["name"];
+        $extension = substr($image, strlen($image)-4, strlen($image));
+        $allowed_extensions = array(".jpg","jpeg",".png",".gif");
+        $uid = createAccount($uname, $password, 'student');
+        if(!in_array($extension, $allowed_extensions)) {
+            echo "<script>alert('Image has invalid format. Only jpg/jpeg/png/gif format allowed');</script>";
+        } else {
+            $image = md5($image).time().$extension;
+            move_uploaded_file($_FILES["image"]["tmp_name"], "images/".$image);
+            $yearadmitted = date('Y-m-d H:i:s'); // Current timestamp
+            
+            $sql = "INSERT INTO tblstudent (LastName, FirstName, MiddleInitial, Gender, Age, DOB, PlaceOfBirth, CurrentAddress, PermanentAddress, ContactNo, EmailAddress, Strand, GradeLevel, LRN, SchoolLastAttended, FatherName, FatherContactNumber, MotherName, MotherContactNumber, EmergencyContactNumber, YearAdmitted, UserAccountID, Image) VALUES (:lastname, :firstname, :middleinitial, :gender, :age, :dob, :placeofbirth, :currentaddress, :permanentaddress, :contactno, :email, :strand, :gradelevel, :lrn, :schoollastattended, :fathername, :fathercontactnumber, :mothername, :mothercontactnumber, :emergencycontactnumber, :yearadmitted, :useraccountid, :image)";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+            $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
+            $query->bindParam(':middleinitial', $middleinitial, PDO::PARAM_STR);
+            $query->bindParam(':gender', $gender, PDO::PARAM_STR);
+            $query->bindParam(':age', $age, PDO::PARAM_STR);
+            $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+            $query->bindParam(':placeofbirth', $placeofbirth, PDO::PARAM_STR);
+            $query->bindParam(':currentaddress', $currentaddress, PDO::PARAM_STR);
+            $query->bindParam(':permanentaddress', $permanentaddress, PDO::PARAM_STR);
+            $query->bindParam(':contactno', $contactno, PDO::PARAM_STR);
+            $query->bindParam(':email', $email, PDO::PARAM_STR);
+            $query->bindParam(':strand', $strand, PDO::PARAM_STR);
+            $query->bindParam(':gradelevel', $gradelevel, PDO::PARAM_STR);
+            $query->bindParam(':lrn', $lrn, PDO::PARAM_STR);
+            $query->bindParam(':schoollastattended', $schoollastattended, PDO::PARAM_STR);
+            $query->bindParam(':fathername', $fathername, PDO::PARAM_STR);
+            $query->bindParam(':fathercontactnumber', $fathercontactnumber, PDO::PARAM_STR);
+            $query->bindParam(':mothername', $mothername, PDO::PARAM_STR);
+            $query->bindParam(':mothercontactnumber', $mothercontactnumber, PDO::PARAM_STR);
+            $query->bindParam(':emergencycontactnumber', $emergencycontactnumber, PDO::PARAM_STR);
+            $query->bindParam(':yearadmitted', $yearadmitted, PDO::PARAM_STR);
+            //$query->bindParam(':uname', $uname, PDO::PARAM_STR);
+            //$query->bindParam(':password', $password, PDO::PARAM_STR);
+            $query->bindParam(':useraccountid', $uid, PDO::PARAM_INT);
+            $query->bindParam(':image', $image, PDO::PARAM_STR);
+            
+            $lastInsertId = $query->execute();
+            if ($lastInsertId) {
+                echo '<script>alert("Student has been added.");</script>';
+                echo "<script>window.location.href ='add-students.php';</script>";
+            } else {
+                echo '<script>alert("Something went wrong. Please try again.");</script>';
+            }
+        }
     }
-}}
-
-else
-{
-
-echo "<script>alert('Username or Student Id  already exist. Please try again');</script>";
 }
-}
-  ?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-   
-    <title>Student  Management System|| Add Students</title>
-    <!-- plugins:css -->
+<head>
+    <title>Student Management System || Add Students</title>
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
     <link rel="stylesheet" href="vendors/select2/select2.min.css">
     <link rel="stylesheet" href="vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="css/style.css" />
-    
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+</head>
+<body>
+<div class="container-scroller">
+    <?php include_once('includes/header.php');?>
+    <div class="container-fluid page-body-wrapper">
+        <?php include_once('includes/sidebar.php');?>
         <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title"> Add Student </h3>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"> Add Students</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="row">
-          
-              <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Add Student</h4>
-                   
-                    <form class="forms-sample" method="post" enctype="multipart/form-data">
-                      
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Name</label>
-                        <input type="text" name="stuname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Email</label>
-                        <input type="text" name="stuemail" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Gender</label>
-                        <select name="gender" value="" class="form-control" required='true'>
-                          <option value="">Choose Gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Date of Birth</label>
-                        <input type="date" name="dob" value="" class="form-control" required='true'>
-                      </div>
-                     
-                      <div class="form-group">
-                        <label for="exampleInputName1">Learner Reference Number</label>
-                        <input type="text" name="stuid" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Student Photo</label>
-                        <input type="file" name="image" value="" class="form-control" required='true'>
-                      </div>
-                      <h3>Parent's/Guardian's Details</h3>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Father's Name</label>
-                        <input type="text" name="fname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Mother's Name</label>
-                        <input type="text" name="mname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Contact Number</label>
-                        <input type="text" name="connum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Alternate Contact Number</label>
-                        <input type="text" name="altconnum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Address</label>
-                        <textarea name="address" class="form-control" required='true'></textarea>
-                      </div>
-<h3>Login Details</h3>
-<div class="form-group">
-                        <label for="exampleInputName1">Username</label>
-                        <input type="text" name="uname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Password</label>
-                        <input type="Password" name="password" value="" class="form-control" required='true'>
-                      </div>
-                      <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
-                     
-                    </form>
-                  </div>
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Add Student </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> Add Students</li>
+                        </ol>
+                    </nav>
                 </div>
-              </div>
+                <div class="row">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" style="text-align: center;">Add Student</h4>
+                                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label>Last Name:</label>
+                                        <input type="text" name="lastname" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>First Name:</label>
+                                        <input type="text" name="firstname" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Middle Initial:</label>
+                                        <input type="text" name="middleinitial" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select name="gender" class="form-control" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input type="number" name="age" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date of Birth:</label>
+                                        <input type="date" name="dob" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Place of Birth:</label>
+                                        <input type="text" name="placeofbirth" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Current Address:</label>
+                                        <input type="text" name="currentaddress" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permanent Address:</label>
+                                        <input type="text" name="permanentaddress" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact No.:</label>
+                                        <input type="text" name="contactno" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address:</label>
+                                        <input type="email" name="email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Strand and Grade Level:</label>
+                                        <select name="strand" class="form-control" required>
+                                            <option value="">Select Strand</option>
+                                            <?php foreach ($strands as $strand) { ?>
+                                                <option value="<?php echo $strand['course_name']; ?>"><?php echo $strand['course_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <select name="gradelevel" class="form-control" required>
+                                            <option value="">Select Grade Level</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>LRN:</label>
+                                        <input type="text" name="lrn" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>School Last Attended:</label>
+                                        <input type="text" name="schoollastattended" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Father’s Name:</label>
+                                        <input type="text" name="fathername" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact Number:</label>
+                                        <input type="text" name="fathercontactnumber" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mother’s Name:</label>
+                                        <input type="text" name="mothername" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact Number (optional):</label>
+                                        <input type="text" name="mothercontactnumber" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact Number (in case of emergency):</label>
+                                        <input type="text" name="emergencycontactnumber" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                    <label>Year Admitted:</label>
+                                       <input type="text" name="yearadmitted" class="form-control" value="<?php echo date('Y-m-d'); ?>" readonly>
+                                        </div>
+
+
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input type="text" name="uname" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input type="password" name="password" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Student Photo:</label>
+                                        <input type="file" name="image" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+            <?php include_once('includes/footer.php');?>
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="vendors/select2/select2.min.js"></script>
-    <script src="vendors/typeahead.js/typeahead.bundle.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="js/typeahead.js"></script>
-    <script src="js/select2.js"></script>
-    <!-- End custom js for this page -->
-  </body>
-</html><?php }  ?>
+</div>
+</body>
+</html>
