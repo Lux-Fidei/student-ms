@@ -50,9 +50,10 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>First Name</th>
                                                     <th>Email</th>
-                                                    <th>Strand</th>
+                                                    <th>Assigned Strand</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -66,12 +67,13 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                 foreach ($results as $result) {
                                                     echo "<tr>";
                                                     echo "<td>" . $count++ . "</td>";
-                                                    echo "<td>" . $result->fname . " " . $result->lname . "</td>";
+                                                    echo "<td>" . $result->lname ."</td>";
+                                                    echo "<td>" . $result->fname ."</td>";
                                                     echo "<td>" . $result->email . "</td>";
                                                     echo "<td>" . $result->strand . "</td>";
                                                     echo "<td>
-                                                            <a href='edit-record-examineer.php?id=" . $result->id . "' class='btn btn-primary btn-sm'>Edit</a>
-                                                            <a href='delete-record-examineer.php?id=" . $result->id . "' class='btn btn-danger btn-sm'>Delete</a>
+                                                            <a href='edit-record-examineer.php?id=" . $result->id . "'class='icon-eye'></a>
+                                                            ||<a href='delete-record-examineer.php?id=" . $result->id . "' class='icon-trash'></a>
                                                         </td>";
                                                     echo "</tr>";
                                                 }
