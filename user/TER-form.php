@@ -342,6 +342,5 @@ if (!$isTerActive) {
             <input type="submit" value="Submit Evaluation">
         </form>
     </div>
-
 </body>
 </html>

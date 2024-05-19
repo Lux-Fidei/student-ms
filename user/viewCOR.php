@@ -49,9 +49,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                 </div>
                 <div style="display: flex; flex-direction: column; justify-content: center">
                   <span>Republic of the Philippines</span>
-                  <span style="color: #5f1227;">MINDANAO STATE UNIVERSITY</span>
-                  <span  style="color: #055727;">SENIOR HIGH SCHOOL</span>
-                  <span>Marawi City</span>
+                  <span style="color: maroon;font-size: 17px;font-weight: bold;font-family: 'Times New Roman', Times, serif;">MINDANAO STATE UNIVERSITY</span>
+                  <span  style="color: black;font-size: 17px; font-family: 'Times New Roman', Times, serif;;">SENIOR HIGH SCHOOL</span>
+         <span style="text-align: left;margin: 0;font-size: 14px; font-weight: 300;  font-family: Arial, Helvetica, sans-serif;">Marawi City</span>
                 </div>
               </div>
               <div style="display: flex; justify-content: center;">
@@ -60,7 +60,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
               <div>
                 <hr style="border-color:black; border:3px solid #80d8a8; margin-top: 4px; width: 99%" />
               </div>
-                
+
               <?php
                   if (isset($_POST['submit'])) {
                     $query = "INSERT INTO `request_docs`(`st_id`, `re_id`, `docName`, `isApproved`) VALUES (:st_id, :re_id, 'COR', 'Pending')";
@@ -215,6 +215,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    
     <script src="vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->

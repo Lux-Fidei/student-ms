@@ -71,8 +71,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                 <tr>
                                                     <th class="font-weight-bold">Student No.</th>
                                                     <th class="font-weight-bold">LRN</th>
-                                                   
-                                                    <th class="font-weight-bold">Complete Name</th>
+                                                    <th class="font-weight-bold">Last Name</th>
+                                                    <th class="font-weight-bold">First Name</th>
+                                                    <th class="font-weight-bold">Middle Name</th>
+                                                    <th class="font-weight-bold">Grade Level</th>
+                                                    <th class="font-weight-bold">Track/Strand</th>
                                                     <th class="font-weight-bold">Institutional Email</th>
                                                     <th class="font-weight-bold">Admission Date</th>
                                                     <th class="font-weight-bold">Action</th>
@@ -91,8 +94,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                     <tr>
                                                         <td><?php echo htmlentities($cnt); ?></td>
                                                         <td><?php echo htmlentities($row->LRN); ?></td>
-                                                
-                                                        <td><?php echo htmlentities($row->FirstName); ?></td>
+                                                        <td><?php echo htmlentities($row->LastName) ?></td>
+                                                        <td><?php echo htmlentities($row->FirstName) ?></td>
+                                                        <td><?php echo htmlentities($row->MiddleInitial) ?></td>
+                                                        <td><?php echo htmlentities($row->GradeLevel) ?></td>
+                                                        <td><?php echo htmlentities($row->Strand) ?></td>
                                                         <td><?php echo htmlentities($row->EmailAddress); ?></td>
                                                         <td><?php echo htmlentities($row->YearAdmitted); ?></td>
                                                         <td>
