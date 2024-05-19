@@ -65,11 +65,20 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                         <h4 class="card-title mb-sm-0">Manage Students</h4>
                                         <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Students</a>
                                     </div>
+                                    <!-- Search Form -->
+                                    <form method="post" action="">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Search students..." name="search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <div class="table-responsive border rounded p-1">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="font-weight-bold">Student No.</th>
+                                                    <th class="font-weight-bold">Student ID</th>
                                                     <th class="font-weight-bold">LRN</th>
                                                     <th class="font-weight-bold">Last Name</th>
                                                     <th class="font-weight-bold">First Name</th>
@@ -83,8 +92,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT * FROM tblstudent";
+                                                $search = isset($_POST['search']) ? $_POST['search'] : '';
+                                                $sql = "SELECT * FROM tblstudent WHERE FirstName LIKE :search OR LastName LIKE :search OR MiddleInitial LIKE :search OR GradeLevel LIKE :search OR Strand LIKE :search OR EmailAddress LIKE :search OR YearAdmitted LIKE :search";
                                                 $query = $dbh->prepare($sql);
+                                                $search_param = "%$search%";
+                                                $query->bindParam(':search', $search_param, PDO::PARAM_STR);
                                                 $query->execute();
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -100,54 +112,54 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                         <td><?php echo htmlentities($row->GradeLevel) ?></td>
                                                         <td><?php echo htmlentities($row->Strand) ?></td>
                                                         <td><?php echo htmlentities($row->EmailAddress); ?></td>
-                                                        <td><?php echo htmlentities($row->YearAdmitted); ?></td>
-                                                        <td>
-                                                            <div>
-                                                                <a href="edit-student-detail.php?editid=<?php echo htmlentities($row->ID); ?>"><i class="icon-eye"></i></a>
-                                                                || <a href="manage-students.php?delid=<?php echo ($row->ID); ?>" onclick="return confirm('Do you really want to Delete ?');"><i class="icon-trash"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php $cnt = $cnt + 1;
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- Pagination code -->
-                                    <?php
-                                    // Code for pagination
-                                    // Add pagination logic here
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                <?php include_once('includes/footer.php'); ?>
-                <!-- partial -->
-            </div>
-            <!-- main-panel ends -->
-        </div>
-        <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="./vendors/chart.js/Chart.min.js"></script>
-    <script src="./vendors/moment/moment.min.js"></script>
-    <script src="./vendors/daterangepicker/daterangepicker.js"></script>
-    <script src="./vendors/chartist/chartist.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="./js/dashboard.js"></script>
-    <!-- End custom js for this page -->
+<td><?php echo htmlentities($row->YearAdmitted); ?></td>
+<td>
+<div>
+<a href="edit-student-detail.php?editid=<?php echo htmlentities($row->ID); ?>"><i class="icon-eye"></i></a>
+|| <a href="manage-students.php?delid=<?php echo ($row->ID); ?>" onclick="return confirm('Do you really want to Delete ?');"><i class="icon-trash"></i></a>
+</div>
+</td>
+</tr>
+<?php $cnt = $cnt + 1;
+                                             } ?>
+</tbody>
+</table>
+</div>
+<!-- Pagination code -->
+<?php
+                                 // Code for pagination
+                                 // Add pagination logic here
+                                 ?>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- content-wrapper ends -->
+<!-- partial:partials/_footer.html -->
+<?php include_once('includes/footer.php'); ?>
+<!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="./vendors/chart.js/Chart.min.js"></script>
+<script src="./vendors/moment/moment.min.js"></script>
+<script src="./vendors/daterangepicker/daterangepicker.js"></script>
+<script src="./vendors/chartist/chartist.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="js/off-canvas.js"></script>
+<script src="js/misc.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<script src="./js/dashboard.js"></script>
+<!-- End custom js for this page -->
 </body>
 </html>

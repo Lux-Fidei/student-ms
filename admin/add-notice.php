@@ -9,16 +9,16 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $nottitle = $_POST['nottitle'];
         $facultyid = $_SESSION['sturecmsaid'];
         $notmsg = $_POST['notmsg'];
-        $noticeTo = $_POST['noticeTo']; // Added
+        $noticeTo = $_POST['noticeTo'];
         $course_id = $_POST['course_id'];
 
-        $sql = "INSERT INTO tblnotice (NoticeTitle, facultyid, NoticeMsg, course_id, NoticeTo) VALUES (:nottitle, :facultyid, :notmsg, :course_id, :noticeTo)"; // Modified
+        $sql = "INSERT INTO tblnotice (NoticeTitle, facultyid, NoticeMsg, course_id, NoticeTo) VALUES (:nottitle, :facultyid, :notmsg, :course_id, :noticeTo)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':nottitle', $nottitle, PDO::PARAM_STR);
         $query->bindParam(':facultyid', $facultyid, PDO::PARAM_STR);
         $query->bindParam(':notmsg', $notmsg, PDO::PARAM_STR);
         $query->bindParam(':course_id', $course_id, PDO::PARAM_STR);
-        $query->bindParam(':noticeTo', $noticeTo, PDO::PARAM_STR); // Modified
+        $query->bindParam(':noticeTo', $noticeTo, PDO::PARAM_STR);
         $query->execute();
         $LastInsertId = $dbh->lastInsertId();
         if ($LastInsertId > 0) {
@@ -72,9 +72,18 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                             <label for="exampleInputEmail3">Notice For</label>
                                             <select name="noticeTo" class="form-control" required>
                                                 <option value="">Select Recipient</option>
-                                                <option value="student">Student</option>
-                                                <option value="record_examiners">Record Examiners</option>
-                                                <option value="faculty">Faculty</option>
+                                                <option value="all_students">All Students</option>
+                                                <option value="all_faculty">All Faculty</option>
+                                                <option value="all_staff">All Staff</option>
+                                                <?php
+                                                $sql = "SELECT * FROM tbl_course";
+                                                $query = $dbh->prepare($sql);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                foreach ($results as $result) {
+                                                    echo '<option value="' . $result->course_id . '">' . $result->course_name . '</option>';
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="form-group">

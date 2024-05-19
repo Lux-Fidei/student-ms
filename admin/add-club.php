@@ -9,6 +9,17 @@ if (empty($_SESSION['sturecmsaid'])) {
     exit;
 } 
 
+// Delete Club
+if(isset($_GET['delete'])){
+    $id=$_GET['delete'];
+    $sql = "DELETE FROM tbl_club WHERE ClubID=:id";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':id',$id, PDO::PARAM_STR);
+    $query->execute();
+    header('Location: '.$_SERVER['PHP_SELF']);
+    exit;
+}
+
 if (isset($_POST['submit'])) {
     $clubname = $_POST['clubname'];
     $adviser = $_POST['adviser'];
@@ -32,6 +43,7 @@ if (isset($_POST['submit'])) {
         echo '<script>alert("Something Went Wrong. Please try again")</script>';
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,128 +55,128 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
     <link rel="stylesheet" href="vendors/select2/select2.min.css">
     <link rel="stylesheet" href="vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<div class="container-scroller">
-    <!-- Include header -->
-    <?php include_once('includes/header.php');?>
+    <div class="container-scroller">
+        <!-- Include header -->
+        <?php include_once('includes/header.php');?>
 
-    <div class="container-fluid page-body-wrapper">
-        <!-- Include sidebar -->
-        <?php include_once('includes/sidebar.php');?>
+        <div class="container-fluid page-body-wrapper">
+            <!-- Include sidebar -->
+            <?php include_once('includes/sidebar.php');?>
 
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="page-header">
-                    <h3 class="page-title"> Add Club </h3>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"> Add Club</li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="row">
-                    <div class="col-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title" style="text-align: center;">Add Club</h4>
-                                <form class="forms-sample" method="post">
-                                    <div class="form-group">
-                                        <label for="exampleInputClubName">Club Name</label>
-                                        <input type="text" name="clubname" class="form-control" placeholder="Enter Club Name" required="true">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputAdviser">Club Adviser</label>
-                                        <select class="form-control" name="adviser" required>
-                                            <option value="">Select Adviser</option>
-                                            <?php
-                                            $sql = "SELECT * FROM tblfaculty";
-                                            $query = $dbh->prepare($sql);
-                                            $query->execute();
-                                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                            foreach ($results as $row) {
-                                                ?>
-                                                <option value="<?php echo htmlentities($row->ID); ?>"><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></option>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title"> Add Club </h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Club</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title" style="text-align: center;">Add Club</h4>
+                                    <form class="forms-sample" method="post">
+                                        <div class="form-group">
+                                            <label for="exampleInputClubName">Club Name</label>
+                                            <input type="text" name="clubname" class="form-control" placeholder="Enter Club Name" required="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputAdviser">Club Adviser</label>
+                                            <select class="form-control" name="adviser" required>
+                                                <option value="">Select Adviser</option>
                                                 <?php
-                                            }   
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
-                                </form>
+                                                $sql = "SELECT * FROM tblfaculty";
+                                                $query = $dbh->prepare($sql);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                foreach ($results as $row) {
+                                                    ?>
+                                                    <option value="<?php echo htmlentities($row->ID); ?>"><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></option>
+                                                    <?php
+                                                }   
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Table to display added clubs -->
-                <div class="row">
-                    <div class="col-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">List of Added Clubs</h4>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Club ID</th>
-                                                <th>Club Name</th>
-                                                <th>Club Adviser</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $sql = "SELECT c.*, f.FirstName, f.LastName FROM tbl_club c JOIN tblfaculty f ON c.AdviserID = f.ID";
-                                            $query = $dbh->prepare($sql);
-                                            $query->execute();
-                                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                            $cnt = 1;
-                                            if ($query->rowCount() > 0) {
-                                                foreach ($results as $row) {
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">List of Added Clubs</h4>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Club ID</th>
+                                                    <th>Club Name</th>
+                                                    <th>Club Adviser</th>
+                                                    <th>Actions</th> <!-- Added Actions column -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $sql = "SELECT c.*, f.FirstName, f.LastName FROM tbl_club c JOIN tblfaculty f ON c.AdviserID = f.ID";
+                                                $query = $dbh->prepare($sql);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                $cnt = 1;
+                                                if ($query->rowCount() > 0) {
+                                                    foreach ($results as $row) {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo htmlentities($cnt); ?></td>
+                                                            <td><?php echo htmlentities($row->ClubName); ?></td>
+                                                            <td><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></td>
+                                                            <td>
+                                                                <!-- Edit button -->
+                                                                <a href="edit-club.php?id=<?php echo $row->ClubID; ?>" class="btn btn-info btn-sm">Edit</a>
+                                                                <!-- Delete button -->
+                                                                <a href="?delete=<?php echo $row->ClubID; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $cnt++;
+                                                    }
+                                                } else {
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo htmlentities($cnt); ?></td>
-                                                        <td><?php echo htmlentities($row->ClubName); ?></td>
-                                                        <td><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></td>
+                                                        <td colspan="4">No clubs found</td>
                                                     </tr>
                                                     <?php
-                                                    $cnt++;
                                                 }
-                                            } else {
                                                 ?>
-                                                <tr>
-                                                    <td colspan="3">No clubs found</td>
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- content-wrapper ends -->
+                <!-- Include footer -->
+                <?php include_once('includes/footer.php');?>
             </div>
-            <!-- content-wrapper ends -->
-            <!-- Include footer -->
-            <?php include_once('includes/footer.php');?>
-            <!-- partial -->
+            <!-- main-panel ends -->
         </div>
-        <!-- main-panel ends -->
+        <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller -->
+    <!-- container-scroller
+<!-- container-scroller ends -->
 <!-- plugins:js -->
 <script src="vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
