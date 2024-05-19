@@ -80,6 +80,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <span>Full Name: </span>
                           <span>Track and Strand: </span>
                           <span>Grade Level: </span>
+                          <span>Semester: </span>
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
@@ -92,6 +93,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                               echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
                               echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                               echo "<span>" . '11' . "</span>";
+                              echo "<span>" . '1st Semester' . "</span>";
                             }
                           ?>
                         </div>
@@ -99,7 +101,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                       <?php
                       $query = "SELECT COUNT(*) as count FROM tblgrades WHERE StuID=:stuid";
                       $query = $dbh->prepare($query);
-                      $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
+                      $query->bindParam(':stuid', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                       $query->execute();
                       $result = $query->fetch(PDO::FETCH_ASSOC);
                       $count = $result['count'];
@@ -117,14 +119,32 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                             </thead>
                             <tbody>
                               <?php
-                                $query = "SELECT * FROM tblgrades WHERE StuID=:stuid";
+                                $query = "SELECT 
+                                g.ID, 
+                                g.StuID, 
+                                g.Subject, 
+                                s.SubjectName, 
+                                g.FirstGrading, 
+                                g.SecondGrading, 
+                                g.Semester, 
+                                g.Faculty, 
+                                g.Units
+                            FROM 
+                                tblgrades g
+                            JOIN 
+                                tblsubjects s
+                            ON 
+                                g.Subject = s.SubjectID
+                            WHERE
+                                  g.StuID = :stuid;
+                            ";
                                 $query = $dbh->prepare($query);
-                                $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
+                                $query->bindParam(':stuid', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 foreach ($results as $row) {
                                   echo "<tr>";
-                                  echo "<td style='border: 1px solid black; text-align: center;font-weight: bold'>" . htmlentities($row->Subject) . "</td>";
+                                  echo "<td style='border: 1px solid black; text-align: center;font-weight: bold'>" . htmlentities($row->SubjectName) . "</td>";
                                   echo "<td style='border: 1px solid black; text-align: center;'>" . htmlentities($row->Units) . "</td>";
                                   if ($row->FirstGrading < 75) {
                                     echo "<td style='border: 1px solid black; text-align: center; color: red;'>" . htmlentities($row->FirstGrading) . "</td>";
@@ -150,7 +170,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                                   <?php
                                     $query = "SELECT SUM(Units) as total_units FROM tblgrades WHERE StuID=:stuid";
                                     $query = $dbh->prepare($query);
-                                    $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
+                                    $query->bindParam(':stuid', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                                     $query->execute();
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     foreach ($results as $row) {
@@ -179,7 +199,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                                     }
                                     $query = "SELECT SUM(FirstGrading*Units+SecondGrading*Units)/(SUM(Units)+SUM(Units)) as general_average FROM tblgrades WHERE StuID=:stuid";
                                     $query = $dbh->prepare($query);
-                                    $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
+                                    $query->bindParam(':stuid', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                                     $query->execute();
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     foreach ($results as $row) {
@@ -208,6 +228,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <span>Full Name: </span>
                           <span>Track and Strand: </span>
                           <span>Grade Level: </span>
+                          <span>Semester: </span>
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
@@ -220,6 +241,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                               echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
                               echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                               echo "<span>" . '11' . "</span>";
+                              echo "<span>" . '2nd Semester' . "</span>";
                             }
                           ?>
                         </div>
@@ -278,7 +300,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                                   <?php
                                     $query = "SELECT SUM(Units) as total_units FROM tblgrades WHERE StuID=:stuid";
                                     $query = $dbh->prepare($query);
-                                    $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
+                                    $query->bindParam(':stuid', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                                     $query->execute();
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     foreach ($results as $row) {
@@ -338,6 +360,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <span>Full Name: </span>
                           <span>Track and Strand: </span>
                           <span>Grade Level: </span>
+                          <span>Semester: </span>
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
@@ -351,6 +374,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                                 echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
                                 echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                                 echo "<span>" . '12' . "</span>";
+                                echo "<span>" . '1st Semester' . "</span>";
                               }
                             }
                           ?>
@@ -468,6 +492,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <span>Full Name: </span>
                           <span>Track and Strand: </span>
                           <span>Grade Level: </span>
+                          <span>Semester: </span>
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
@@ -480,6 +505,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                               echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
                               echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                               echo "<span>" . '12' . "</span>";
+                              echo "<span>" . '2nd Semester' . "</span>";
                             }
                           ?>
                         </div>
