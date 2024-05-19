@@ -38,10 +38,10 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
         <?php include_once('includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row purchace-popup">
+          <div class="content-wrapper" style="display: flex; justify-content: center">
+            <div class="row purchace-popup" style="width: 80%">
               <div class="col-12 stretch-card grid-margin">
-                <div class="card card-secondary" style="padding: 16px">
+                <div class="card card-secondary" style="padding: 16px; border-radius: 16px">
                 <div class="header" style="padding: 16px 16px 0 16px; display: flex; flex-direction: row">
                 <div>
                   <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo" width="96px" style="margin-right: 32px">
@@ -79,18 +79,16 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                   <div>
                     <h1 style="text-align: center">CERTIFICATION</h1>
                     <div style="display: flex; justify-content: center;">
-                      <img src="" alt="someone" style="border: 1px solid black; margin: 32px 0" width="192" height="192">
+                      <img src="./images/<?php echo htmlentities($results[0]->Image)?>" alt="someone" style="border: 1px solid black; margin: 32px 0" width="192" height="192">
                     </div>
                     <div style="display: flex; justify-content: center">
-                      <p style="width: 72%; text-align: justify"> &emsp;&emsp;&emsp;This is to certify that based on the available in this school,<strong> <?php echo $results[0]->StudentName ?></strong>, with LRN <?php echo $results[0]->StuID ?>, is officially enrolled as a<strong> <?php echo $results[0]->grade_level ?> student</strong> under the <strong><?php echo $results[0]->strand ?> strand</strong> this first semester, academic year 2023 – 2024.</p>
+                      <p style="width: 72%; text-align: justify"> &emsp;&emsp;&emsp;This is to certify that based on the available in this school,<strong> <?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName ?></strong>, with LRN <?php echo $results[0]->LRN ?>, is officially enrolled as a<strong> <?php echo $results[0]->GradeLevel ?> student</strong> under the <strong><?php echo $results[0]->Strand ?> strand</strong> this first semester, academic year 2023 – 2024.</p>
                     </div>
                     
                     <br />
                     <div style="display: flex; justify-content: center">
                       <p style="width: 72%; text-align: justify">&emsp;&emsp;&emsp;This certification is issued on <?php echo date('F d, Y'); ?> upon the request of Mr. <?php
-                      $studentName = $results[0]->StudentName;
-                      $lastName = substr($studentName, strrpos($studentName, ' ') + 1);
-                      echo $lastName;
+                      echo htmlentities($results[0]->LastName);
                       ?> in support of his registration for a scholarship.</p>
                       
                     </div>
@@ -101,7 +99,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                     <br />
                   <p class="chairperson" style="font-weight: bold; margin-bottom: 0">
                     <?php
-                      $query = "SELECT FirstName, LastName FROM tblfaculty WHERE position = 'Chairperson' AND assignedStrand = '{$results[0]->strand}'";
+                      $query = "SELECT FirstName, LastName FROM tblfaculty WHERE position = 'Chairperson' AND assignedStrand = '{$results[0]->Strand}'";
                       $query = $dbh->prepare($query);
                       $query->execute();
                       $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -112,7 +110,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         echo 'Chairperson not found';
                       }
                     ?>
-                  <p class="position font-italic"><?php echo $results[0]->strand; ?> Track Chairperson</p>
+                  <p class="position font-italic"><?php echo $results[0]->Strand; ?> Track Chairperson</p>
                     <br />
                     <br />
                   <p class="approved">Approved by</p>

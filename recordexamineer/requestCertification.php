@@ -33,7 +33,7 @@ if (empty($_SESSION['record_examineer_id'])) {
                 <div class="content-wrapper">
                     <div class="row purchace-popup">
                         <div class="col-12 stretch-card grid-margin">
-                            <div class="card card-secondary" style="padding: 16px">
+                            <div class="card card-secondary" style="padding: 16px;">
                             <div class="d-sm-flex align-items-center mb-4">
                                         <h4 class="card-title mb-sm-0">Manage Students</h4>
                                         <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Students</a>
@@ -54,7 +54,7 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                 <?php
                                                     if(isset($_POST['submit']))
                                                     {
-                                                        $stuID = $_POST['stuID'];
+                                                        $stuID = $_POST['student_ID'];
                                                         $query = $dbh->prepare("UPDATE request_docs SET isApproved = 'Approved' WHERE st_id = :stuID");
                                                         $query->bindParam(':stuID', $stuID,PDO::PARAM_STR);
                                                         $query->execute();
@@ -62,7 +62,20 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                     }
                                                 ?>
                                                 <?php
-                                                $sql = "SELECT * FROM tblstudent";
+                                                $sql = "SELECT 
+                                                s.ID,
+                                                s.LRN,
+                                                s.LastName,
+                                                s.FirstName,
+                                                s.MiddleInitial,
+                                                s.EmailAddress,
+                                                s.YearAdmitted,
+                                                r.docName
+                                            FROM 
+                                                request_docs r
+                                            JOIN 
+                                                tblstudent s ON r.st_id = s.ID;
+                                            ";
                                                 $query = $dbh->prepare($sql);
                                                 $query->execute();
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -72,7 +85,7 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                 ?>
                                                     <tr>
                                                         <td><?php echo htmlentities($cnt); ?></td>
-                                                        <td><?php echo htmlentities($row->ID); ?></td>
+                                                        <td><?php echo htmlentities($row->LRN); ?></td>
                                                 
                                                         <td><?php echo htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName); ?></td>
                                                         <td><?php echo htmlentities($row->EmailAddress); ?></td>
@@ -80,7 +93,7 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                         <td style="display:flex;justify-content:center">
                                                             <div>
                                                                 <form method="post">
-                                                                    <input type="hidden" name="stuID" value="<?php echo htmlentities($row->ID); ?>">
+                                                                    <input type="hidden" name="student_ID" value="<?php echo htmlentities($row->ID);?>">
                                                                     <button type="submit" name="submit"><i class="icon-check"></i></button>
                                                                 </form>
                                                             </div>

@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
                 <div class="profile-image">
-                <img class="img-xs rounded-circle" src="../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
+                <img class="img-xs rounded-circle" src="./../faculty-hybrid/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
@@ -19,7 +19,7 @@
                     if ($query->rowCount() > 0) {
                         foreach ($results as $row) {
                     ?>
-                            <p class="profile-name"><?php echo htmlentities($row->FirstName); ?></p>
+                            <p class="profile-name"><?php  echo htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . '. ' . htmlentities($row->LastName);?></p>
                             <p class="designation"><?php echo htmlentities($row->Email); ?></p>
                     <?php
                             $cnt = $cnt + 1;

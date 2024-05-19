@@ -40,7 +40,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary"  style="border-radius: 12px">
                   <div class="card-body">
-                    <h5>Sports Grade Level: </h5>
+                    <h5><?php echo htmlentities($results[0]->assignedStrand) ?> Grade Level: </h5>
                     <Select class="form-control" id="section" name="Grade-level" onchange="filterTable()" style="margin-bottom: 16px">
                       <option value="">Select Grade Level</option>
                       <option value="11">11</option>
@@ -59,7 +59,6 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                     (<?php echo htmlentities($row->assignedStrand); ?>):
                     </h5>
                     <table id="studentTable">
-                      <caption>List of Students</caption>
                       <thead>
                         <tr>
                           <td></td>
@@ -76,16 +75,10 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         if ($query->rowCount() > 0) {
                           $count = 1;
                           foreach($results as $row) {
-                            echo "<tr class='data' data-section='" . $row->grade_level . "'>";
+                            echo "<tr class='data' data-section='" . $row->GradeLevel . "'>";
                             echo "<td>" . $count . ".&nbsp;&nbsp;</td>";
-                            if (strpos($row->StudentName, ' ') !== false) {
-                              list($firstName, $lastName) = explode(" ", $row->StudentName, 2);
-                            } else {
-                              $firstName = $row->StudentName;
-                              $lastName = "";
-                            }
-                            echo "<td>" . $firstName . "</td>";
-                            echo "<td>" . $lastName . "</td>";
+                            echo "<td>" . $row->FirstName . "</td>";
+                            echo "<td>" . $row->LastName . "</td>";
                             $count++;
                           }
                         }

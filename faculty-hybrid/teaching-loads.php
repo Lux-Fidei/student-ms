@@ -46,39 +46,49 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       <?php
                       if(isset($_POST['submit']))
                       {
-                      $faculty=$_POST['faculty'];
+                        $faculty=$_POST['faculty'];
+                        $subjectName = substr($_POST['subject'], 0, strpos($_POST['subject'], '('));
+                        $subjectQuery = "SELECT SubjectID FROM tblsubjects WHERE SubjectName = :subjectName";
+                        $subjectStmt = $dbh->prepare($subjectQuery);
+                        $subjectStmt->bindParam(':subjectName', $subjectName, PDO::PARAM_STR);
+                        $subjectStmt->execute();
+                        $subjectResult = $subjectStmt->fetch(PDO::FETCH_ASSOC);
+                        $subjectID = $subjectResult['SubjectID'];
 
-                      $subjectName = substr($_POST['subject'], 0, strpos($_POST['subject'], '('));
-                      $subjectQuery = "SELECT SubjectID FROM tblsubjects WHERE SubjectName = :subjectName";
-                      $subjectStmt = $dbh->prepare($subjectQuery);
-                      $subjectStmt->bindParam(':subjectName', $subjectName, PDO::PARAM_STR);
-                      $subjectStmt->execute();
-                      $subjectResult = $subjectStmt->fetch(PDO::FETCH_ASSOC);
-                      $subjectID = $subjectResult['SubjectID'];
+                        $strand=$_POST['strand'];
+                        $courseQuery = "SELECT course_id FROM tbl_course WHERE course_name = :strand";
+                        $courseStmt = $dbh->prepare($courseQuery);
+                        $courseStmt->bindParam(':strand', $strand, PDO::PARAM_STR);
+                        $courseStmt->execute();
+                        $courseResult = $courseStmt->fetch(PDO::FETCH_ASSOC);
+                        $courseID = $courseResult['course_id'];
 
-                      $strand=$_POST['strand'];
-                      $courseQuery = "SELECT course_id FROM tbl_course WHERE course_name = :strand";
-                      $courseStmt = $dbh->prepare($courseQuery);
-                      $courseStmt->bindParam(':strand', $strand, PDO::PARAM_STR);
-                      $courseStmt->execute();
-                      $courseResult = $courseStmt->fetch(PDO::FETCH_ASSOC);
-                      $courseID = $courseResult['course_id'];
+                        $timeslot=$_POST['timeslot'];
+                        $building=$_POST['building'];
+                        $room=$_POST['room'];
+                        $days=$_POST['days'];
 
-                      $timeslot=$_POST['timeslot'];
-                      $building=$_POST['building'];
-                      $room=$_POST['room'];
-                      $days=$_POST['days'];
-
-                      $query = $dbh->prepare("INSERT INTO schedule (faculty_id, subject_id, strand_id, building, room, timeslot, days) VALUES (:faculty, :subject, :strand, :building, :room, :timeslot, :days)");
-                      $query->bindParam(':faculty',$faculty,PDO::PARAM_STR);
-                      $query->bindParam(':subject',$subjectID,PDO::PARAM_STR);
-                      $query->bindParam(':strand',$courseID,PDO::PARAM_STR);
-                      $query->bindParam(':timeslot',$timeslot,PDO::PARAM_STR);
-                      $query->bindParam(':days',$days,PDO::PARAM_STR);
-                      $query->bindParam(':building',$building,PDO::PARAM_STR);
-                      $query->bindParam(':room',$room,PDO::PARAM_STR);
-                      $query->execute();
-                      $lastInsertId = $dbh->lastInsertId();
+                        $availableQuery = "SELECT COUNT(*) FROM schedule WHERE faculty_id = :faculty_id AND timeslot = :timeslot AND days = :days";
+                        $availableStmt = $dbh->prepare($availableQuery);
+                        $availableStmt->bindParam(':faculty_id', $faculty, PDO::PARAM_STR);
+                        $availableStmt->bindParam(':timeslot', $timeslot, PDO::PARAM_STR);
+                        $availableStmt->bindParam(':days', $days, PDO::PARAM_STR);
+                        $availableStmt->execute();
+                        $availableResult = $availableStmt->fetch(PDO::FETCH_ASSOC);
+                        if ($availableResult['COUNT(*)'] > 0) {
+                          echo "<script>alert('Faculty is not available at the selected timeslot and days.')</script>";
+                        } else {
+                          $query = $dbh->prepare("INSERT INTO schedule (faculty_id, subject_id, strand_id, building, room, timeslot, days) VALUES (:faculty, :subject, :strand, :building, :room, :timeslot, :days)");
+                          $query->bindParam(':faculty',$faculty,PDO::PARAM_STR);
+                          $query->bindParam(':subject',$subjectID,PDO::PARAM_STR);
+                          $query->bindParam(':strand',$courseID,PDO::PARAM_STR);
+                          $query->bindParam(':timeslot',$timeslot,PDO::PARAM_STR);
+                          $query->bindParam(':days',$days,PDO::PARAM_STR);
+                          $query->bindParam(':building',$building,PDO::PARAM_STR);
+                          $query->bindParam(':room',$room,PDO::PARAM_STR);
+                          $query->execute();
+                          $lastInsertId = $dbh->lastInsertId();
+                        }
                       }
                       ?>
                       <div class="form-group">
