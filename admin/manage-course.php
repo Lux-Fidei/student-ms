@@ -75,8 +75,8 @@ if (!isset($_SESSION['sturecmsaid']) || strlen($_SESSION['sturecmsaid']) == 0) {
                                                             <td><?php echo htmlentities($result->course_description); ?></td>
                                                             <td><?php echo htmlentities($result->date_created); ?></td>
                                                             <td>
-                                                                <a href="edit-course.php?id=<?php echo $result->course_id; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                                <a href="delete-course.php?id=<?php echo $result->course_id; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
+                                                            <a href="edit-course.php?editid=<?php echo htmlentities($row->ID); ?>"><i class='icon-eye'></i></a>
+                                                            || <a href="delete-course.php?delid=<?php echo ($row->ID); ?>" onclick="return confirm('Do you really want to Delete ?');"><i class="icon-trash"></i></a>
                                                             </td>
                                                         </tr>
                                                 <?php
