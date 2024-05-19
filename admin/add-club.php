@@ -143,9 +143,9 @@ if (isset($_POST['submit'])) {
                                                             <td><?php echo htmlentities($row->FirstName . ' ' . $row->LastName); ?></td>
                                                             <td>
                                                                 <!-- Edit button -->
-                                                                <a href="edit-club.php?id=<?php echo $row->ClubID; ?>" class="btn btn-info btn-sm">Edit</a>
+                                                                <a href="edit-club.php?id=<?php echo $row->ClubID; ?>" class="icon-eye"></a>
                                                                 <!-- Delete button -->
-                                                                <a href="?delete=<?php echo $row->ClubID; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                                || <a href="?delete=<?php echo $row->ClubID; ?>" class='icon-trash'></a>
                                                             </td>
                                                         </tr>
                                                         <?php

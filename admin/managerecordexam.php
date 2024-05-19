@@ -45,6 +45,14 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title" style="text-align: left;">Manage Staff</h4>
+                                    <!-- Search form -->
+                                    <form method="GET" action="">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="search" placeholder="Search...">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </form>
+                                    <!-- End of search form -->
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -59,7 +67,16 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT * FROM tbl_record_examineer";
+                                                // Check if search parameter is set
+                                                if (isset($_GET['search']) && !empty($_GET['search'])) {
+                                                    $search = $_GET['search'];
+                                                    // Modify SQL query to include search functionality
+                                                    $sql = "SELECT * FROM tbl_record_examineer WHERE lname LIKE '%$search%' OR fname LIKE '%$search%' OR email LIKE '%$search%' OR strand LIKE '%$search%'";
+                                                } else {
+                                                    // Default SQL query without search
+                                                    $sql = "SELECT * FROM tbl_record_examineer";
+                                                }
+                                                
                                                 $query = $dbh->prepare($sql);
                                                 $query->execute();
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
