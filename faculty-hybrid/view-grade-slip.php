@@ -54,18 +54,20 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       <span>Full Name: </span>
                       <span>Track and Strand: </span>
                       <span>Grade Level: </span>
+                      <span>Semester: </span>
                     </div>
                     <div style="display: flex; flex-direction: column">
                       <?php
-                        $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                        $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                         $query = $dbh->prepare($query);
-                        $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                        $query->bindParam(':stuid', $_GET['LRN'], PDO::PARAM_STR);
                         $query->execute();
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
-                          echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->LastName) . "</span>";
+                          echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                           echo "<span>" . '11' . "</span>";
+                          echo "<span>" . "1st Semester" . "</span>";
                         }
                       ?>
                     </div>
@@ -73,7 +75,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   <?php
                   $query = "SELECT COUNT(*) as count FROM tblgrades WHERE StuID=:stuid";
                   $query = $dbh->prepare($query);
-                  $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                  $query->bindParam(':stuid', $_GET['StuID'], PDO::PARAM_STR);
                   $query->execute();
                   $result = $query->fetch(PDO::FETCH_ASSOC);
                   $count = $result['count'];
@@ -93,7 +95,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                           <?php
                             $query = "SELECT * FROM tblgrades WHERE StuID=:stuid";
                             $query = $dbh->prepare($query);
-                            $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                            $query->bindParam(':stuid', $_GET['StuID'], PDO::PARAM_STR);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $row) {
@@ -182,18 +184,20 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       <span>Full Name: </span>
                       <span>Track and Strand: </span>
                       <span>Grade Level: </span>
+                      <span>Semester</span>
                     </div>
                     <div style="display: flex; flex-direction: column">
                       <?php
-                        $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                        $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                         $query = $dbh->prepare($query);
-                        $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                        $query->bindParam(':stuid', $_GET['LRN'], PDO::PARAM_STR);
                         $query->execute();
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
-                          echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->LastName) . "</span>";
+                          echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                           echo "<span>" . '11' . "</span>";
+                          echo "<span>" . "2nd Semester" . "</span>";
                         }
                       ?>
                     </div>
@@ -201,7 +205,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   <?php
                   $query = "SELECT COUNT(*) as count FROM tblgrades WHERE StuID=:stuid";
                   $query = $dbh->prepare($query);
-                  $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                  $query->bindParam(':stuid', $_GET['StuID'], PDO::PARAM_STR);
                   $query->execute();
                   $result = $query->fetch(PDO::FETCH_ASSOC);
                   $count = $result['count'];
@@ -312,18 +316,20 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       <span>Full Name: </span>
                       <span>Track and Strand: </span>
                       <span>Grade Level: </span>
+                      <span>Semester: </span>
                     </div>
                     <div style="display: flex; flex-direction: column">
                       <?php
-                        $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                        $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                         $query = $dbh->prepare($query);
-                        $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                        $query->bindParam(':stuid', $_GET['LRN'], PDO::PARAM_STR);
                         $query->execute();
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
-                          echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->LastName) . "</span>";
+                          echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                           echo "<span>" . 12 . "</span>";
+                          echo "<span>" . "1st Semester" . "</span>";
                         }
                       ?>
                     </div>
@@ -440,18 +446,20 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       <span>Full Name: </span>
                       <span>Track and Strand: </span>
                       <span>Grade Level: </span>
+                      <span>Semester: </span>
                     </div>
                     <div style="display: flex; flex-direction: column">
                       <?php
-                        $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                        $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                         $query = $dbh->prepare($query);
-                        $query->bindParam(':stuid', $_GET['stuID'], PDO::PARAM_STR);
+                        $query->bindParam(':stuid', $_GET['LRN'], PDO::PARAM_STR);
                         $query->execute();
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
                         foreach ($results as $row) {
-                          echo "<span>" . htmlentities($row->StudentName) . "</span>";
-                          echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                          echo "<span>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->LastName) . "</span>";
+                          echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                           echo "<span>" . 12 . "</span>";
+                          echo "<span>" . "2nd Semester" . "</span>";
                         }
                       ?>
                     </div>

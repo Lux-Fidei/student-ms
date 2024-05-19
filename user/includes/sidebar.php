@@ -51,6 +51,12 @@ foreach($results as $row)
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="viewGradeslip.php" >
+                <span class="menu-title">Gradeslip</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="TER-form.php" >
                 <span class="menu-title">Evaluation</span>
                 <i class="icon-screen-desktop menu-icon"></i>

@@ -60,10 +60,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                 
               <?php
                   if (isset($_POST['submit'])) {
-                    $query = "INSERT INTO `request_docs`(`st_id`, `re_id`, `docName`, `isApproved`) VALUES (:st_id, :re_id, 'Gradeslip', 'Pending')";
+                    $query = "INSERT INTO `request_docs`(`st_id`, `docName`, `isApproved`) VALUES (:st_id, 'Gradeslip', 'Pending')";
                     $query = $dbh->prepare($query);
                     $query->bindParam(':st_id', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
-                    $query->bindParam(':re_id', $_SESSION['record_examineer_id'], PDO::PARAM_STR);
                     $query->execute();
                   }
                 ?>
@@ -73,8 +72,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                 $query->bindParam(':st_id', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
-
-                if (isset($result['isApproved']) && $result['isApproved'] === 'Approved') { ?>
+                ?>
                   <div  style="display: flex; flex-direction: row; justify-content: center">
                     <div style="display: flex; flex-direction: column; width: 50%">
                       <div style="display: flex; flex-direction: row; margin: 0 16px; margin-bottom: 16px;">
@@ -85,14 +83,14 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
-                            $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                            $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                             $query = $dbh->prepare($query);
                             $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $row) {
-                              echo "<span style='font-weight: bold'>" . htmlentities($row->StudentName) . "</span>";
-                              echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                              echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
+                              echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                               echo "<span>" . '11' . "</span>";
                             }
                           ?>
@@ -213,14 +211,14 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
-                            $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                            $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                             $query = $dbh->prepare($query);
                             $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $row) {
-                              echo "<span style='font-weight: bold'>" . htmlentities($row->StudentName) . "</span>";
-                              echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
+                              echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
+                              echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
                               echo "<span>" . '11' . "</span>";
                             }
                           ?>
@@ -343,15 +341,17 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
-                            $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                            $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                             $query = $dbh->prepare($query);
                             $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $row) {
-                              echo "<span style='font-weight: bold'>" . htmlentities($row->StudentName) . "</span>";
-                              echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
-                              echo "<span>" . 12 . "</span>";
+                              foreach ($results as $row) {
+                                echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
+                                echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
+                                echo "<span>" . '12' . "</span>";
+                              }
                             }
                           ?>
                         </div>
@@ -471,15 +471,15 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         </div>
                         <div style="display: flex; flex-direction: column">
                           <?php
-                            $query = "SELECT * FROM tblstudent WHERE StuID=:stuid";
+                            $query = "SELECT * FROM tblstudent WHERE LRN=:stuid";
                             $query = $dbh->prepare($query);
                             $query->bindParam(':stuid', $_SESSION['sturecmsstuid'], PDO::PARAM_STR);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $row) {
-                              echo "<span style='font-weight: bold'>" . htmlentities($row->StudentName) . "</span>";
-                              echo "<span>" . htmlentities($row->strand === null ? 'STEAM' : $row->strand) . "</span>";
-                              echo "<span>" . 12 . "</span>";
+                              echo "<span style='font-weight: bold'>" . htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName) . "</span>";
+                              echo "<span>" . htmlentities($row->Strand === null ? 'STEAM' : $row->Strand) . "</span>";
+                              echo "<span>" . '12' . "</span>";
                             }
                           ?>
                         </div>
@@ -591,28 +591,20 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                         ?>
                     </div>
                   </div>
-                  <div style="text-align: center">
+                  <div style="text-align: center; margin-top: 24px;">
                     <div>
                       <?php
-                        $query = "SELECT f.FirstName, f.LastName FROM tblgrades g JOIN tblfaculty f ON g.Faculty = :facID;";
-                        $query = $dbh->prepare($query);
-                        $query->bindParam(':facID', $_SESSION['sturecmfacaid'], PDO::PARAM_STR);
-                        $query->execute();
-                        $result = $query->fetch(PDO::FETCH_ASSOC);
+                          $query = "SELECT FirstName, LastName FROM tblfaculty WHERE assignedStrand = :strand;";
+                          $query = $dbh->prepare($query);
+                          $query->bindParam(':strand', $results[0]->Strand, PDO::PARAM_STR);
+                          $query->execute();
+                          $result = $query->fetch(PDO::FETCH_ASSOC);
 
-                        echo '<span style="font-weight: bold">' . htmlentities($result['FirstName'] . ' ' . $result['LastName']) . '</span>';
-                      ?>
+                          echo '<span style="font-weight: bold">' . htmlentities($result['FirstName'] . ' ' . $result['LastName']) . '</span>';
+                        ?>
                     </div>
                     <div>Adviser</div>
                   </div>
-                <?php } else if (isset($result['isApproved']) && $result['isApproved'] === 'Pending'){ ?>
-                  <p style="text-align: center">Your request is still Pending</p>
-                <?php } else { ?>
-                  <form method="post" action="viewGradeslip.php" style="display: flex; justify-content: center">
-                    <input type="hidden" name="submit" value="1">
-                    <button class="btn btn-primary mb-3" type="submit"> Request View for Gradeslip </button>
-                  </form>
-                <?php } ?>
                 </div>
                 </div>
             </div>

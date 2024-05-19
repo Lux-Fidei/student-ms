@@ -38,27 +38,48 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                   <div class="card-body">
+                    <h1>Schedule</h1>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Full Name</th>
+                          <th>Subject Name</th>
+                          <th>Course Name</th>
+                          <th>Timeslot</th>
+                          <th>Building</th>
+                          <th>Room</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                     <?php
                       $uid=$_SESSION['sturecmfacaid'];
                       $sql = "SELECT f.FirstName, f.LastName, s.SubjectName, c.course_name, sc.timeslot, sc.building, sc.room
                       FROM schedule sc
                       JOIN tblfaculty f ON sc.faculty_id = f.ID
                       JOIN tblsubjects s ON sc.subject_id = s.SubjectID
-                      JOIN tbl_course c ON sc.strand_id = c.course_id;";
+                      JOIN tbl_course c ON sc.strand_id = c.course_id
+                      WHERE sc.faculty_id = :faculty_ID;";
                       $query = $dbh->prepare($sql);
+                      $query->bindParam(':faculty_ID', $uid, PDO::PARAM_STR);
                       $query->execute();
                       $results = $query->fetchAll(PDO::FETCH_OBJ);
-                      foreach($results as $row) {
-                        echo '<div>';
-                        echo '<div style="margin: 16px">' . $row->FirstName . '</div>';
-                        echo '<div style="margin: 16px">' . $row->SubjectName . '</div>';
-                        echo '<div style="margin: 16px">' . $row->course_name . '</div>';
-                        echo '<div style="margin: 16px">' . $row->timeslot . '</div>';
-                        echo '<div style="margin: 16px">' . $row->building . '</div>';
-                        echo '<div style="margin: 16px">' . $row->room . '</div>';
-                        echo '</div>';
+                      if (count($results) == 0) {
+                        echo "<tr><td colspan='6' style='text-align: center'>No scheduled subjects</td></tr>";
+                      } else {
+                        foreach($results as $row) {
+                          echo "<tr>";
+                          echo "<td>".$row->FirstName. ' ' . $row-> LastName . "</td>";
+                          echo "<td>".$row->SubjectName."</td>";
+                          echo "<td>".$row->course_name."</td>";
+                          echo "<td>".$row->timeslot."</td>";
+                          echo "<td>".$row->building."</td>";
+                          echo "<td>".$row->room."</td>";
+                          echo "</tr>";
+                        }
                       }
                     ?>
+                        </tbody>
+                      </table>
                   </div>
                 </div>
               </div>

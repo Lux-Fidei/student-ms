@@ -89,6 +89,44 @@
                     }
                 }
                 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+            } else if ($first_match->Type == 'Chairperson') {
+                $sql = "SELECT * FROM tblfaculty WHERE UserAccountID = :useracccountid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useracccountid', $userId, PDO::PARAM_INT);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $result) {
+                        $_SESSION['sturecmfacaid'] = $result->ID;
+                    }
+                }
+                echo "<script type='text/javascript'> document.location ='/student-ms/faculty-hybrid/dashboard.php'; </script>";
+                
+            } else if ($first_match->Type === 'Subject Teacher') {
+                $sql = "SELECT * FROM tblfaculty WHERE UserAccountID = :useracccountid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useracccountid', $userId, PDO::PARAM_INT);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $result) {
+                        $_SESSION['sturecmfacaid'] = $result->ID;
+                    }
+                }
+                echo "<script type='text/javascript'> document.location ='/student-ms/subject-teacher/dashboard.php'; </script>";
+            } else if($first_match->Type === 'Record Examineer') {
+                $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useracccountid', $userId, PDO::PARAM_INT);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $result) {
+                        $_SESSION['sturecmfacaid'] = $result->ID;
+                        $_SESSION['record_examineer_id'] = $result->ID;
+                    }
+                }
+                echo "<script type='text/javascript'> document.location ='/student-ms/recordexamineer/dashboard.php'; </script>";
             }
         }
     }

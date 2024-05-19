@@ -51,14 +51,11 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   (<?php echo htmlentities($row->assignedStrand); ?>):
                   </h5>
                   <table id="studentTable">
-                    <caption>List of Students</caption>
                     <thead>
                       <tr>
                         <td></td>
                         <th style="width: 192px"><span>First Name</span></th>
                         <th style="width: 192px"><span>Last Name</span></th>
-                        <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
-                        <th style="width: 192px"><span>email</span></th>
                         <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
                         <th style="width: 192px"><span>email</span></th>
                         <th style="width: 192px"><span>Action</span></th>
@@ -73,21 +70,12 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       if ($query->rowCount() > 0) {
                         $count = 1;
                         foreach($results as $row) {
-                          echo "<tr class='data' data-section='" . $row->grade_level . "'>";
+                          echo "<tr class='data' data-section='" . $row->GradeLevel . "'>";
                           echo "<td>" . $count . ".&nbsp;&nbsp;</td>";
-                          if (strpos($row->StudentName, ' ') !== false) {
-                            list($firstName, $lastName) = explode(" ", $row->StudentName, 2);
-                          } else {
-                            $firstName = $row->StudentName;
-                            $lastName = "";
-                          }
-                          echo "<td>" . $firstName . "</td>";
-                          echo "<td>" . $lastName . "</td>";
-                          echo "<td>" . $row->StuID . "</td>";
-                          echo "<td>" . $row->StudentEmail . "</td>";
-                          echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
-                          echo "<td>" . $row->StuID . "</td>";
-                          echo "<td>" . $row->StudentEmail . "</td>";
+                          echo "<td>" . $row->FirstName . "</td>";
+                          echo "<td>" . $row->LastName . "</td>";
+                          echo "<td>" . $row->LRN . "</td>";
+                          echo "<td>" . $row->EmailAddress . "</td>";
                           echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
                           $count++;
                         }
@@ -99,10 +87,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                 <script>
                   function goTo() {
                     var stuID = event.target.parentNode.parentNode.cells[3].innerText;
-                    window.location.href = "view-grade-slip.php?stuID=" + stuID;
-                  function goTo() {
-                    var stuID = event.target.parentNode.parentNode.cells[3].innerText;
-                    window.location.href = "view-grade-slip.php?stuID=" + stuID;
+                    window.location.href = "view-grade-slip.php?LRN=" + stuID;
                   }
                   function filterTable() {
                     var gradeLevel = document.getElementById("subject").value;

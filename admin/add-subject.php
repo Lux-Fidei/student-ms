@@ -1,4 +1,4 @@
-\<?php
+<?php
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
@@ -9,14 +9,21 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
 } else {
     if (isset($_POST['submit'])) {
         $subjectname = $_POST['subjectname'];
+        $subjectdescription = $_POST['subjectdescription'];
+        $units = $_POST['units'];
         $subjecttype = $_POST['subjecttype'];
-        $sql = "INSERT INTO tblsubjects (SubjectName, subject_type) VALUES (:subjectname, :subjecttype)";
+        $gradelevel = $_POST['gradelevel'];
+        $semester = $_POST['semester'];
+        $sql = "INSERT INTO tblsubjects (SubjectName, subject_description, units, subject_type, grade_level, semester) VALUES (:subjectname, :subject_description, :units, :subjecttype, :gradelevel, :semester)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':subjectname', $subjectname, PDO::PARAM_STR);
+        $query->bindParam(':subject_description', $subjectdescription, PDO::PARAM_STR);
+        $query->bindParam(':units', $units, PDO::PARAM_STR);
         $query->bindParam(':subjecttype', $subjecttype, PDO::PARAM_STR);
+        $query->bindParam(':gradelevel', $gradelevel, PDO::PARAM_STR);
+        $query->bindParam(':semester', $semester, PDO::PARAM_STR);
         if ($query->execute()) {
             echo '<script>alert("Subject has been added.")</script>';
-            echo "<script>window.location.href ='add-subject.php'</script>";
         } else {
             echo '<script>alert("Something went wrong. Please try again.")</script>';
         }
@@ -66,16 +73,40 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                     <h4 class="card-title" style="text-align: center;">Add Subject</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Subject Name</label>
+                                            <label for="subjectname">Subject Name</label>
                                             <input type="text" name="subjectname" value="" class="form-control" required='true'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subjectdescription">Subject Description</label>
+                                            <input type="text" name="subjectdescription" value="" class="form-control" required='true'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="units">Units</label>
+                                            <input type="text" name="units" value="" class="form-control" required='true'>
                                         </div>
                                         <!-- Add Subject Type dropdown -->
                                         <div class="form-group">
-                                            <label for="exampleInputName2">Subject Type</label>
+                                            <label for="subjecttype">Subject Type</label>
                                             <select class="form-control" name="subjecttype" required>
                                                 <option value="">Select Subject Type</option>
                                                 <option value="Core">Core</option>
                                                 <option value="Specialized">Specialized</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gradelevel">Grade Level</label>
+                                            <select class="form-control" name="gradelevel" required>
+                                                <option value="">Select Grade Level</option>
+                                                <option value="11">Grade 11</option>
+                                                <option value="12">Grade 12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="semester">Semester</label>
+                                            <select class="form-control" name="semester" required>
+                                                <option value="">Select Semester</option>
+                                                <option value="1st Semester">1st Semester</option>
+                                                <option value="2nd Semester">2nd Semester</option>
                                             </select>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
@@ -133,7 +164,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                             </div>
                             <style>
                                 .navbar.fixed-top + .page-body-wrapper {
-                                 padding-top: 48px;
+                                    padding-top: 48px;
                                 }
                             </style>
                         </div>

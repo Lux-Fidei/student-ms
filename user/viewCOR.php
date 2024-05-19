@@ -6,7 +6,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
   header('location:logout.php');
   } else{
   
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,10 +63,15 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
 
               <?php
                   if (isset($_POST['submit'])) {
+                    $queryRE = "SELECT id FROM tbl_record_examineer WHERE strand = :strand";
+                    $query = $dbh->prepare($queryRE);
+                    $query->bindParam(':strand', $results[0]->Strand, PDO::PARAM_STR);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_OBJ);
                     $query = "INSERT INTO `request_docs`(`st_id`, `re_id`, `docName`, `isApproved`) VALUES (:st_id, :re_id, 'COR', 'Pending')";
                     $query = $dbh->prepare($query);
                     $query->bindParam(':st_id', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
-                    $query->bindParam(':re_id', $_SESSION['record_examineer_id'], PDO::PARAM_STR);
+                    $query->bindParam(':re_id', $result[0]->id, PDO::PARAM_STR);
                     $query->execute();
                   }
                 ?>
@@ -90,9 +95,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <div style="font-weight: bold">Grade & Section</div>
                         </div>
                         <div>
-                            <div style="font-weight: bold"><?php echo $results[0]->StudentName ?></div>
-                            <div><?php echo $results[0]->StuID ?></div>
-                            <div><?php echo $results[0]->grade_level . ' - ' . $results[0]->section ?></div>
+                            <div style="font-weight: bold"><?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName ?></div>
+                            <div><?php echo $results[0]->LRN ?></div>
+                            <div><?php echo $results[0]->GradeLevel . ' - ' . $results[0]->section ?></div>
                         </div>
                       </div>
                       <div style="width: 44%; display: flex">
@@ -102,9 +107,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           <div style="font-weight: bold">Contact No.</div>
                         </div>
                         <div style="margin-right: 32px">
-                          <div style="font-weight: bold"> | <?php echo $results[0]->strand ?></div>
-                            <div><?php echo $results[0]->StudentEmail ?></div>
-                            <div><?php echo $results[0]->ContactNumber ?></div>
+                          <div style="font-weight: bold"><?php echo $results[0]->Strand ?></div>
+                            <div><?php echo $results[0]->EmailAddress ?></div>
+                            <div><?php echo $results[0]->ContactNo ?></div>
                         </div>
                       </div>
                     </div>
@@ -122,34 +127,40 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                           </tr>
                         </thead>
                         <tbody>
-                            <!-- Add your table rows here -->
-                            <tr style="border: 1px solid black">
-                              <td style="font-weight: bold; padding: 8px 0 8px 16px">CSC101</td>
-                              <td>Introduction to Computer Science</td>
-                              <td style="font-weight: bold; text-align: center">3</td>
-                              <td style="text-align: center">TTH</td>
-                              <td>9:00 AM - 11:00 AM</td>
-                              <td style="text-align: center">Room 101</td>
-                              <td>John Doe</td>
-                            </tr>
-                            <tr style="border: 1px solid black">
-                              <td style="font-weight: bold; padding: 8px 0 8px 16px">MTH201</td>
-                              <td>Calculus I</td>
-                              <td style="font-weight: bold; text-align: center">4</td>
-                              <td style="text-align: center">F</td>
-                              <td>1:00 PM - 3:00 PM</td>
-                              <td style="text-align: center">Room 202</td>
-                              <td>Jane Smith</td>
-                            </tr>
-                            <tr style="border: 1px solid black">
-                              <td style="font-weight: bold; padding: 8px 0 8px 16px">ENG301</td>
-                              <td>Advanced English</td>
-                              <td style="font-weight: bold; text-align: center">3</td>
-                              <td style="text-align: center">MW</td>
-                              <td>10:00AM - 12:00 PM</td>
-                              <td style="text-align: center">Room 303</td>
-                              <td>Michael Johnson</td>
-                            </tr>
+                            <?php
+                              $sql = "SELECT 
+                              s.SubjectName,
+                              s.subject_description,
+                              s.units,
+                              sch.days,
+                              sch.timeslot,
+                              sch.room,
+                              f.FirstName,
+                              f.MiddleInitial,
+                              f.LastName
+                              FROM 
+                              schedule sch
+                              JOIN 
+                              tblsubjects s ON sch.subject_id = s.SubjectID
+                              JOIN 
+                              tblfaculty f ON sch.faculty_id = f.ID;";
+                              $query = $dbh->prepare($sql);
+                              $query->execute();
+                              $subjectResults = $query->fetchAll(PDO::FETCH_OBJ);
+
+                              $cnt = 1;
+                              foreach ($subjectResults as $row) {
+                                echo "<tr style='border: 1px solid black'>";
+                                echo "<td style='font-weight: bold; padding: 8px 0 8px 16px'>" . $row->SubjectName . "</td>";
+                                echo "<td>" . $row->subject_description . "</td>";
+                                echo "<td style='font-weight: bold; text-align: center'>" . $row->units . "</td>";
+                                echo "<td style='text-align: center'>" . $row->days . "</td>";
+                                echo "<td>" . $row->timeslot . "</td>";
+                                echo "<td style='text-align: center'>" . $row->room . "</td>";
+                                echo "<td>" . $row->FirstName . ' ' . $row->MiddleInitial . '. ' . $row->LastName . "</td>";
+                                echo "</tr>";
+                              }
+                            ?>
                         </tbody>
                       </table>
                     </div>
@@ -160,9 +171,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                     <div style="width: 50%; text-align: center">
                       <span>Certified by:</span>
                       <div style="margin-top: 40px; font-weight: bold"><?php
-                        $query = "SELECT f.FirstName, f.LastName FROM tblfaculty f JOIN tblstudent s ON f.ID = :faculty_id;";
+                        $query = "SELECT FirstName, LastName FROM tblfaculty WHERE assignedStrand = :strand;";
                         $query = $dbh->prepare($query);
-                        $query->bindParam(':faculty_id', $results[0]->faculty_id, PDO::PARAM_STR);
+                        $query->bindParam(':strand', $results[0]->Strand, PDO::PARAM_STR);
                         $query->execute();
                         $result = $query->fetch(PDO::FETCH_ASSOC);
                         echo $result['FirstName'] . ' ' . $result['LastName'];
@@ -173,18 +184,21 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                       <span>Approved by:</span>
                       <div style="margin-top: 40px; font-weight: bold">
                         <?php
-                          $query = "SELECT f.FirstName, f.LastName FROM tblfaculty f JOIN tblstudent s ON f.ID = :faculty_id;";
+                          $position = 'Chairperson';
+                          $query = "SELECT FirstName, LastName FROM tblfaculty WHERE assignedStrand = :strand and position =:position;";
                           $query = $dbh->prepare($query);
-                          $query->bindParam(':faculty_id', $results[0]->faculty_id, PDO::PARAM_STR);
+                          $query->bindParam(':strand', $results[0]->Strand, PDO::PARAM_STR);
+                          $query->bindParam(':position', $position, PDO::PARAM_STR);
                           $query->execute();
                           $result = $query->fetch(PDO::FETCH_ASSOC);
                           echo $result['FirstName'] . ' ' . $result['LastName'];
                         ?>
                       </div>
                       <div style="font-weight: bold"></div>
-                      <div style="font-weight: bold"><?php echo $results[0]->strand ?> Chairperson</div>
+                      <div style="font-weight: bold"><?php echo $results[0]->Strand ?> Chairperson</div>
                     </div>
                   </div>
+                  <div style="font-style: italic">&nbsp;</div>
                   <div style="font-style: italic">&nbsp;</div>
                   <div style="font-style: italic">&nbsp;</div>
                   <div style="font-style: italic">&nbsp;</div>

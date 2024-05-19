@@ -8,7 +8,16 @@
     include('includes/dbconnection.php');
     if(isset($_SESSION['record_examineer_id'])) {
         $uid = $_SESSION['record_examineer_id'];
-        $sql = "SELECT * FROM tbl_record_examineer WHERE ID = :uid";
+        $sql = "SELECT 
+        e.fname,
+        e.lname,
+        e.email,
+        u.UserName
+        FROM 
+            tbl_record_examineer e
+        JOIN 
+            tbl_user_accounts u ON e.id = u.ID
+        WHERE e.id = :uid;";
         $query = $dbh -> prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
         $query->execute();
@@ -18,7 +27,7 @@
             foreach($results as $row) {
     ?>
     <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-        <h5 class="greetings">Hello, Record Examiner <?php echo htmlentities($row->uname); ?>!</h5>
+        <h5 class="greetings">Hello, Record Examiner <?php echo htmlentities($row->UserName); ?>!</h5>
         <style>
             .greetings {
                 font-size: 1.5em;
@@ -31,11 +40,11 @@
                     aria-expanded="false">
 
                     <img class="img-xs rounded-circle ml-2" src="images/faces/face8.jpg" alt="Profile image"> <span
-                        class="font-weight-normal"> <?php echo htmlentities($row->uname); ?> </span></a>
+                        class="font-weight-normal"> <?php echo htmlentities($row->fname); ?> </span></a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
                         <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-                        <p class="mb-1 mt-3"><?php echo htmlentities($row->uname); ?></p>
+                        <p class="mb-1 mt-3"><?php echo htmlentities($row->fname) . ' ' . htmlentities($row->lname); ?></p>
                         <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email); ?></p>
                         <?php $cnt = $cnt + 1; ?>
                     </div>
