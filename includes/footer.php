@@ -34,7 +34,7 @@ foreach($results as $row)
       <div class="copyright-right">
         <ul>
           <li><a href="#" class="twitter"> </a></li>
-          <li><a href="#" class="twitter facebook"> </a></li>
+          <li><a href="https://www.facebook.com/msumshs.official2019" class="twitter facebook"> </a></li>
           <li><a href="#" class="twitter chrome"> </a></li>
           <li><a href="#" class="twitter pinterest"> </a></li>
           <li><a href="#" class="twitter linkedin"> </a></li>
