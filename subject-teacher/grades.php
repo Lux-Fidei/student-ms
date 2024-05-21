@@ -89,12 +89,15 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                     }
                     ?>, S.Y. <?php echo (date('Y') - 1). ' - ' . (date('Y')); ?>
                   </span>
-                  <div class="d-lg-flex justify-content-between">
-                    <span><?php echo htmlentities($row->Strand) . ' ' . htmlentities($row->grade_level) . '-' . htmlentities($row->section)?></span>
-                    <span><?php echo htmlentities($row->timeslot)?></span>
+                  <div style="display: flex; justify-content: center">
+                    <div class="d-lg-flex justify-content-between" style="width: 80%">
+                      <span><?php echo htmlentities($row->Strand) . ' ' . htmlentities($row->grade_level) . '-' . htmlentities($row->section)?></span>
+                      <span><?php echo htmlentities($row->timeslot)?></span>
+                    </div>
                   </div>
-                  <div style="display: flex; justify-content: center; margin: 16px 0">
-                    <table style="width: 96%">
+                  
+                  <div style="display: flex; justify-content: center; margin: 16px 0; ">
+                    <table style="width: 88%">
                       <thead>
                         <tr>
                           <th style="width: 40%">Student List:</th>
