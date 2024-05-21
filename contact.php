@@ -249,13 +249,7 @@ include('includes/dbconnection.php');
       <label for="slide-dot-2"></label>
     </div>
 
-    <!-- Image size adjuster -->
-    <div class="size-controls">
-      <button class="zoom-in">+</button>
-      <button class="zoom-out">-</button>
-    </div>
-  </div>
-</div>
+
   <!-- //container -->
   <?php include_once('includes/footer.php');?>
   <!--/copy-rights-->

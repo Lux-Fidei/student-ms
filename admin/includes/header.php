@@ -48,3 +48,19 @@ foreach($results as $row)
           </button>
         </div>
       </nav>
+      <style>
+        .navbar .navbar-menu-wrapper {
+    transition: width 0.25s ease;
+    -webkit-transition: width 0.25s ease;
+    -moz-transition: width 0.25s ease;
+    -ms-transition: width 0.25s ease;
+    color: #fff;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: calc(100% - 240px);
+    height: 70px;
+    -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
+    background-color: #136c13;
+}
+      </style>

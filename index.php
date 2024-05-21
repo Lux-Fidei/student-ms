@@ -40,20 +40,89 @@ include('includes/dbconnection.php');
 </head>
 	<body>
 <?php include_once('includes/header.php');?>
+<br>
+
 <div class="slideshow">
   <li>
-    <span>Slide One</span> </li>
+<span>Slide One</span> </li>
   <li> <span>Slide Two</span> </li>
   <li> <span>Slide Three</span> </li>
-  <li> <span>Slide Four</span> </li>	
+  <li> <span>Slide Four</span> </li>
+  	
 </div>
-	</body>>
+	</body><br>
+	
+<div class="courses">
+<div class="offered-courses-container">
+  <h2>Offered Strands</h2>
+  <div class="course-box">
+    <img src="images/ABM.jpg" alt="Course 1">
+    <div class="course-title">Accountancy, Business, and Management</div>
+  </div>
+  <div class="course-box">
+    <img src="images/STEM.jpg" alt="Course 2">
+    <div class="course-title">Science, Technology, Engineering, and Mathematics</div>
+  </div>
+  <div class="course-box">
+    <img src="images/HUMMS.jpg" alt="Course 3">
+    <div class="course-title" style="align-items: center;"> Hummanities and Social Sciences                                   </div>
+  </div>
+  <div class="course-box">
+    <img src="images/ICT.jpeg" alt="Course 4">
+    <div class="course-title">Information, Communication and Technology</div>
+  </div>
+  <div class="course-box">
+    <img src="images/AFA.jpg" alt="Course 5">
+    <div class="course-title">                 Agri-Fishery Arts                         </div>
+  </div>
+  <div class="course-box">
+    <img src="images/SPORTS.jpg" alt="Course 6">
+    <div class="course-title">                        Sports                                </div>
+  </div>
+</div>
+<style>
+	.offered-courses-container {
+  text-align: center;
+  padding: 20px;
+}
 
-<div class="welcome">
-	<div class="container">
-		
-	</div>
-</div>
+.offered-courses-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.course-box {
+  display: inline-block;
+  width: 300px;
+  margin: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.course-box:hover {
+  transform: scale(1.05);
+}
+
+.course-box img {
+  width: 100%;
+  height: auto;
+}
+
+.course-title {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f7f7f7;
+}
+
+</style>
+
+
+
 
 <!--testmonials-->
 <div class="testimonials">

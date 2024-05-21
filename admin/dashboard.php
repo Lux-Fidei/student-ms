@@ -161,12 +161,24 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .content-wrapper {
+                        background-image: url(images/admin.jpg);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        padding: 2.75rem 1.5rem 0;
+                        width: 100%;
+                        -webkit-box-flex: 1;
+                        -ms-flex-positive: 1;
+                        flex-grow: 1;
+                        }
+                        </style>
                    
                     
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
-                <?php include_once('includes/footer.php');?>
+               
                 <!-- partial -->
             </div>
             <!-- main-panel ends -->

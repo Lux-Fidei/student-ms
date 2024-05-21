@@ -45,7 +45,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                   <span class="card-body d-lg-flex align-items-center">
-                    <p class="mb-lg-0">Notices from the school kindly check! </p>
+                    <p class="mb-lg-0">Notices from the adminstrator kindly check! </p>
                     <a href="view-notice.php" target="_blank" class="btn btn-warning purchase-button btn-sm my-1 my-sm-0 ml-auto">View Notice</a>
                   
                   </span>
@@ -80,4 +80,17 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
     <script src="./js/dashboard.js"></script>
     <!-- End custom js for this page -->
   </body>
+  <style>
+    .content-wrapper {
+  background-image: url(images/student.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 2.75rem 1.5rem 0;
+  width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+  </style>
 </html><?php }  ?>

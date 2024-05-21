@@ -1,15 +1,14 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="dashboard.php">
-            <strong style="color: white;">SMS</strong>
+            <strong style="color: white; text-align:center">MSU MSHS</strong>
           </a>
         
         </div>
         <?php
-        include('includes/dbconnection.php');
+       
         $uid= $_SESSION['sturecmfacaid'];
         $sql="SELECT * from tblfaculty where ID=:uid";
-
         $query = $dbh -> prepare($sql);
         $query->bindParam(':uid',$uid,PDO::PARAM_STR);
         $query->execute();
@@ -36,10 +35,10 @@
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
 
-              <img class="img-xs rounded-circle ml-2" src="./../faculty-hybrid/images/<?php echo $results[0]->Image; ?>" width="32" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->FirstName);?> </span></a>
+              <img class="img-xs rounded-circle ml-2" src="./../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->FirstName);?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                <img class="img-md rounded-circle" src="./../faculty-hybrid/images/<?php echo $results[0]->Image; ?>" width="168" alt="Profile image">
+                <img class="img-md rounded-circle" src="./../admin/images/<?php echo $results[0]->Image; ?>" width="168" alt="Profile image">
 
                   <p class="mb-1 mt-3"><?php  echo htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . '. ' . htmlentities($row->LastName);?></p>
                   <p class="font-weight-light text-muted mb-0"><?php  echo htmlentities($row->Email);?></p><?php $cnt=$cnt+1;}} ?>

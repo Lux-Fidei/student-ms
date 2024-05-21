@@ -3,13 +3,13 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
                 <div class="profile-image">
-                <img class="img-xs rounded-circle" src="./../faculty-hybrid/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
+                <img class="img-xs rounded-circle" src="./../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
                     <?php
                     $uid = $_SESSION['sturecmfacaid'];
-                    $sql = "SELECT * FROM tblfaculty WHERE ID=:uid";
+                    $sql = "SELECT * FROM tblfaculty WHERE ID=:uid";    
                     $query = $dbh->prepare($sql);
                     $query->bindParam(':uid', $uid, PDO::PARAM_STR);
                     $query->execute();
