@@ -2871,4 +2871,78 @@ ul.p_n-list li a:hover{
 	}
 	
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.testimonial-slider {
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.slide img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.testimonial-content {
+    margin-top: 20px;
+}
+
+.testimonial-content p {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.testimonial-content h4 {
+    margin-top: 10px;
+    color: #777;
+}
+
+.navigation {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.nav-btn {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-btn.active {
+    background-color: #333;
+}
 
