@@ -77,7 +77,7 @@ include('includes/dbconnection.php');
   </div>
   <div class="course-box">
     <img src="images/SPORTS.jpg" alt="Course 6">
-    <div class="course-title">                        Sports                                </div>
+    <div class="course-title">                        Sports                                 </div>
   </div>
 </div>
 <style>
