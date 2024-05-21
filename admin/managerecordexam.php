@@ -18,6 +18,55 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
     <link rel="stylesheet" href="vendors/select2/select2.min.css">
     <link rel="stylesheet" href="vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Custom CSS for table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f3f4f6;
+        }
+
+        .table-striped tbody tr:hover {
+            background-color: #e2e6ea;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-scroller">
@@ -54,7 +103,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                     </form>
                                     <!-- End of search form -->
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -89,8 +138,8 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                     echo "<td>" . $result->email . "</td>";
                                                     echo "<td>" . $result->strand . "</td>";
                                                     echo "<td>
-                                                            <a href='edit-record-examineer.php?id=" . $result->id . "'class='icon-eye'></a>
-                                                            ||<a href='delete-record-examineer.php?id=" . $result->id . "' class='icon-trash'></a>
+                                                            <a href='edit-record-examineer.php?id=" . $result->id . "'class='btn btn-info btn-sm'><i class='icon-eye'></i> View</a>
+                                                            <a href='delete-recordexam.php?id=" . $result->id . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this record?\")'><i class='icon-trash'></i> Delete</a>
                                                         </td>";
                                                     echo "</tr>";
                                                 }
