@@ -38,7 +38,7 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
             <?php include_once('includes/sidebar.php');?>
             <!-- partial -->
             <div class="main-panel">
-                <div class="content-wrapper">
+                <div class="content-wrapper" style="margin-top: 64px">
                     <div class="row">
                         <div class="col-md-12 grid-margin">
                             <div class="card">
