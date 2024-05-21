@@ -108,6 +108,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Last Name</th>
+                                                    <th>Middle Name</th>
                                                     <th>First Name</th>
                                                     <th>Email</th>
                                                     <th>Assigned Strand</th>
@@ -134,6 +135,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                     echo "<tr>";
                                                     echo "<td>" . $count++ . "</td>";
                                                     echo "<td>" . $result->lname ."</td>";
+                                                    echo "<td>" . $result->mname ."</td>";
                                                     echo "<td>" . $result->fname ."</td>";
                                                     echo "<td>" . $result->email . "</td>";
                                                     echo "<td>" . $result->strand . "</td>";
