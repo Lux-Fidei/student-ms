@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsstuid']) == 0) {
+if (strlen($_SESSION['sturecmsstuid'])) {
     header('location:logout.php');
 } else {
 ?>

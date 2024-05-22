@@ -294,9 +294,20 @@ if (!$isTerActive) {
             <select id="teacher_name" name="teacher_name" required>
                 <option value="">Select Teacher</option>
                 <?php
+                $sqlSection = "SELECT section FROM tblstudent WHERE ID = :id";
+                $querySection = $dbh->prepare($sqlSection);
+                $querySection->bindParam(':id', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
+                $querySection->execute();
+                $section = $querySection->fetch(PDO::FETCH_ASSOC);
                 // Fetch teachers from the database
-                $sql = "SELECT * FROM tblfaculty";
+                $sql = "SELECT f.FirstName, f.MiddleInitial, f.LastName
+                FROM schedule s
+                JOIN tblfaculty f ON s.faculty_id = f.ID
+                JOIN enrollments e ON s.schedule_id = e.class_id
+                WHERE e.section = :section;
+                ";
                 $query = $dbh->prepare($sql);
+                $query->bindParam(':section', $section['section'], PDO::PARAM_STR);
                 $query->execute();
                 $teachers = $query->fetchAll(PDO::FETCH_ASSOC);
                 

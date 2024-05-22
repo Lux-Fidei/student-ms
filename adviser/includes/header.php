@@ -7,7 +7,7 @@
         </div>
         <?php
         $uid= $_SESSION['sturecmfacaid'];
-$sql="SELECT * from tblfaculty where ID=:uid";
+$sql="SELECT * from tblfaculty where UserAccountID=:uid";
 
 $query = $dbh -> prepare($sql);
 $query->bindParam(':uid',$uid,PDO::PARAM_STR);

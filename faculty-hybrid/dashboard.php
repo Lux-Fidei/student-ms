@@ -41,11 +41,13 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
             <div class="row purchace-popup">
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
-                  <span class="card-body d-lg-flex align-items-center">
-                    <p class="mb-lg-0">Notices from the administrator kindly check! </p>
-                    <a href="view-notice.php" target="_blank" class="btn btn-warning purchase-button btn-sm my-1 my-sm-0 ml-auto">View Notice</a>
-                    
-                  </span>
+                <div style="display: flex; justify-content: justify-between;">
+                    <p style="width: 968px; margin: 16px 0; margin-left: 16px">Notices from the faculty kindly check! </p>
+                    <form method="get" action="./view-notice.php" style="display: flex; justify-content: center; align-items: center">
+                        <input type="hidden" name="type" value="Subject Teacher">
+                        <button type="submit" class="btn btn-primary" style="padding: 8px">View Notice</button>
+                    </form>
+                </div>
                 </div>
               </div>
             </div>
