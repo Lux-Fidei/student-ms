@@ -121,25 +121,10 @@ include('includes/dbconnection.php');
   font-size: 16px;
   background-color: #f7f7f7;
 }
-
-</style>
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $(".scroll").click(function(event){        
-            event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
-        });
-    });
-</script>
-<!--/script-->
-
-<!-- Add the following CSS and JavaScript for the slideshow -->
-<style>
-/* Slideshow container */
 .slideshow-container {
-  max-width: 800px;
+  max-width: 1020px;
   position: relative;
+  padding:60px;
   margin: auto;
   overflow: hidden;
   border-radius: 10px;
@@ -147,9 +132,7 @@ include('includes/dbconnection.php');
 }
 
 /* Hide the images by default */
-.mySlides {
-  display: none;
-}
+
 
 /* Next & previous buttons */
 .prev, .next {
@@ -175,19 +158,11 @@ include('includes/dbconnection.php');
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(1,1,1,1,1);
 }
 
 /* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
+
 
 /* Number text (1/3 etc) */
 .numbertext {
@@ -216,81 +191,70 @@ include('includes/dbconnection.php');
 
 /* Fade animation */
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
+  -webkit-animation-name:fade;
+  -webkit-animation-duration: 25s;
   animation-name: fade;
-  animation-duration: 1.5s;
+  animation-duration: 4s;
 }
 
 @-webkit-keyframes fade {
   from {opacity: .4}
-  to {opacity: 1}
+  to {opacity: .3}
 }
 
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
 }
+
+
 </style>
-
-<script>
-var slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
-}
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){        
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+        });
+    });
 </script>
+<!--/script-->
 
-</head>
-<body>
-<br>
-
+<!-- Add the following CSS and JavaScript for the slideshow -->
 <!-- Slideshow container -->
-<div class="slideshow-container">
+<body>
+<div class="content-tes">
+  <div class="testimonial">
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
     <div class="numbertext">1 / 6</div>
-    <img src="images/kent.jpeg" style="width:100%">
-    <div class="text">Developer 1</div>
+    <img src="images/kent-testimonials.png" style="width:100%">
+   
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">2 / 6</div>
-    <img src="images/abdulhakim.jpeg" style="width:100%">
-    <div class="text">Developer 2</div>
+    <img src="images/kiko-testimonials.png" style="width:100%">
+    
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">3 / 6</div>
-    <img src="images/basser.jpeg" style="width:100%">
-    <div class="text">Developer 3</div>
+    <img src="images/basser-testimonials.png" style="width:100%">
+    
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">4 / 5</div>
-    <img src="images/ammar.jpeg" style="width:100%">
-    <div class="text">Developer 4</div>
+    <img src="images/ammar-testimonials.png" style="width:100%">
+  
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">5 / 5</div>
-    <img src="images/sihawi.jpeg" style="width:100%">
-    <div class="text">Developer 5</div>
+    <img src="images/lala-testimonials.png" style="width:100%">
+    
   </div>
 
   <!-- Next and previous buttons -->
@@ -309,33 +273,30 @@ function showSlides() {
   <span class="dot" onclick="currentSlide(5)"></span>
   <span class="dot" onclick="currentSlide(6)"></span>
 </div>
-
 <script>
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+var slideIndex = 0;
+showSlides();
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
+function showSlides() {
   var i;
   var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 7000); // Change image every 2 seconds
 }
 </script>
-
+</div>
+</div>
+</body>
 
 
 <!--testmonials-->
@@ -368,6 +329,7 @@ foreach($results as $row)
 
 <!--/specfication-->
 <?php include_once('includes/footer.php');?>
+
 
 	</body>
 </html>

@@ -247,7 +247,7 @@ function showSlides(n) {
         </div>
         <div class="course-box">
             <img src="images/HUMMS.jpg" alt="Course 3">
-            <div class="course-title" style="align-items: center;">Humanities and Social Sciences</div>
+            <div class="course-title" style="align-items:   center;">Humanities and Social Sciences</div>
         </div>
         <div class="course-box">
             <img src="images/ICT.jpeg" alt="Course 4">
