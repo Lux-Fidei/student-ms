@@ -140,6 +140,30 @@
                     }
                 }
                 echo "<script type='text/javascript'> document.location ='/student-ms/lis-coordinator/dashboard.php'; </script>";
+            } else if($first_match->Type === 'Teacher Aide') {
+                $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useracccountid', $userId, PDO::PARAM_INT);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $result) {
+                        $_SESSION['sturecmtaid'] = $result->ID;
+                    }
+                }
+                echo "<script type='text/javascript'> document.location ='/student-ms/teacher-aide/dashboard.php'; </script>";
+            } else if($first_match->Type === 'Adviser') {
+                $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useracccountid', $userId, PDO::PARAM_INT);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $result) {
+                        $_SESSION['sturecmfacaid'] = $result->ID;
+                    }
+                }
+                echo "<script type='text/javascript'> document.location ='/student-ms/adviser/dashboard.php'; </script>";
             }
         }
     }

@@ -38,6 +38,39 @@ if (empty($_SESSION['record_examineer_id'])) {
                                     <p class="mb-lg-0">Notices from the school kindly check! </p>
                                     <a href="view-notice.php" target="_blank" class="btn btn-warning purchase-button btn-sm my-1 my-sm-0 ml-auto">View Notice</a>
                                 </span>
+                                <div id="pie-chart" class="ct-chart">
+                                    <canvas id="pie-chart"></canvas>
+                                </div>
+                                <script>
+                                    var ctx = document.getElementById('pie-chart').getContext("2d");
+                                    var data = {
+                                        labels: ["COR", "Certification", "Gradeslip"],
+                                        datasets: [{
+                                            label: "My First dataset",
+                                            data: [300, 50, 100],
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(255,99,132,1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 206, 86, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    };
+                                    var options = {
+                                        responsive: true,
+                                        maintainAspectRatio: false
+                                    };
+                                    var myPieChart = new Chart(ctx, {
+                                        type: 'pie',
+                                        data: data,
+                                        options: options
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
