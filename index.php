@@ -40,7 +40,7 @@ include('includes/dbconnection.php');
 </head>
 	<body>
 <?php include_once('includes/header.php');?>
-<br>
+
 
 <div class="slideshow">
   <li>
@@ -49,7 +49,7 @@ include('includes/dbconnection.php');
   <li> <span>Slide Three</span> </li>
   <li> <span>Slide Four</span> </li>
   	
-</div><br>
+</div>
 	</body>
 	
 <div class="courses">
