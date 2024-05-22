@@ -7,6 +7,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 } else {
     if (isset($_POST['submit'])) {
         $fname = $_POST['fname'];
+        $mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $age = $_POST['age'];
@@ -24,9 +25,10 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $image = md5($image) . time() . $extension;
             move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $image);
 
-            $sql = "INSERT INTO tbl_record_examineer (fname, lname, email, age, strand, gender, address, contact, uname, password, image) VALUES (:fname, :lname, :email, :age, :strand, :gender, :address, :contact, :uname, :password, :image)";
+            $sql = "INSERT INTO tbl_record_examineer (fname,mname ,lname, email, age, strand, gender, address, contact, uname, password, image) VALUES (:fname, :mname,:lname, :email, :age, :strand, :gender, :address, :contact, :uname, :password, :image)";
             $query = $dbh->prepare($sql);
             $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':mname', $fname, PDO::PARAM_STR);
             $query->bindParam(':lname', $lname, PDO::PARAM_STR);
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':age', $age, PDO::PARAM_INT);
@@ -40,7 +42,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 
             if ($query->execute()) {
                 echo '<script>alert("Record examiner has been added.")</script>';
-                echo "<script>window.location.href ='add-record-examineer.php'</script>";
+                echo "<script>window.location.href ='addrecordexamineer.php'</script>";
             } else {
                 echo '<script>alert("Something went wrong. Please try again.")</script>';
             }
@@ -92,6 +94,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="exampleInputName1">First Name</label>
+                                            <input type="text" name="fname" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Middle Name</label>
                                             <input type="text" name="fname" class="form-control" required>
                                         </div>
                                         <div class="form-group">

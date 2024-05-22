@@ -56,7 +56,7 @@ include('includes/dbconnection.php');
 <div class="banner banner5">
     <div class="container">
 		
-        <h2>Memorandum</h2>
+        <h2>Notice</h2>
     </div>
 </div>
 <!-- Memorandum -->
@@ -94,7 +94,7 @@ include('includes/dbconnection.php');
 			
         <table>
 		<h4 style="text-align: center; font-family:'Times New Roman' , Times, serif; line-height: 0;
-			margin-top:-5px; font-size:larger">Notice</h4>
+			margin-top:-5px; font-size:larger"></h4>
 
             <?php
             $vid=$_GET['viewid'];

@@ -116,7 +116,7 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
                                                 ?>
                                                 <span class="report-title">Total Subjects</span>
                                                 <h4><?php echo htmlentities($totsubjects);?></h4>
-                                                <a href="manage-subjects.php"><span class="report-count"> View Subjects</span></a>
+                                                <a href="add-subject.php"><span class="report-count"> View Subjects</span></a>
                                             </div>
                                             <div class="inner-card-icon bg-info">
                                                 <i class="icon-book-open"></i>
