@@ -77,6 +77,7 @@ include('includes/dbconnection.php');
 
   img {
     width: 100%;
+    
   }
 
   .slider-container{
@@ -145,65 +146,6 @@ include('includes/dbconnection.php');
   }
 
   /* Arrow buttons */
-.arrow {
-  position: absolute;
-  top: 50%;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.arrow-left {
-  left: 10px;
-  transform: translateY(-50%);
-}
-
-.arrow-right {
-  right: 10px;
-  transform: translateY(-50%);
-}
-
-.arrow::before {
-  content: '';
-  border: solid #000;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.arrow-left::before {
-  transform: rotate(135deg);
-}
-
-.arrow-right::before {
-  transform: rotate(-45deg);
-}
-
-
-  /* Image size adjuster */
-  .size-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .size-controls button {
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 0 5px;
-  }
 </style>
 </head>
 <body>
@@ -241,17 +183,10 @@ include('includes/dbconnection.php');
     <input id="slide-dot-5" type="radio" name="slides">
     <div class="slide slide-5"></div>
 
-    <!-- Arrow buttons -->
-    <div class="arrow arrow-left">
-      <label for="slide-dot-4"></label>
-    </div>
-    <div class="arrow arrow-right">
-      <label for="slide-dot-2"></label>
-    </div>
 
 
   <!-- //container -->
-  <?php include_once('includes/footer.php');?>
+  
   <!--/copy-rights-->
 </body>
 </html>

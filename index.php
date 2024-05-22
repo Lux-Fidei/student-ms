@@ -192,9 +192,9 @@ include('includes/dbconnection.php');
 /* Fade animation */
 .fade {
   -webkit-animation-name:fade;
-  -webkit-animation-duration: 25s;
+  -webkit-animation-duration: 12s;
   animation-name: fade;
-  animation-duration: 4s;
+  animation-duration: 3s;
 }
 
 @-webkit-keyframes fade {
@@ -206,8 +206,6 @@ include('includes/dbconnection.php');
   from {opacity: .4}
   to {opacity: 1}
 }
-
-
 </style>
 </div>
 <script type="text/javascript">
@@ -291,7 +289,7 @@ function showSlides() {
   }
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 7000); // Change image every 2 seconds
+  setTimeout(showSlides, 3000); // Change image every 2 seconds
 }
 </script>
 </div>
