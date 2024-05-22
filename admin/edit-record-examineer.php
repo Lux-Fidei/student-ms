@@ -8,6 +8,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
     if(isset($_POST['submit'])) {
         $id = $_GET['id'];
         $fname = $_POST['fname'];
+        $mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $age = $_POST['age'];
@@ -17,9 +18,10 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $contact = $_POST['contact'];
         // Handle image upload if required
         
-        $sql = "UPDATE tbl_record_examineer SET fname=:fname, lname=:lname, email=:email, age=:age, strand=:strand, gender=:gender, address=:address, contact=:contact WHERE id=:id";
+        $sql = "UPDATE tbl_record_examineer SET fname=:fname, mname=:mname, lname=:lname, email=:email, age=:age, strand=:strand, gender=:gender, address=:address, contact=:contact WHERE id=:id";
         $query = $dbh->prepare($sql);
         $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $query->bindParam(':fname', $mname, PDO::PARAM_STR);
         $query->bindParam(':lname', $lname, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':age', $age, PDO::PARAM_INT);
@@ -86,6 +88,10 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                         <div class="form-group">
                                             <label for="fname">First Name</label>
                                             <input type="text" class="form-control" id="fname" name="fname" value="<?php echo htmlentities($result->fname); ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fname">Middle Name</label>
+                                            <input type="text" class="form-control" id="mname" name="mname" value="<?php echo htmlentities($result->mname); ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="lname">Last Name</label>

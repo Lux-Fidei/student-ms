@@ -38,7 +38,7 @@ include('includes/dbconnection.php');
 </script>
 <!--/script-->
 </head>
-	<body>
+	<body><br><br>
 <?php include_once('includes/header.php');?>
 
 
@@ -79,7 +79,7 @@ include('includes/dbconnection.php');
     <img src="images/SPORTS.jpg" alt="Course 6">
     <div class="course-title">                        Sports                                 </div>
   </div>
-</div>
+</div><br>
 <style>
 	.offered-courses-container {
   text-align: center;
