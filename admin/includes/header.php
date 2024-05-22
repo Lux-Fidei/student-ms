@@ -19,7 +19,7 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="greetings">Hello, Adminstrator <?php  echo htmlentities($row->FirstName);?>!</h5>
+          <h5 class="greetings">Hello, Administrator <?php  echo htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
                   {
