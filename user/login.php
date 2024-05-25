@@ -100,7 +100,7 @@
                         $_SESSION['sturecmfacaid'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/faculty-hybrid/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/faculty-hybrid/dashboard.php'; </script>";
                 
             } else if ($first_match->Type === 'Subject Teacher') {
                 $sql = "SELECT * FROM tblfaculty WHERE UserAccountID = :useracccountid";
@@ -113,7 +113,7 @@
                         $_SESSION['sturecmfacaid'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/subject-teacher/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/subject-teacher/dashboard.php'; </script>";
             } else if($first_match->Type === 'Record Examineer') {
                 $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
                 $query = $dbh->prepare($sql);
@@ -126,7 +126,7 @@
                         $_SESSION['record_examineer_id'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/recordexamineer/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/recordexamineer/dashboard.php'; </script>";
             } else if($first_match->Type === 'LIS Coordinator') {
                 $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
                 $query = $dbh->prepare($sql);
@@ -139,7 +139,7 @@
                         $_SESSION['record_examineer_id'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/lis-coordinator/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/lis-coordinator/dashboard.php'; </script>";
             } else if($first_match->Type === 'Teacher Aide') {
                 $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
                 $query = $dbh->prepare($sql);
@@ -151,7 +151,7 @@
                         $_SESSION['sturecmtaid'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/teacher-aide/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/teacher-aide/dashboard.php'; </script>";
             } else if($first_match->Type === 'Adviser') {
                 $sql = "SELECT * FROM tbl_user_accounts WHERE ID = :useracccountid";
                 $query = $dbh->prepare($sql);
@@ -163,7 +163,7 @@
                         $_SESSION['sturecmfacaid'] = $result->ID;
                     }
                 }
-                echo "<script type='text/javascript'> document.location ='/student-ms/adviser/dashboard.php'; </script>";
+                echo "<script type='text/javascript'> document.location ='/adviser/dashboard.php'; </script>";
             }
         }
     }

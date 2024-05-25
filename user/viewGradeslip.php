@@ -32,12 +32,13 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      <!-- partial --> 
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
         <?php include_once('includes/sidebar.php');?>
         <!-- partial -->
-        <div class="main-panel">
+        <div class="main-panel"><i class="glyphicon glyphicon-print"></i>PRINT</button>
+        
           <div class="content-wrapper">
             <div class="row purchace-popup">
               <div class="col-12 stretch-card grid-margin">

@@ -108,17 +108,6 @@
 /* === SCSS Compass Functions === */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap");
 
-@media print {
-  nav {
-    display: none !important;
-  }
-  nav * {
-    display: none !important;
-  }
-  footer {
-    display: none !important;
-  }
-}
 @-webkit-keyframes flash {
   0% {
     opacity: 1; }
@@ -12504,7 +12493,7 @@ dl {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    background: #181824;
+    background: black;
     width: 240px;
     height: 70px;
     padding: 0 1.75rem; }
@@ -12561,8 +12550,8 @@ dl {
     width: calc(100% - 240px);
     height: 70px;
     -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
-  background-color: #26263d; }
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11); 
+  background-color: goldenrod;}
     @media (max-width: 991px) {
       .navbar .navbar-menu-wrapper {
         width: auto;
@@ -12788,7 +12777,7 @@ dl {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #181824;
+  background:black;
   font-family: "Open Sans", sans-serif;
   padding: 0;
   width: 240px;

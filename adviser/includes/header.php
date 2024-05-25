@@ -35,10 +35,10 @@ foreach($results as $row)
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
 
-                <img class="img-xs rounded-circle ml-2" src="images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->LastName);?> </span></a>
+                <img class="img-xs rounded-circle ml-2" src="../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->LastName);?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
+                  <img class="img-md rounded-circle" src="../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="Profile image">
 
                   <p class="mb-1 mt-3"><?php  echo htmlentities($row->FirstName);?></p>
                   <p class="font-weight-light text-muted mb-0"><?php  echo htmlentities($row->Email);?></p><?php $cnt=$cnt+1;}} ?>

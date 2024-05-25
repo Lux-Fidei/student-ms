@@ -78,6 +78,27 @@
             text-align: center;
             margin-top: -19px;
         }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 45px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn {
+        font-size: 0.875rem;
+        line-height: 1;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        margin-top: -7em;
+        }
+
     </style>
 </head>
 <body>
@@ -92,7 +113,7 @@
         </div>
     </div>
     <hr style="border-color:black; border:1px solid gold"></hr>
-    
+    <a href="dashboard.php" class="btn btn-primary"><</a>
     <h2>SCHOOL CALENDAR</h2>
     <h4 class="semester">Second Semester SY <?php echo date('Y'); ?></h4> <!-- Fetch the school year -->
 

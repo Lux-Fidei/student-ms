@@ -59,13 +59,13 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         <?php
                         $uid = $_SESSION['sturecmfacaid'];
                         $sql = "SELECT 
-                          StudentName,
+                          LastName,
                           StuID,
                           strand
                           FROM 
                           tblstudent
                           WHERE faculty_id = :uid
-                          ORDER BY StudentName ASC";
+                          ORDER BY LastName ASC";
                         $query = $dbh->prepare($sql);
                         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
                         $query->execute();
@@ -81,7 +81,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                             foreach ($results as $row) {
                         ?>
                             <tr>
-                                <td style="font-weight: bold"><?php echo htmlentities($row->StudentName) ?></td>
+                                <td style="font-weight: bold"><?php echo htmlentities($row->FirstName) ?></td>
                                 <td><?php echo htmlentities($row->StuID); ?></td>
                                 <td><?php echo htmlentities($row->strand); ?></td>
                                 <td><?php echo htmlentities($results2[0]->FirstName); echo ' '; echo htmlentities($results2[0]->LastName); ?></td>
