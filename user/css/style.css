@@ -118,6 +118,9 @@
   footer {
     display: none !important;
   }
+  .print-button{
+    display: none !important;
+  }
 }
 @-webkit-keyframes flash {
   0% {

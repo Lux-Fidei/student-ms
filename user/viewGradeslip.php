@@ -37,7 +37,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
         <!-- partial:partials/_sidebar.html -->
         <?php include_once('includes/sidebar.php');?>
         <!-- partial -->
-        <div class="main-panel"><i class="glyphicon glyphicon-print"></i>PRINT</button>
+        <div class="main-panel"> <button onclick="window.print()" class="print-button">
+        <i class="glyphicon glyphicon-print"></i> PRINT
+    </button>
         
           <div class="content-wrapper">
             <div class="row purchace-popup">
