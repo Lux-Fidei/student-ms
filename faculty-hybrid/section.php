@@ -56,9 +56,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                               $setSection = $dbh->prepare("UPDATE tblstudent SET section=:section WHERE section IS NULL");
                               $setSection->bindParam(':section', $section, PDO::PARAM_STR);
                               if ($setSection->execute()) {
-                                echo "<div class='alert alert-success' role='alert'>Section enrolled successfully!</div>";
+                                echo "<div class='alert alert-success' role='alert'>Section added successfully!</div>";
                               } else {
-                                echo "<div class='alert alert-danger' role='alert'>Error enrolling section!</div>";
+                                echo "<div class='alert alert-danger' role='alert'>Error adding section!</div>";
                               }
                             }
                       };
