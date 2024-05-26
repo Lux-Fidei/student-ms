@@ -33,26 +33,23 @@ if (isset($_POST['teacher_name'])) {
     // Retrieve the comment
     $comment = isset($_POST['comment']) ? $_POST['comment'] : '';
 
-   // Insert evaluation data into the database
-foreach ($evaluation_results as $question_id => $answer) {
-    $sql = "INSERT INTO tbl_evaluation (student_id, teacher_id, question_id, answer) VALUES (:student_id, :teacher_id, :question_id, :answer)";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':student_id', $_SESSION['sturecmsstuid'], PDO::PARAM_INT);
-    $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
-    $query->bindParam(':question_id', $question_id, PDO::PARAM_INT);
-    $query->bindParam(':answer', $answer, PDO::PARAM_STR);
-    $query->execute();
-}
+    // Insert evaluation data into the database
+    foreach ($evaluation_results as $question_id => $answer) {
+        $sql = "INSERT INTO tbl_evaluation (teacher_id, question_id, answer) VALUES (:teacher_id, :question_id, :answer)";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $query->bindParam(':question_id', $question_id, PDO::PARAM_INT);
+        $query->bindParam(':answer', $answer, PDO::PARAM_STR);
+        $query->execute();
+    }
 
-// Insert the comment into the database
-if (!empty($comment)) {
-    $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment) VALUES (:teacher_id, :comment)";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
-    $query->bindParam(':comment', $comment, PDO::PARAM_STR);
-    $query->execute();
-}
-
+    // Insert the comment into the database
+    if (!empty($comment)) {
+        $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment) VALUES (:teacher_id, :comment)";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $query->bindParam(':comment', $comment, PDO::PARAM_STR);
+        $query->execute();
     }
 
     echo "
@@ -128,7 +125,7 @@ if (!empty($comment)) {
     </html>
     ";
     exit;
-
+}
 
 // Check if the TER form is active
 $isTerActive = true; // Set the initial TER form activation status. Change it as per your requirement.
