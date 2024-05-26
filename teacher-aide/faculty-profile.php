@@ -126,6 +126,7 @@ if (strlen($_SESSION['sturecmtaid']) == 0) {
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 ?>
+                                
                                 <div class="container-box">
                                     <div class="header">
                                         <img src="images/GRADIENT.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->

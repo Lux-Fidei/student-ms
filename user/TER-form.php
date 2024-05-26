@@ -33,22 +33,27 @@ if (isset($_POST['teacher_name'])) {
     // Retrieve the comment
     $comment = isset($_POST['comment']) ? $_POST['comment'] : '';
 
+    // Retrieve the student ID
+    $stuid = isset($_POST['stuid']) ? $_POST['stuid'] : '';
+
     // Insert evaluation data into the database
     foreach ($evaluation_results as $question_id => $answer) {
-        $sql = "INSERT INTO tbl_evaluation (teacher_id, question_id, answer) VALUES (:teacher_id, :question_id, :answer)";
+        $sql = "INSERT INTO tbl_evaluation (teacher_id, question_id, answer, stuid) VALUES (:teacher_id, :question_id, :answer, :stuid)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
         $query->bindParam(':question_id', $question_id, PDO::PARAM_INT);
         $query->bindParam(':answer', $answer, PDO::PARAM_STR);
+        $query->bindParam(':stuid', $stuid, PDO::PARAM_INT);
         $query->execute();
     }
 
     // Insert the comment into the database
     if (!empty($comment)) {
-        $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment) VALUES (:teacher_id, :comment)";
+        $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment, stuid) VALUES (:teacher_id, :comment, :stuid)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
         $query->bindParam(':comment', $comment, PDO::PARAM_STR);
+        $query->bindParam(':stuid', $stuid, PDO::PARAM_INT);
         $query->execute();
     }
 
@@ -198,7 +203,8 @@ if (!$isTerActive) {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 
+            1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -263,17 +269,16 @@ if (!$isTerActive) {
             border-color: #0056b3;
         }
         .btn {
-        font-size: 0.875rem;
-        line-height: 1;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 600;
-        margin-top: -7em;
+            font-size: 0.875rem;
+            line-height: 1;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 600;
+            margin-top: -7em;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        
         <img src="images/GRADIENT.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
         <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
         <div>
@@ -291,6 +296,8 @@ if (!$isTerActive) {
         <h2 style="background-image: url(images/okirr1.jpg);background-size: contain;">.</h2>
 
         <form method="post">    
+            <input type="hidden" name="stuid" value="<?php echo isset($_SESSION['stuid']) ? $_SESSION['stuid'] : ''; ?>">
+            
             <label for="teacher_name" style="font-weight: bold;">Select Teacher:</label>
             <select id="teacher_name" name="teacher_name" required>
                 <option value="">Select Teacher</option>
