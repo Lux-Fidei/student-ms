@@ -76,7 +76,7 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                 
                                                         <td><?php echo htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . ' ' . htmlentities($row->LastName); ?></td>
                                                         <td><?php echo htmlentities($row->EmailAddress); ?></td>
-                                                        <td><?php echo htmlentities($row->YearAdmitted); ?></td>
+                                                        <td><?php echo date('M d, Y | h:i A', strtotime($row->YearAdmitted)); ?></td>
                                                         <td style="display:flex;justify-content:center">
                                                             <div>
                                                                 <form method="post">
