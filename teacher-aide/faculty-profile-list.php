@@ -71,7 +71,7 @@ if (strlen($_SESSION['sturecmtaid']==0)) {
                 </div>
                 <script>
                   function goTo() {
-                    var stuID = event.target.parentNode.parentNode.cells[3].innerText;
+                    var stuID = event.target.parentNode.parentNode.cells[4].innerText;
                     window.location.href = "./faculty-profile.php?UserAccountID=" + stuID;
                   }
                   function filterTable() {
