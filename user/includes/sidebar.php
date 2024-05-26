@@ -8,7 +8,7 @@
                 </div>
                 <div class="text-wrapper">
                   <?php
-         $uid= $_SESSION['sturecmsuid'];
+        $uid= $_SESSION['sturecmsuid'];
 $sql="SELECT * from tblstudent where ID=:uid";
 
 $query = $dbh -> prepare($sql);

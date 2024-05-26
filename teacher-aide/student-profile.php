@@ -151,23 +151,23 @@ if (!isset($_GET['LRN'])) {
                                                 <div style="display: flex; flex-direction: column; margin-right: 16px">
                                                     <span style="color: #000; margin-bottom: 8px">Last Name:</span>
                                                     <span style="color: #000; margin-bottom: 8px">First Name:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Middle Name:</span>
+                                                    <span style="color: #000; margin-bottom: 8px">Middle Initial:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Gender:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Age:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Date of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Place of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Current Address:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Permanent                                             Address:</span>
+                                                    <span style="color: #000; margin-bottom: 8px">Permanent Address:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Contact Number:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Email Address:</span>
                                                     </div>
                                                     <div style="display: flex; flex-direction: column">
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LastName;?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->FirstName;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MiddleInitial;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->MiddleInitial . '.';?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Gender;?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Age;?></span>
-                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->DOB;?></span>
+                                                <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo date('F j, Y', strtotime($results[0]->DOB));?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PlaceOfBirth;?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->CurrentAddress;?></span>
                                                 <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->PermanentAddress;?></span>
