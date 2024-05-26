@@ -25,33 +25,25 @@ include('includes/dbconnection.php');
 <!--script-->
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        // Function to move to the next slide
+        function showSlide(index) {
+            var slides = $(".slide");
+            var dots = $(".menu label");
+            slides.removeClass("active").eq(index).addClass("active");
+            dots.removeClass("active").eq(index).addClass("active");
+        }
+
         function nextSlide() {
-            var $currentSlide = $(".slide:checked");
-            var $nextSlide = $currentSlide.next(".slide");
-
-            if ($nextSlide.length === 0) {
-                $nextSlide = $(".slide").first();
-            }
-
-            $currentSlide.removeAttr("checked");
-            $nextSlide.prop("checked", "checked");
+            var currentIndex = $(".slide.active").index();
+            var nextIndex = (currentIndex + 1) % $(".slide").length;
+            showSlide(nextIndex);
         }
 
-        // Function to move to the previous slide
         function prevSlide() {
-            var $currentSlide = $(".slide:checked");
-            var $prevSlide = $currentSlide.prev(".slide");
-
-            if ($prevSlide.length === 0) {
-                $prevSlide = $(".slide").last();
-            }
-
-            $currentSlide.removeAttr("checked");
-            $prevSlide.prop("checked", "checked");
+            var currentIndex = $(".slide.active").index();
+            var prevIndex = (currentIndex - 1 + $(".slide").length) % $(".slide").length;
+            showSlide(prevIndex);
         }
 
-        // Click event for the arrow buttons
         $(".arrow-left").click(function() {
             prevSlide();
         });
@@ -60,9 +52,9 @@ include('includes/dbconnection.php');
             nextSlide();
         });
 
-        $(".scroll").click(function(event){     
-            event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+        $(".menu label").click(function() {
+            var index = $(this).index();
+            showSlide(index);
         });
     });
 </script>
@@ -77,14 +69,13 @@ include('includes/dbconnection.php');
 
   img {
     width: 100%;
-    
   }
 
-  .slider-container{
+  .slider-container {
     height: 100%;
     width: 100%;
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
     text-align: center;
   }
 
@@ -93,7 +84,7 @@ include('includes/dbconnection.php');
     left: 0;
     z-index: 900;
     width: 100%;
-    bottom: 0;
+    bottom: 20px;
   }
 
   .menu label {
@@ -102,27 +93,27 @@ include('includes/dbconnection.php');
     width: 16px;
     height: 16px;
     background: #fff;
-    border-radius: 50px;
-    margin: 0 .2em 1em;
+    border-radius: 50%;
+    margin: 0 .2em;
+  }
+
+  .menu label.active {
+    background: #000;
   }
 
   .slide {
+    display: none;
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
-    left: 100%;
-    z-index: 10;
-    padding: 8em 1em 0;
+    left: 0;
     background-size: cover;
     background-position: 50% 50%;
-    transition: left 0s .75s;
   }
 
-  [id^="slide"]:checked + .slide {
-    left: 0;
-    z-index: 100;
-    transition: left .65s ease-out;
+  .slide.active {
+    display: block;
   }
 
   .slide-1 {
@@ -145,7 +136,25 @@ include('includes/dbconnection.php');
     background-image: url("images/5ps.png");
   }
 
-  /* Arrow buttons */
+  .arrow-left, .arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .arrow-left {
+    left: 10px;
+  }
+
+  .arrow-right {
+    right: 10px;
+  }
 </style>
 </head>
 <body>
@@ -160,33 +169,23 @@ include('includes/dbconnection.php');
   <!--header-->
   <!-- contact -->
   <div class="slider-container">
+    <button class="arrow-left">&#9664;</button>
+    <button class="arrow-right">&#9654;</button>
     <div class="menu">
-      <label for="slide-dot-1"></label>
-      <label for="slide-dot-2"></label>
-      <label for="slide-dot-3"></label>
-      <label for="slide-dot-4"></label>
-      <label for="slide-dot-5"></label>
+      <label class="active"></label>
+      <label></label>
+      <label></label>
+      <label></label>
+      <label></label>
     </div>
 
-    <input id="slide-dot-1" type="radio" name="slides" checked>
-    <div class="slide slide-1"></div>
-
-    <input id="slide-dot-2" type="radio" name="slides">
+    <div class="slide slide-1 active"></div>
     <div class="slide slide-2"></div>
-
-    <input id="slide-dot-3" type="radio" name="slides">
     <div class="slide slide-3"></div>
-
-    <input id="slide-dot-4" type="radio" name="slides">
     <div class="slide slide-4"></div>
-
-    <input id="slide-dot-5" type="radio" name="slides">
     <div class="slide slide-5"></div>
-
-
-
+  </div>
   <!-- //container -->
-  
   <!--/copy-rights-->
 </body>
 </html>

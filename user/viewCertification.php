@@ -30,6 +30,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
   </head>
   <body>
     <div class="container-scroller">
+
       <!-- partial:partials/_navbar.html -->
       <?php include_once('includes/header.php');?>
       <!-- partial -->
@@ -38,6 +39,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
         <?php include_once('includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
+        <button onclick="window.print()" class="print-button">
+        <i class="glyphicon glyphicon-print"></i> PRINT
+    </button>
           <div class="content-wrapper" style="display: flex; justify-content: center">
             <div class="row purchace-popup" style="width: 80%">
               <div class="col-12 stretch-card grid-margin">
@@ -79,7 +83,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                   <div>
                     <h1 style="text-align: center">CERTIFICATION</h1>
                     <div style="display: flex; justify-content: center;">
-                      <img src="./images/<?php echo htmlentities($results[0]->Image)?>" alt="someone" style="border: 1px solid black; margin: 32px 0" width="192" height="192">
+                      <img src="./../admin/images/<?php echo htmlentities($results[0]->Image)?>" alt="someone" style="border: 1px solid black; margin: 32px 0" width="192" height="192">
                     </div>
                     <div style="display: flex; justify-content: center">
                       <p style="width: 72%; text-align: justify"> &emsp;&emsp;&emsp;This is to certify that based on the available in this school,<strong> <?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName ?></strong>, with LRN <?php echo $results[0]->LRN ?>, is officially enrolled as a<strong> <?php echo $results[0]->GradeLevel ?> student</strong> under the <strong><?php echo $results[0]->Strand ?> strand</strong> this first semester, academic year 2023 – 2024.</p>
@@ -126,6 +130,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                   <form method="post" action="viewCertification.php" style="display: flex; justify-content: center">
                     <input type="hidden" name="submit" value="1">
                     <button class="btn btn-primary mb-3" type="submit"> Request View for Certification </button>
+                    
                   </form>
                 <?php } ?>
                 </div>

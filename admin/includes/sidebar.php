@@ -38,13 +38,6 @@ foreach($results as $row)
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="history_logs.php">
-                <span class="menu-title">History of Transaction</span>
-                <i class="icon-doc menu-icon"></i>
-              </a>
-            </li>
-
-            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth3" aria-expanded="false" aria-controls="auth">
                 <span class="menu-title">Subjects</span>
                 <i class="icon-doc menu-icon"></i>
@@ -125,6 +118,7 @@ foreach($results as $row)
               <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="add-students.php">Add Student</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="import-students.php">Import Student</a></li>
                   <li class="nav-item"> <a class="nav-link" href="manage-students.php">Manage Student</a></li>
                 </ul>
               </div>
@@ -185,10 +179,12 @@ foreach($results as $row)
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="search.php">
-                <span class="menu-title">Search</span>
-                <i class="icon-magnifier menu-icon"></i>
-  
+              <a class="nav-link" href="academiccalendar.php">
+                <span class="menu-title">Academic Calendar</span>
+                <i class="icon-doc menu-icon"></i>
+              </a>
+            </li>
+
               </a>
             </li>
             </li>

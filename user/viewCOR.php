@@ -38,6 +38,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
         <?php include_once('includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
+        <button onclick="window.print()" class="print-button">
+        <i class="glyphicon glyphicon-print"></i> PRINT
+    </button>
           <div class="content-wrapper" style="display: flex; justify-content: center">
             <div class="row purchace-popup" style="width: 80%">
               <div class="col-12 stretch-card grid-margin">
