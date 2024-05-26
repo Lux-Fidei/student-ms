@@ -57,8 +57,8 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                   <img src="images/MSU-Marawi.png" alt="Logo" width="96px" style="margin-right: 16px">
                 </div>
               </div>
-              <div>
-                <hr style="border-color:black; border:1px solid gold; margin-top: 4px; width: 100%" />
+              <div style="display: flex; justify-content: center;">
+                <hr style="border-color:black; border:1px solid #80d8a8; margin: 16px 0 0 0; width: 99.3%" />
               </div>
                 
               <?php

@@ -2,7 +2,7 @@
 session_start();
 //error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmstaid']==0)) {
+if (strlen($_SESSION['sturecmtaid']==0)) {
   header('location:logout.php');
   } else{
    
@@ -24,7 +24,7 @@ if (strlen($_SESSION['sturecmstaid']==0)) {
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     
   </head>
   <body>
@@ -49,35 +49,49 @@ if (strlen($_SESSION['sturecmstaid']==0)) {
             </div>
             <div class="row">
           
+
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
+                  <div class="header" style="padding: 16px 16px 0 16px; display: flex; justify-content: center; width: 100%; margin-bottom: 16px">
+                  <div style="display: flex; flex-direction: row; justify-content: center">
+                    <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo" width="96px" style="margin-right: 16px">
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+                      <span style="text-align: center; font-family:'Times New Roman' , Times, serif; font-size:medium">Republic of the Philippines</span>
+                    <span style="color: #5f1227;text-align: center; font-family:'Times New Roman' , Times, serif;">MINDANAO STATE UNIVERSITY</span>
+                    <span  style="color: #055727;text-align: center; font-family:'Times New Roman' , Times, serif;">SENIOR HIGH SCHOOL</span>
+                    <span style="text-align: center; font-family:'Times New Roman' , Times, serif; font-size:medium">Marawi City</span>
+                    </div>
                     
+                    <img src="images/MSU-Marawi.png" alt="Logo" width="96px">
+                  </div>
+              </div>
                     <table border="1" class="table table-bordered mg-b-0">
                       <?php
-$stuclass=$_SESSION['stuclass'];
-$sql="SELECT tblclass.ID,tblclass.ClassName,tblclass.Section,tblnotice.NoticeTitle,tblnotice.CreationDate,tblnotice.ClassId,tblnotice.NoticeMsg,tblnotice.ID as nid from tblnotice join tblclass on tblclass.ID=tblnotice.ClassId where tblnotice.ClassId=:stuclass";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':stuclass',$stuclass,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
- <tr align="center" class="table-warning">
-<td colspan="4" style="font-size:20px;color:blue">
+                        $stuclass="staff";
+                        $sql="SELECT * FROM tblnotice WHERE NoticeTo = :sentTo";
+                        $query = $dbh -> prepare($sql);
+                        $query->bindParam(':sentTo',$stuclass,PDO::PARAM_STR);
+                        $query->execute();
+                        $results=$query->fetchAll(PDO::FETCH_OBJ);
+                        $cnt=1;
+                        if($query->rowCount() > 0)
+                        {
+                        foreach($results as $row)
+                        {
+                      ?>
+ <tr align="center">
+<td colspan="4">
  Notice</td></tr>
-<tr class="table-info">
+<tr>
     <th>Notice Announced Date</th>
-    <td><?php  echo $row->CreationDate;?></td>
+    <td><?php echo date("F j, Y | h:i A", strtotime($row->CreationDate)); ?></td>
   </tr>
-    <tr class="table-info">
+    <tr>
     <th>Noitice Title</th>
     <td><?php  echo $row->NoticeTitle;?></td>
   </tr>
-  <tr class="table-info">
+  <tr>
      <th>Message</th>
     <td><?php  echo $row->NoticeMsg;?></td>
      

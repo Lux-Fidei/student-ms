@@ -38,9 +38,10 @@ if (strlen($_SESSION['sturecmtaid']==0)) {
                       <tr>
                         <td></td>
                         <th style="width: 192px"><span>First Name</span></th>
+                        <th style="width: 192px"><span>Middle Initial</span></th>
                         <th style="width: 192px"><span>Last Name</span></th>
                         <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>User Account ID</span></th>
-                        <th style="width: 192px"><span>email</span></th>
+                        <th style="width: 192px"><span>Email</span></th>
                         <th style="width: 192px"><span>Action</span></th>
                       </tr>
                     </thead>
@@ -56,6 +57,7 @@ if (strlen($_SESSION['sturecmtaid']==0)) {
                           echo "<tr class='data' data-section='" . $row->position . "'>";
                           echo "<td>" . $count . ".&nbsp;&nbsp;</td>";
                           echo "<td>" . $row->FirstName . "</td>";
+                          echo "<td>" . $row->MiddleInitial . "</td>";
                           echo "<td>" . $row->LastName . "</td>";
                           echo "<td>" . $row->UserAccountID . "</td>";
                           echo "<td>" . $row->Email . "</td>";

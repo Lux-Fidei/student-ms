@@ -20,7 +20,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $image = $_FILES["image"]["name"];
         $extension = substr($image, strlen($image) - 4, strlen($image));
         $allowed_extensions = array(".jpg", ".jpeg", ".png", ".gif");
-        $uid = createAccount($uname, $password, 'Record Examineer');
+        $uid = createAccount($uname, $password, 'LIS Coordinator');
 
         if (in_array($extension, $allowed_extensions)) {
             $image = md5($image) . time() . $extension;
@@ -42,8 +42,8 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $query->bindParam(':image', $image, PDO::PARAM_STR);
             $query->bindParam(':useraccountid', $uid, PDO::PARAM_INT);
             if ($query->execute()) {
-                echo '<script>alert("Record examiner has been added.")</script>';
-                echo "<script>window.location.href ='addrecordexamineer.php'</script>";
+                echo '<script>alert("LIS Coordinator has been added.")</script>';
+                echo "<script>window.location.href ='add-liscoordinator.php'</script>";
             } else {
                 echo '<script>alert("Something went wrong. Please try again.")</script>';
             }
@@ -91,7 +91,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Record Examineer</h4>
+                                    <h4 class="card-title" style="text-align: center;">LIS Coordinator</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="exampleInputName1">First Name</label>
@@ -100,7 +100,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 
                                         <div class="form-group">
                                             <label for="exampleInputName1">Middle Name</label>
-                                            <input type="text" name="mname" class="form-control" required>
+                                            <input type="text" name="fname" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName1">Last Name</label>

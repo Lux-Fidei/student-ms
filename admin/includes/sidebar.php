@@ -103,7 +103,9 @@ foreach($results as $row)
               </a>
               <div class="collapse" id="auth7">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="addrecordexamineer.php"> Add Staff</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="addrecordexamineer.php"> Add Record Examineer</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="add-liscoordinator.php"> Add LIS Coordinator</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="add-teacheraide.php"> Add Teacher Aide</a></li>
                   <li class="nav-item"> <a class="nav-link" href="managerecordexam.php"> Manage Staff</a></li>
                 </ul>
               </div>

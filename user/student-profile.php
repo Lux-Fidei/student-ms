@@ -142,7 +142,7 @@ if (strlen($_SESSION['sturecmsstuid']) == 0) {
                                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                                             <img src="../admin/images/<?php echo $results[0]->Image; ?>"
                                                  width="200" height="200" style="border:solid 1px #000; border-radius: 50%">
-                                            <span style="color: #000; font-weight: bold; margin-top: 8px;"><?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName .' | ' . $results[0]->Strand .' '. $results[0]->GradeLevel?></span>
+                                            <span style="color: #000; font-weight: bold; margin-top: 8px;"><?php echo $results[0]->FirstName . ' ' . $results[0]->MiddleInitial . ' ' . $results[0]->LastName .' | ' . $results[0]->Strand .' '. $results[0]->GradeLevel.'-'.$results[0]->section?></span>
                                         </div><br>
                                         <div class="subheading">PERSONAL INFORMATION</div>
                                         <div

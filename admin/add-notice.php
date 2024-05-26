@@ -1,6 +1,5 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmsaid']) == 0) {
     header('location:logout.php');
@@ -10,14 +9,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         $facultyid = $_SESSION['sturecmsaid'];
         $notmsg = $_POST['notmsg'];
         $noticeTo = $_POST['noticeTo'];
-        $course_id = $_POST['course_id'];
 
-        $sql = "INSERT INTO tblnotice (NoticeTitle, facultyid, NoticeMsg, course_id, NoticeTo) VALUES (:nottitle, :facultyid, :notmsg, :course_id, :noticeTo)";
+        $sql = "INSERT INTO tblnotice (NoticeTitle,NoticeMsg, NoticeTo) VALUES (:nottitle, :notmsg, :noticeTo)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':nottitle', $nottitle, PDO::PARAM_STR);
-        $query->bindParam(':facultyid', $facultyid, PDO::PARAM_STR);
         $query->bindParam(':notmsg', $notmsg, PDO::PARAM_STR);
-        $query->bindParam(':course_id', $course_id, PDO::PARAM_STR);
         $query->bindParam(':noticeTo', $noticeTo, PDO::PARAM_STR);
         $query->execute();
         $LastInsertId = $dbh->lastInsertId();
@@ -28,13 +24,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             echo '<script>alert("Something Went Wrong. Please try again")</script>';
         }
     }
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Student Management System|| Add Notice</title>
+    <title>Student Management System || Add Notice</title>
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -50,11 +44,11 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title">Add Notice </h3>
+                        <h3 class="page-title">Add Notice</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Notice</li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Notice</li>
                             </ol>
                         </nav>
                     </div>
@@ -63,31 +57,23 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title" style="text-align: center;">Add Notice</h4>
-                                    <form class="forms-sample" method="post" enctype="multipart/form-data">
+                                    <form class="forms-sample" method="post">
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Notice Title</label>
+                                            <label for="nottitle">Notice Title</label>
                                             <input type="text" name="nottitle" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail3">Notice For</label>
+                                            <label for="noticeTo">Notice For</label>
                                             <select name="noticeTo" class="form-control" required>
                                                 <option value="">Select Recipient</option>
-                                                <option value="all_students">All Students</option>
-                                                <option value="all_faculty">All Faculty</option>
-                                                <option value="all_staff">All Staff</option>
-                                                <?php
-                                                $sql = "SELECT * FROM tbl_course";
-                                                $query = $dbh->prepare($sql);
-                                                $query->execute();
-                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                                foreach ($results as $result) {
-                                                    echo '<option value="' . $result->course_id . '">' . $result->course_name . '</option>';
-                                                }
-                                                ?>
+                                                <option value="faculty">Faculty</option>
+                                                <option value="staff">Staff</option>
+                                                <option value="record_examiners">Record Examineer</option>
+                                                <option value="student">Student</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Message</label>
+                                            <label for="notmsg">Message</label>
                                             <textarea name="notmsg" class="form-control" required></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2" name="submit">Send</button>
@@ -110,3 +96,4 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
     <script src="js/select2.js"></script>
 </body>
 </html>
+<?php } ?>

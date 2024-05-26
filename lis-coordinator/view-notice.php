@@ -68,7 +68,7 @@ if (strlen($_SESSION['sturecmlisid']==0)) {
               </div>
                     <table border="1" class="table table-bordered mg-b-0">
                       <?php
-                        $stuclass="faculty";
+                        $stuclass="staff";
                         $sql="SELECT * FROM tblnotice WHERE NoticeTo = :sentTo";
                         $query = $dbh -> prepare($sql);
                         $query->bindParam(':sentTo',$stuclass,PDO::PARAM_STR);

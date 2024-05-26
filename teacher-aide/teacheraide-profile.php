@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-if (strlen($_SESSION['record_examineer_id']) == 0) {
+include('includes/dbconnection.php');
+if (strlen($_SESSION['sturecmtaid']) == 0) {
     header('location:logout.php');
 } else {
 ?>
@@ -31,7 +31,7 @@ if (strlen($_SESSION['record_examineer_id']) == 0) {
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-                    <h3 class="page-title"> View Examineer Profile </h3>
+                    <h3 class="page-title"> View Teacher Aide Profile </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
@@ -44,7 +44,7 @@ if (strlen($_SESSION['record_examineer_id']) == 0) {
                         <div class="card">
                             <div class="card-body">
                                 <?php
-                                $eid = $_SESSION['record_examineer_id'];
+                                $eid = $_SESSION['sturecmtaid'];
                                 $sql = "SELECT * FROM tbl_record_examineer WHERE id=:eid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':eid', $eid, PDO::PARAM_STR);
@@ -69,7 +69,7 @@ if (strlen($_SESSION['record_examineer_id']) == 0) {
                                             <img src="../admin/images/<?php echo $row['image']; ?>" width="200" height="200" style="border: solid 1px #000; border-radius: 50%">
                                             <span style="color: #000; font-weight: bold; margin-top: 8px;">
                                             <?php 
-                                                echo $results[0]->fname . ' ' . $results[0]->mname . ' ' . $results[0]->lname . ' | Assigned Strand: ' . $results[0]->strand.'| Record Examineer'
+                                                echo $results[0]->fname . ' ' . $results[0]->mname . ' ' . $results[0]->lname .'| Teacher Aide'
                                                 ?>
                                             </span>
                                         </div><br>

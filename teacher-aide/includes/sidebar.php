@@ -3,13 +3,13 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
                 <div class="profile-image">
-                <img class="img-xs rounded-circle" src="./../admin/images/<?php echo $results[0]->Image; ?>" width="32" alt="profile image">
+                <img class="img-xs rounded-circle" src="./../admin/images/<?php echo $results[0]->image; ?>" width="32" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
                     <?php
                     $uid = $_SESSION['sturecmtaid'];
-                    $sql = "SELECT * FROM tblfaculty WHERE ID=:uid";    
+                    $sql = "SELECT * FROM tbl_record_examineer WHERE ID=:uid";    
                     $query = $dbh->prepare($sql);
                     $query->bindParam(':uid', $uid, PDO::PARAM_STR);
                     $query->execute();
@@ -18,9 +18,9 @@
                     $cnt = 1;
                     if ($query->rowCount() > 0) {
                         foreach ($results as $row) {
-                    ?>
-                            <p class="profile-name"><?php  echo htmlentities($row->FirstName) . ' ' . htmlentities($row->MiddleInitial) . '. ' . htmlentities($row->LastName);?></p>
-                            <p class="designation"><?php echo htmlentities($row->Email); ?></p>
+                            ?>
+                            <p class="profile-name"><?php  echo htmlentities($row->fname) . ' ' . htmlentities($row->mname) . '. ' . htmlentities($row->lname);?></p>
+                            <p class="designation"><?php echo htmlentities($row->email); ?></p>
                     <?php
                             $cnt = $cnt + 1;
                         }

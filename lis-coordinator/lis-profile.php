@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include('includes/dbconnection.php');
 if (strlen($_SESSION['record_examineer_id']) == 0) {
     header('location:logout.php');
 } else {
@@ -69,7 +69,7 @@ if (strlen($_SESSION['record_examineer_id']) == 0) {
                                             <img src="../admin/images/<?php echo $row['image']; ?>" width="200" height="200" style="border: solid 1px #000; border-radius: 50%">
                                             <span style="color: #000; font-weight: bold; margin-top: 8px;">
                                             <?php 
-                                                echo $results[0]->fname . ' ' . $results[0]->mname . ' ' . $results[0]->lname . ' | Assigned Strand: ' . $results[0]->strand.'| Record Examineer'
+                                                echo $results[0]->fname . ' ' . $results[0]->mname . ' ' . $results[0]->lname .'| LIS Coordinator'
                                                 ?>
                                             </span>
                                         </div><br>

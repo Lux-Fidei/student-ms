@@ -138,10 +138,10 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
         <label for="exampleInputName1">Position</label>
         <select name="position" class="form-control" required>
             <option value="">Choose Faculty Type</option>
-            <option value="Visiting Teacher">Visiting Teacher</option>
-            <option value="Adviser (Subject)">Adviser (Subject)</option>
-            <option value="Chairperson (Subject)">Chairperson (Subject)</option>
-            <option value="Chairperson (Adviser & Subject)">Chairperson (Adviser & Subject)</option>
+            <option value="Visiting Teacher">Subject Teacher</option>
+            <option value="Adviser (Subject)">Adviser </option>
+            <option value="Chairperson (Subject)">Chairperson </option>
+            
         </select>
     </div>
     <div id="additional-fields"></div>
@@ -160,17 +160,6 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                 `;
             } else if (position === 'Adviser (Subject)') {
                 additionalFields.innerHTML = `
-                    <div class="form-group">
-                        <label for="exampleInputName1">Advisory Class/es</label>
-                        <input type="text" name="advisory_class" class="form-control" required>
-                    </div>
-                `;
-            } else if (position === 'Chairperson (Adviser & Subject)'){
-                additionalFields.innerHTML = `
-                    <div class="form-group">
-                        <label for="exampleInputName1">Assigned Strand/Track</label>
-                        <input type="text" name="assigned_strand" class="form-control" required>
-                    </div>
                     <div class="form-group">
                         <label for="exampleInputName1">Advisory Class/es</label>
                         <input type="text" name="advisory_class" class="form-control" required>

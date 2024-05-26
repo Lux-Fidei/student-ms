@@ -21,7 +21,7 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
             align-items: center;
         }
         .header img {
-            max-width: 100px; /* Adjust the size of the logo as needed */
+            max-width: 100px;
             margin-right: 10px;
         }
         .university-name {
@@ -63,11 +63,6 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
             background-size: 500px;
             background-repeat: no-repeat;
             background-position:center;
-            
-            
-            
-
-        
         }
 
         .subheading {
@@ -90,6 +85,22 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
             font-size: 17px;
             font-weight: 300;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .schedule-table th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -129,8 +140,8 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                 ?>
                                 <div class="container-box">
                                     <div class="header">
-                                        <img src="images/GRADIENT.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
-                                        <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo"> <!-- Change "logo.png" to the path of your logo -->
+                                        <img src="images/GRADIENT.png" alt="Logo">
+                                        <img src="images/MarawiSeniorHigh-removebg.png" alt="Logo">
                                         <div>
                                             <h4>Republic Of The Philippines</h4>
                                             <h4 class="university-name">MINDANAO STATE UNIVERSITY</h4>
@@ -151,7 +162,6 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                                     echo ' | Club Adviser: ' . $results[0]->ClubName;
                                                 }
                                                 ?>
-                                                
                                             </span>
                                         </div><br>
                                         <div class="subheading" style="font-weight: bold; align-items: center; color:#181824; font-family:'Times New Roman', Times, serif">PERSONAL INFORMATION</div>
@@ -165,10 +175,8 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                                     <span style="color: #000; margin-bottom: 8px">Age:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Gender:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Address:</span>
-                                                    <span
-                                                    style="color: #000; margin-bottom: 8px">Contact Number:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Position</span>
-                                                    <!-- Add other fields here -->
+                                                    <span style="color: #000; margin-bottom: 8px">Contact Number:</span>
+                                                    <span style="color: #000; margin-bottom: 8px">Position:</span>
                                                 </div>
                                                 <div style="display: flex; flex-direction: column">
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->LastName;?></span>
@@ -180,17 +188,58 @@ if (strlen($_SESSION['sturecmfacaid']) == 0) {
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Address;?></span>
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->Contact;?></span>
                                                     <span style="color: #000; font-weight: bold; margin-bottom: 8px"><?php echo $results[0]->position;?></span>
-                                                    <!-- Add other fields here -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="subheading
                                     <div class="subheading" style="font-family: 'Times New Roman', Times, serif;">MATRIX</div>
                                     <div class="content-section">
-                                        <!-- Add other information fields here -->
+                                        <!-- Schedule Matrix -->
+                                        <table class="schedule-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Full Name</th>
+                                                    <th>Subject Name</th>
+                                                    <th>Course Name</th>
+                                                    <th>Timeslot</th>
+                                                    <th>Building</th>
+                                                    <th>Room</th>
+                                                    <th>Days</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $sql = "SELECT f.FirstName, f.LastName, s.SubjectName, c.course_name, sc.timeslot, sc.building, sc.room, sc.days
+                                                        FROM schedule sc
+                                                        JOIN tblfaculty f ON sc.faculty_id = f.ID
+                                                        JOIN tblsubjects s ON sc.subject_id = s.SubjectID
+                                                        JOIN tbl_course c ON sc.strand_id = c.course_id
+                                                        WHERE sc.faculty_id = :faculty_ID";
+                                                $query = $dbh->prepare($sql);
+                                                $query->bindParam(':faculty_ID', $fid, PDO::PARAM_STR);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                if (count($results) == 0) {
+                                                    echo "<tr><td colspan='6' style='text-align: center'>No scheduled subjects</td></tr>";
+                                                } else {
+                                                    foreach ($results as $row) {
+                                                        echo "<tr>";
+                                                        echo "<td>".$row->FirstName. ' ' . $row->LastName."</td>";
+                                                        echo "<td>".$row->SubjectName."</td>";
+                                                        echo "<td>".$row->course_name."</td>";
+                                                        echo "<td>".$row->timeslot."</td>";
+                                                        echo "<td>".$row->building."</td>";
+                                                        echo "<td>".$row->room."</td>";
+                                                        echo "<td>".$row->days."</td>";
+                                                        echo "</tr>";
+                                                    }
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-
                                 </div>
 
                             </div>

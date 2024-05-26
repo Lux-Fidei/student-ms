@@ -11,7 +11,7 @@ if(isset($_POST['submit']))
 $sid=$_SESSION['sturecmsstuid'];
 $cpassword=md5($_POST['currentpassword']);
 $newpassword=md5($_POST['newpassword']);
-$sql ="SELECT StuID FROM tblstudent WHERE StuID=:sid and Password=:cpassword";
+$sql ="SELECT StuID FROM tblstudent WHERE St  uID=:sid and Password=:cpassword";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':sid', $sid, PDO::PARAM_STR);
 $query-> bindParam(':cpassword', $cpassword, PDO::PARAM_STR);
@@ -108,7 +108,6 @@ return true;
                       </div>
                       
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Change</button>
-                     
                     </form>
                   </div>
                 </div>

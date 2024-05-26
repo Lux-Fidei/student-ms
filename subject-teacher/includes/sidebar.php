@@ -38,12 +38,7 @@
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="schedule.php">
-                <span class="menu-title">Schedule</span>
-                <i class="icon-book-open menu-icon"></i>
-                </a>
-                </li>
+       
 
                 
     </ul>
