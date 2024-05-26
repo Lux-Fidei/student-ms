@@ -117,11 +117,10 @@ if (strlen($_SESSION['sturecmtaid']) == 0) {
                         <div class="card" style="border-radius: 16px">
                             <div class="card-body">
                                 <?php
-                                $fid = $_SESSION['sturecmtaid'];
-                                $sql = "SELECT f.*, c.ClubName 
-                                        FROM tblfaculty f 
-                                        LEFT JOIN tbl_club c ON f.ID = c.AdviserID 
-                                        WHERE f.ID = :fid";
+                                $fid = $_GET['UserAccountID'];
+                                $sql = "SELECT *
+                                        FROM tblfaculty
+                                        WHERE UserAccountID = :fid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':fid', $fid, PDO::PARAM_STR);
                                 $query->execute();

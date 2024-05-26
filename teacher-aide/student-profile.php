@@ -157,7 +157,7 @@ if (!isset($_GET['LRN'])) {
                                                     <span style="color: #000; margin-bottom: 8px">Date of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Place of Birth:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Current Address:</span>
-                                                    <span style="color: #000; margin-bottom: 8px">Permanent                                             Address:</span>
+                                                    <span style="color: #000; margin-bottom: 8px">Permanent Address:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Contact Number:</span>
                                                     <span style="color: #000; margin-bottom: 8px">Email Address:</span>
                                                     </div>
