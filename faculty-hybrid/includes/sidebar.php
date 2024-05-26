@@ -45,6 +45,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="enrollment.php">
+                <span class="menu-title">Enrollment</span>
+                <i class="icon-book-open menu-icon"></i>
+                </a>
+                </li>
+                <li class="nav-item">
             <a class="nav-link" href="section.php">
                 <span class="menu-title">Section</span>
                 <i class="icon-book-open menu-icon"></i>
