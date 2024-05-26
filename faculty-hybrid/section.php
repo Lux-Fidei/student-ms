@@ -112,7 +112,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       </div>
                       <div style="margin: 0 16px 16px 16px; display: flex; justify-content: right">
                           <input type="hidden" name="submit" value="true">
-                          <button type="submit" class="btn btn-primary mr-2">Randomize Section</button>
+                          <button type="submit" class="btn btn-primary mr-2">Set Section</button>
                       </div>
                     </form>
                 </div>
