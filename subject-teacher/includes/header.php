@@ -1,7 +1,7 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="dashboard.php">
-            <strong style="color: white;">SMS</strong>
+            <strong style="color: white;">MSU MSHS</strong>
           </a>
         
         </div>
@@ -20,7 +20,7 @@
         foreach($results as $row)
         {               ?>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-            <h5 class="greetings">Hello,Subject Teacher <?php  echo htmlentities($row->FirstName);?>!</h5>
+            <h5 class="greetings">Hello, Subject Teacher <?php  echo htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
                   {

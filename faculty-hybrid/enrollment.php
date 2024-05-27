@@ -81,9 +81,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         </select>
                       </div>
                       <div style="margin-right: 16px; width: 32%;">
-                        <h5 style="margin-bottom: 16px">Classes</h5>
+                        <h5 style="margin-bottom: 16px">Courses</h5>
                         <select class="form-control" id="classes" name="classes">
-                          <option value="">Select Class</option>
+                          <option value="">Select Course</option>
                           <?php
                             $queryStrand = "SELECT course_id FROM tbl_course WHERE course_name = :course_name";
                             $query = $dbh->prepare($queryStrand);

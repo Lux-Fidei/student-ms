@@ -1,48 +1,75 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
+include_once('./account_helper.php');
+
+if (strlen($_SESSION['sturecmsaid']) == 0) {
     header('location:logout.php');
 } else {
     if (isset($_POST['submit'])) {
         $fid = $_GET['editid'];
         $fname = $_POST['fname'];
+        $mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $age = $_POST['age'];
-        $department = $_POST['department'];
         $gender = $_POST['gender'];
         $address = $_POST['address'];
         $contact = $_POST['contact'];
+        $position = $_POST['position'];
+        $assigned_strand = isset($_POST['assigned_strand']) ? $_POST['assigned_strand'] : '';
+        $advisory_class = isset($_POST['advisory_class']) ? $_POST['advisory_class'] : '';
         $uname = $_POST['uname'];
         $image = $_FILES["image"]["name"];
-        $ret = "select UserName from tblfaculty where UserName=:uname && ID!=:fid";
+        $extension = substr($image, strlen($image) - 4, strlen($image));
+        $allowed_extensions = array(".jpg", ".jpeg", ".png", ".gif");
+
+        // Check if username already exists
+        $ret = "SELECT UserName FROM tblfaculty WHERE UserName=:uname AND ID!=:fid";
         $query = $dbh->prepare($ret);
         $query->bindParam(':uname', $uname, PDO::PARAM_STR);
         $query->bindParam(':fid', $fid, PDO::PARAM_STR);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_OBJ);
+
         if ($query->rowCount() == 0) {
-            $sql = "update tblfaculty set FirstName=:fname,LastName=:lname,Email=:email,Age=:age,Department=:department,Gender=:gender,Address=:address,Contact=:contact,UserName=:uname where ID=:fid";
+            if (!empty($image)) {
+                if (in_array($extension, $allowed_extensions)) {
+                    $image = md5($image) . time() . $extension;
+                    move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $image);
+                    $sql = "UPDATE tblfaculty SET FirstName=:fname, MiddleInitial=:mname, LastName=:lname, Email=:email, Age=:age, Gender=:gender, Address=:address, Contact=:contact, position=:position, assignedStrand=:assigned_strand, advisoryClasses=:advisory_class, UserName=:uname, Image=:image WHERE ID=:fid";
+                } else {
+                    echo '<script>alert("Invalid image format. Only jpg / jpeg/ png /gif formats are allowed")</script>';
+                    $sql = "UPDATE tblfaculty SET FirstName=:fname, MiddleInitial=:mname, LastName=:lname, Email=:email, Age=:age, Gender=:gender, Address=:address, Contact=:contact, position=:position, assignedStrand=:assigned_strand, advisoryClasses=:advisory_class, UserName=:uname WHERE ID=:fid";
+                }
+            } else {
+                $sql = "UPDATE tblfaculty SET FirstName=:fname, MiddleInitial=:mname, LastName=:lname, Email=:email, Age=:age, Gender=:gender, Address=:address, Contact=:contact, position=:position, assignedStrand=:assigned_strand, advisoryClasses=:advisory_class, UserName=:uname WHERE ID=:fid";
+            }
+
             $query = $dbh->prepare($sql);
             $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':mname', $mname, PDO::PARAM_STR);
             $query->bindParam(':lname', $lname, PDO::PARAM_STR);
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':age', $age, PDO::PARAM_STR);
-            $query->bindParam(':department', $department, PDO::PARAM_STR);
             $query->bindParam(':gender', $gender, PDO::PARAM_STR);
             $query->bindParam(':address', $address, PDO::PARAM_STR);
             $query->bindParam(':contact', $contact, PDO::PARAM_STR);
+            $query->bindParam(':position', $position, PDO::PARAM_STR);
+            $query->bindParam(':assigned_strand', $assigned_strand, PDO::PARAM_STR);
+            $query->bindParam(':advisory_class', $advisory_class, PDO::PARAM_STR);
             $query->bindParam(':uname', $uname, PDO::PARAM_STR);
             $query->bindParam(':fid', $fid, PDO::PARAM_STR);
+            if (!empty($image) && in_array($extension, $allowed_extensions)) {
+                $query->bindParam(':image', $image, PDO::PARAM_STR);
+            }
+
             $query->execute();
-            $LastInsertId = $dbh->lastInsertId();
-            if ($LastInsertId > 0) {
-                echo '<script>alert("Faculty member detail has been updated")</script>';
+            if ($query->rowCount() > 0) {
+                echo '<script>alert("Faculty member details have been updated")</script>';
                 echo "<script>window.location.href ='manage-faculty.php'</script>";
             } else {
-                echo '<script>alert("Something Went Wrong. Please try again")</script>';
+                echo '<script>alert("Something went wrong. Please try again")</script>';
             }
         } else {
             echo "<script>alert('Username already exists. Please try again');</script>";
@@ -50,6 +77,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,6 +132,10 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                     <input type="text" name="fname" class="form-control" value="<?php echo htmlentities($row->FirstName); ?>" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="exampleInputName1">Middle Name</label>
+                                                    <input type="text" name="mname" class="form-control" value="<?php echo htmlentities($row->MiddleInitial); ?>" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="exampleInputName1">Last Name</label>
                                                     <input type="text" name="lname" class="form-control" value="<?php echo htmlentities($row->LastName); ?>" required>
                                                 </div>
@@ -114,10 +146,6 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                 <div class="form-group">
                                                     <label for="exampleInputName1">Age</label>
                                                     <input type="number" name="age" class="form-control" value="<?php echo htmlentities($row->Age); ?>" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputName1">Department</label>
-                                                    <input type="text" name="department" class="form-control" value="<?php echo htmlentities($row->Department); ?>" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputName1">Gender</label>
@@ -131,20 +159,29 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                                     <textarea name="address" class="form-control" required><?php echo htmlentities($row->Address); ?></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputName1">Contact Number</label>
+                                                    <label for="exampleInputName1">Contact</label>
                                                     <input type="text" name="contact" class="form-control" value="<?php echo htmlentities($row->Contact); ?>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputName1">Username</label>
-                                                    <input type="text" name="uname" class="form-control" value="<?php echo htmlentities($row->UserName); ?>" required>
+                                                    <label for="exampleInputName1">Position</label>
+                                                    <input type="text" name="position" class="form-control" value="<?php echo htmlentities($row->position); ?>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputName1">Profile Picture</label>
+                                                    <label for="exampleInputName1">Assigned Strand</label>
+                                                    <input type="text" name="assigned_strand" class="form-control" value="<?php echo htmlentities($row->assignedStrand); ?>">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="exampleInputName1">Profile Pic</label>
+                                                    <img src="images/<?php echo htmlentities($row->Image); ?>" width="100" height="100" value="<?php echo htmlentities($row->Image); ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputName1">New Profile Pic</label>
                                                     <input type="file" name="image" class="form-control">
                                                 </div>
                                         <?php }
                                         } ?>
-                                        <button type="submit" class="btn btn-primary mr-2" name="submit">Update</button>
+                                        <button type="submit" class="btn btn-primary mr-2" name="submit">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -158,12 +195,16 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
         </div>
     </div>
 
-    <!-- Include JS files -->
+    <!-- Include necessary scripts -->
     <script src="vendors/js/vendor.bundle.base.js"></script>
-    <script src="vendors/select2/select2.min.js"></script>
     <script src="vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <script src="vendors/select2/select2.min.js"></script>
     <script src="js/off-canvas.js"></script>
-    <script src="js/misc.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/todolist.js"></script>
+    <script src="js/file-upload.js"></script>
     <script src="js/typeahead.js"></script>
     <script src="js/select2.js"></script>
 </body>

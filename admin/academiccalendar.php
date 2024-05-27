@@ -127,8 +127,8 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                                                     echo "<td>" . $row['date_allocated'] . "</td>";
                                                     echo "<td>" . $row['schoolyear'] . "</td>";
                                                     echo "<td>";
-                                                    echo "<a href='edit_activity.php?id="  . "' class='btn btn-info btn-sm'>Edit</a>";
-                                                    echo "<a href='delete_activity.php?id="  . "' class='btn btn-danger btn-sm'>Delete</a>";
+                                                    echo "<a href='edit_activity.php?id=" . $row['id'] . "' class='btn btn-info btn-sm'>Edit</a>";
+                                                    echo "<a href='delete_activity.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm'>Delete</a>";
                                                     echo "</td>";
                                                     echo "</tr>";
                                                 }

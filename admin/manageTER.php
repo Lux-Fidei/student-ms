@@ -212,12 +212,10 @@ if ($isTerActive) {
                                     <h4 class="card-title" style="text-align: center;">Add Question</h4>
                                     <form class="forms-sample" method="post">
                                         <div class="form-group">
-                                            <label for="exampleInputQuestion"></label>
+                                            <label for="exampleInputQuestion">Question</label>
                                             <input type="text" name="question" class="form-control" placeholder="Enter Question" required="true" <?php echo $terFormDisabledAttribute; ?>>
                                         </div>
-                                        <div style="display: flex; justify-content: right;">
-                                        <button type="submit" class="btn btn-primary mr-2" name="submit" <?php echo $terFormDisabledAttribute; ?>>Add </button>
-                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2" name="submit" <?php echo $terFormDisabledAttribute; ?>>Add Question</button>
                                     </form>
                                 </div>
                             </div>
@@ -228,7 +226,7 @@ if ($isTerActive) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">List of Questions</h4>
+                                    <h4 class="card-title">List of Added Questions</h4>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>

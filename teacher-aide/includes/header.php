@@ -1,12 +1,12 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex align-items-center">
         <a class="navbar-brand brand-logo" href="dashboard.php">
-            <strong style="color: white;">SMS</strong>
+            <strong style="color: white;">MSU MSHS</strong>
         </a>
     </div>
     <?php
-    if(isset($_SESSION['sturecmtaid'])) {
-        $uid = $_SESSION['sturecmtaid'];
+        if(isset($_SESSION['sturecmtaid'])) {
+            $uid = $_SESSION['sturecmtaid'];
         $sql = "SELECT * FROM tbl_record_examineer WHERE ID = :uid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);

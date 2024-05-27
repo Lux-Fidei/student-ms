@@ -81,5 +81,19 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     <!-- End custom js for this page -->
   </body>
 </html>
+<style>
+.content-wrapper {
+        background-image: url(images/faculty.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 2.75rem 1.5rem 0;
+  width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1; 
+}
+
+</style>
 
 <?php }  ?>

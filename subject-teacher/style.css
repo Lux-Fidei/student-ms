@@ -10619,7 +10619,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #ecf0f4;
+  background: goldenrod;
   padding: 0 1.5rem 1.5rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -10628,7 +10628,7 @@ code {
   font-size: calc(0.875rem - 0.05rem);
   font-family: "Open Sans", sans-serif; }
   .footer a {
-    color: #38ce3c;
+    color: white;
     font-size: inherit; }
   @media (max-width: 991px) {
     .footer {
@@ -12539,18 +12539,20 @@ dl {
       .sidebar-icon-only .navbar .navbar-brand-wrapper .navbar-toggler {
         margin-right: auto;
         margin-left: auto; }
-  .navbar .navbar-menu-wrapper {
-    transition: width 0.25s ease;
-    -webkit-transition: width 0.25s ease;
-    -moz-transition: width 0.25s ease;
-    -ms-transition: width 0.25s ease;
-    color: #111111;
-    padding-left: 24px;
-    padding-right: 24px;
-    width: calc(100% - 240px);
-    height: 70px;
-    -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11); }
+        .navbar .navbar-menu-wrapper {
+          transition: width 0.25s ease;
+          -webkit-transition: width 0.25s ease;
+          -moz-transition: width 0.25s ease;
+          -ms-transition: width 0.25s ease;
+          color: white;
+          padding-left: 24px;
+          padding-right: 24px;
+          width: calc(100% - 240px);
+          height: 70px;
+          -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
+          box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.11);
+          background-color: goldenrod;
+        }
     @media (max-width: 991px) {
       .navbar .navbar-menu-wrapper {
         width: auto;

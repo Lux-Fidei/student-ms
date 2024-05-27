@@ -38,7 +38,7 @@ if (strlen($_SESSION['sturecmlisid']==0)) {
             <?php include_once('includes/sidebar.php');?>
             <!-- partial -->
             <div class="main-panel">
-                <div class="content-wrapper" style="margin-top: 64px">
+                <div class="content-wrapper" style="margin-top: 0px">
                     <div class="row">
                         <div class="col-md-12 grid-margin">
                             <div class="card">
@@ -60,18 +60,6 @@ if (strlen($_SESSION['sturecmlisid']==0)) {
                             </div>
                         </div>
                     </div>
-                    <style>
-                        .content-wrapper {
-                        background-image: url(images/admin.jpg);
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        padding: 2.75rem 1.5rem 0;
-                        width: 100%;
-                        -webkit-box-flex: 1;
-                        -ms-flex-positive: 1;
-                        flex-grow: 1;
-                        }
-                        </style>
                    
                     
                 </div>
@@ -102,5 +90,18 @@ if (strlen($_SESSION['sturecmlisid']==0)) {
     <script src="js/dashboard.js"></script>
     <!-- End custom js for this page -->
 </body>
+<style>
+     .content-wrapper {
+        background-image: url(images/staff.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 2.75rem 1.5rem 0;
+  width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1; 
+}
+</style>
 </html>
 <?php }  ?>

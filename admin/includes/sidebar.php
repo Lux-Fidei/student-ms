@@ -90,7 +90,9 @@ foreach($results as $row)
               </a>
               <div class="collapse" id="auth4">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="add-faculty.php"> Add Faculty </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="add-faculty.php"> Add Chairperson </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="add-adviser.php"> Add Adviser </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="add-subject-teacher.php"> Add Subject Teacher </a></li>
                   <li class="nav-item"> <a class="nav-link" href="manage-faculty.php"> Manage Faculty </a></li>
                 </ul>
               </div>

@@ -1,14 +1,14 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="dashboard.php">
-            <strong style="color: white;">SMS</strong>
+            <strong style="color: white;">MSU MSHS</strong>
           </a>
         
         </div>
         <?php
         $uid= $_SESSION['sturecmfacaid'];
 $sql="SELECT * from tblfaculty where UserAccountID=:uid";
-
+include('includes/dbconnection.php');
 $query = $dbh -> prepare($sql);
 $query->bindParam(':uid',$uid,PDO::PARAM_STR);
 $query->execute();
@@ -20,7 +20,7 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-            <h5 class="greetings">Hello, <?php  echo htmlentities($row->position) . ' ' . htmlentities($row->FirstName);?>!</h5>
+            <h5 class="greetings">Hello, <?php  echo  ' Adviser ' . htmlentities($row->FirstName);?>!</h5>
           <style>
             .greetings
                   {

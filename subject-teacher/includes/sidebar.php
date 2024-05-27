@@ -33,11 +33,24 @@
             <span class="nav-link">Dashboard</span>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="dashboard.php">
+                <span class="menu-title">Dashboard</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="grades.php">
                 <span class="menu-title">Grades</span>
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
+            <li class="nav-item">
+            <a class="nav-link" href="manage-club.php">
+                <span class="menu-title">Club</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+            </a>
         </li>
+       
+       
        
 
                 

@@ -95,7 +95,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" style="text-align: center;">Faculty</h4>
+                                    <h4 class="card-title" style="text-align: center;">Chairperson</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
     <label for="exampleInputName1">First Name</label>

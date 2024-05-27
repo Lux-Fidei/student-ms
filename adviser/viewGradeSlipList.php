@@ -1,146 +1,119 @@
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmfacaid']==0)) {
   header('location:logout.php');
-  } else{
-  
-  ?>
+} else  {
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-  
-    <title>Student  Management System|||Dashboard</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="./vendors/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="./vendors/chartist/chartist.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="./style.css">
-    <!-- End layout styles -->
-  
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-      <?php include_once('includes/header.php');?>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-        <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row purchace-popup">
-              <div class="col-12 stretch-card grid-margin">
-                <div class="card card-secondary" style="padding: 16px">
-                  <p style="font-weight: bold">1st Semester, S.Y. 2023 - 2024</p>
-                  <table class="table table-bordered">
+<html>
+<head>
+  <title>Faculty Management System || Gradeslip</title>
+  <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="./vendors/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="./vendors/chartist/chartist.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container-scroller">
+    <?php include_once('includes/header.php');?>
+    <div class="container-fluid page-body-wrapper">
+    <?php include_once('includes/sidebar.php');?>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row purchace-popup">
+          <div class="col-12 stretch-card grid-margin">
+            <div class="card card-secondary"  style="border-radius: 8px">
+              <div class="card-body">
+                <h1 style="margin-bottom: 16px">Grade Slip</h1>
+                <div class="form-group">
+                  <label for="faculty"  style="margin-bottom: 16px">Select Grade Level:</label>
+                  <select class="form-control" id="subject" name="subject" onchange="filterTable()">
+                    <option value="">Select Grade Level</option>
+                    <option value="11">Grade 11</option>
+                    <option value="12">Grade 12</option>
+                  </select>
+                </div>
+                <div>
+                  <h5>Name of Students
+                    <?php
+                      $uid = $_SESSION['sturecmfacaid'];
+                      $sql = "SELECT * FROM tblfaculty WHERE ID=:uid";
+                      $query = $dbh->prepare($sql);
+                      $query->bindParam(':uid', $uid, PDO::PARAM_STR);
+                      $query->execute();
+                      $results = $query->fetchAll(PDO::FETCH_OBJ);
+                    ?>
+                  (<?php echo htmlentities($row->assignedStrand); ?>):
+                  </h5>
+                  <table id="studentTable">
                     <thead>
                       <tr>
-                        <th><a href="?sort=name&order=<?php echo ($_GET['sort'] == 'name' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Student Name</a></th>
-                        <th><a href="?sort=units&order=<?php echo ($_GET['sort'] == 'units' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Total Units <i class="sort-down"></i></a></th>
-                        <th><a href="?sort=subject1&order=<?php echo ($_GET['sort'] == 'subject1' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Subject 1</a></th>
-                        <th><a href="?sort=subject2&order=<?php echo ($_GET['sort'] == 'subject2' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Subject 2</a></th>
-                        <th><a href="?sort=subject3&order=<?php echo ($_GET['sort'] == 'subject3' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Subject 3</a></th>
-                        <th><a href="?sort=average&order=<?php echo ($_GET['sort'] == 'average' && $_GET['order'] == 'asc') ? 'desc' : 'asc'; ?>">Final Average</a></th>
+                        <td></td>
+                        <th style="width: 192px"><span>First Name</span></th>
+                        <th style="width: 192px"><span>Last Name</span></th>
+                        <th style="width: 192px" data-toggle="tooltip" data-placement="top" title="Learner's Reference Number"><span>LRN</span></th>
+                        <th style="width: 192px"><span>email</span></th>
+                        <th style="width: 192px"><span>Action</span></th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                      // Write code here to fetch student data from the database and populate the table rows
-                      $students = [
-                        ['name' => 'Jane Smith', 'units' => 12, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)],
-                        ['name' => 'Michael Johnson', 'units' => 15, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)],
-                        ['name' => 'Emily Davis', 'units' => 14, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)],
-                        ['name' => 'Daniel Wilson', 'units' => 16, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)],
-                        ['name' => 'Olivia Martinez', 'units' => 13, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)],
-                        ['name' => 'William Anderson', 'units' => 17, 'subject1' => rand(70, 100), 'subject2' => rand(70, 100), 'subject3' => rand(70, 100), 'average' => rand(70, 100)]
-                      ];
-
-                      // Sort the students array based on the query parameters 'sort' and 'order'
-                      $sort = $_GET['sort'] ?? 'name';
-                      $order = $_GET['order'] ?? 'asc';
-                      if ($order == 'asc') {
-                        usort($students, function ($a, $b) use ($sort) {
-                          return $a[$sort] <=> $b[$sort];
-                        });
-                      } else {
-                        usort($students, function ($a, $b) use ($sort) {
-                          return $b[$sort] <=> $a[$sort];
-                        });
-                      }
-
-                      foreach ($students as $student) {
-                        echo "<tr>";
-                        echo "<td>" . $student['name'] . "</td>";
-                        echo "<td>" . $student['units'] . "</td>";
-                        if ($student['subject1'] < 75) {
-                          echo "<td style='color:red'>" . $student['subject1'] . "%" . "</td>";
-                        } else {
-                          echo "<td>" . $student['subject1'] . "%" . "</td>";
+                      $query = "SELECT * FROM tblstudent";
+                      $query = $dbh->prepare($query); // Use the grade_level value from the tblstudent table
+                      $query->execute();
+                      $results = $query->fetchAll(PDO::FETCH_OBJ);
+                      if ($query->rowCount() > 0) {
+                        $count = 1;
+                        foreach($results as $row) {
+                          echo "<tr class='data' data-section='" . $row->GradeLevel . "'>";
+                          echo "<td>" . $count . ".&nbsp;&nbsp;</td>";
+                          echo "<td>" . $row->FirstName . "</td>";
+                          echo "<td>" . $row->LastName . "</td>";
+                          echo "<td>" . $row->LRN . "</td>";
+                          echo "<td>" . $row->EmailAddress . "</td>";
+                          echo "<td><a href='#' onclick='goTo()'>View Grade Slip</a></td>";
+                          $count++;
                         }
-                        if ($student['subject2'] < 75) {
-                          echo "<td style='color:red'>" . $student['subject2'] . "%" . "</td>";
-                        } else {
-                          echo "<td>" . $student['subject2'] . "%" . "</td>";
-                        }
-                        if ($student['subject3'] < 75) {
-                          echo "<td style='color:red'>" . $student['subject3'] . "%" . "</td>";
-                        } else {
-                          echo "<td>" . $student['subject3'] . "%" . "</td>";
-                        }
-                        if ($student['average'] < 75) {
-                          echo "<td style='color:red'>" . $student['average'] . "%" . "</td>";
-                        } else {
-                          echo "<td>" . $student['average'] . "%" . "</td>";
-                        }
-                        echo "</tr>";
                       }
                       ?>
                     </tbody>
                   </table>
-                  <div style="display: flex; justify-content: right; margin: 16px 0 0 0">
-                    <button class="btn btn-primary" style="border-radius: 32px">SEND</button>
-                  </div>
                 </div>
-                </div>
+                <script>
+                  function goTo() {
+                    var stuID = event.target.parentNode.parentNode.cells[3].innerText;
+                    window.location.href = "view-grade-slip.php?LRN=" + stuID;
+                  }
+                  function filterTable() {
+                    var gradeLevel = document.getElementById("subject").value;
+                    var rows = document.getElementsByClassName("data");
+                    for (var i = 0; i < rows.length; i++) {
+                      var row = rows[i];
+                      var rowGradeLevel = row.getAttribute("data-section");
+                      if (gradeLevel === "" || rowGradeLevel === gradeLevel) {
+                        row.style.display = "table-row";
+                      } else {
+                        row.style.display = "none";
+                      }
+                    }
+                  }
+                </script>
+              </div>
             </div>
           </div>
-          <!-- partial -->
-          
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <?php include_once('includes/footer.php');?>
         </div>
-        <!-- main-panel ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="./vendors/chart.js/Chart.min.js"></script>
-    <script src="./vendors/moment/moment.min.js"></script>
-    <script src="./vendors/daterangepicker/daterangepicker.js"></script>
-    <script src="./vendors/chartist/chartist.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="./js/dashboard.js"></script>
-    <!-- End custom js for this page -->
-  </body>
-</html><?php }  ?>
+    </div>
+    <?php include_once('includes/footer.php');?>
+    
+  </div>
+</body>
+</html>
+
+<?php }  ?>

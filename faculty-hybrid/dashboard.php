@@ -77,11 +77,10 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
     <!-- Custom js for this page -->
     <script src="./js/dashboard.js"></script>
     <!-- End custom js for this page -->
-  </body>
-  <style>
     
-.content-wrapper {
-  background-image: url(images/faculty.jpg);
+  </body>
+<style>.content-wrapper {
+        background-image: url(images/faculty.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -89,8 +88,9 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
   width: 100%;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
-  flex-grow: 1; }
-  </style>
+  flex-grow: 1; 
+}
+</style>
 </html>
 
 <?php }  ?>

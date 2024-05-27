@@ -33,102 +33,29 @@ if (isset($_POST['teacher_name'])) {
     // Retrieve the comment
     $comment = isset($_POST['comment']) ? $_POST['comment'] : '';
 
-    // Retrieve the student ID
-    $stuid = isset($_POST['stuid']) ? $_POST['stuid'] : '';
-
     // Insert evaluation data into the database
     foreach ($evaluation_results as $question_id => $answer) {
-        $sql = "INSERT INTO tbl_evaluation (teacher_id, question_id, answer, stuid) VALUES (:teacher_id, :question_id, :answer, :stuid)";
+        $sql = "INSERT INTO tbl_evaluation (teacher_id, question_id, answer) VALUES (:teacher_id, :question_id, :answer)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
         $query->bindParam(':question_id', $question_id, PDO::PARAM_INT);
         $query->bindParam(':answer', $answer, PDO::PARAM_STR);
-        $query->bindParam(':stuid', $stuid, PDO::PARAM_INT);
         $query->execute();
     }
 
     // Insert the comment into the database
     if (!empty($comment)) {
-        $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment, stuid) VALUES (:teacher_id, :comment, :stuid)";
+        $sql = "INSERT INTO tbl_evaluation_comments (teacher_id, comment) VALUES (:teacher_id, :comment)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
         $query->bindParam(':comment', $comment, PDO::PARAM_STR);
-        $query->bindParam(':stuid', $stuid, PDO::PARAM_INT);
         $query->execute();
     }
 
-    echo "
-    <!DOCTYPE html>
-    <html lang='en'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <style>
-            .modal {
-                display: block;
-                position: fixed;
-                z-index: 1;
-                padding-top: 100px;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
-            }
-            .modal-content {
-                background-color: #fefefe;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%;
-                max-width: 600px;
-                text-align: center;
-            }
-            .close {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-    
-    <div id='myModal' class='modal'>
-      <div class='modal-content'>
-        <span class='close'>&times;</span>
-        <h2>Thank you for submitting the evaluation!</h2>
-        <p>Your feedback has been recorded.</p>
-        <p><a href='dashboard.php'>Back to Home</a></p>
-      </div>
-    </div>
-    
-    <script>
-        var modal = document.getElementById('myModal');
-        var span = document.getElementsByClassName('close')[0];
-        span.onclick = function() {
-            modal.style.display = 'none';
-            window.location.href = 'dashboard.php';
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                window.location.href = 'dashboard.php';
-            }
-        }
-    </script>
-    
-    </body>
-    </html>
-    ";
+    // Display a thank you message
+    echo "<h2>Thank you for submitting the evaluation!</h2>";
+    echo "<p>Your feedback has been recorded.</p>";
+    echo "<p><a href='dashboard.php'>Back to Home</a></p>";
     exit;
 }
 
@@ -203,8 +130,7 @@ if (!$isTerActive) {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            border: 
-            1px solid #ccc;
+            border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -254,27 +180,6 @@ if (!$isTerActive) {
             font-family: 'Times New Roman', Times, serif;
             font-size: larger;
         }
-
-        .btn-primary {
-            background-color: #ecd55e;
-            border-color: #007bff;
-            color: #fffbfb;
-            padding: 10px 20px;
-            border-radius: 45px;
-            text-decoration: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        .btn {
-            font-size: 0.875rem;
-            line-height: 1;
-            font-family: "Open Sans", sans-serif;
-            font-weight: 600;
-            margin-top: -7em;
-        }
     </style>
 </head>
 <body>
@@ -291,31 +196,17 @@ if (!$isTerActive) {
     <hr></hr>
 
     <div class="container">
-    <a href="dashboard.php" class="btn btn-primary"><</a>
         <h2><i class="bi bi-people"></i> Teacher Efficiency Records</h2>
         <h2 style="background-image: url(images/okirr1.jpg);background-size: contain;">.</h2>
 
         <form method="post">    
-            <input type="hidden" name="stuid" value="<?php echo isset($_SESSION['stuid']) ? $_SESSION['stuid'] : ''; ?>">
-            
-            <label for="teacher_name" style="font-weight: bold;">Select Teacher:</label>
+            <label for="teacher_name">Select Teacher:</label>
             <select id="teacher_name" name="teacher_name" required>
                 <option value="">Select Teacher</option>
                 <?php
-                $sqlSection = "SELECT section FROM tblstudent WHERE ID = :id";
-                $querySection = $dbh->prepare($sqlSection);
-                $querySection->bindParam(':id', $_SESSION['sturecmsuid'], PDO::PARAM_STR);
-                $querySection->execute();
-                $section = $querySection->fetch(PDO::FETCH_ASSOC);
                 // Fetch teachers from the database
-                $sql = "SELECT f.FirstName, f.MiddleInitial, f.LastName
-                FROM schedule s
-                JOIN tblfaculty f ON s.faculty_id = f.ID
-                JOIN enrollments e ON s.schedule_id = e.class_id
-                WHERE e.section = :section;
-                ";
+                $sql = "SELECT * FROM tblfaculty";
                 $query = $dbh->prepare($sql);
-                $query->bindParam(':section', $section['section'], PDO::PARAM_STR);
                 $query->execute();
                 $teachers = $query->fetchAll(PDO::FETCH_ASSOC);
                 
@@ -348,8 +239,8 @@ if (!$isTerActive) {
             <?php endforeach; ?>
             
             <!-- Comment Section -->
-            <label for="comment" style="font-weight: bold;">Additional Comments:</label>
-            <textarea id="comment" name="comment" rows="4" placeholder="Enter your comments here..."></textarea>
+            <label for="comment" style="font-weight: bold;">State Your Complete Name:</label>
+            <textarea id="comment" name="comment" rows="4" placeholder="(F-M-L)"></textarea>
             
             <!-- Testament Section -->
             <div style="margin-top: 20px;">
@@ -361,5 +252,6 @@ if (!$isTerActive) {
             <input type="submit" value="Submit Evaluation">
         </form>
     </div>
+
 </body>
 </html>

@@ -10619,7 +10619,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #ecf0f4;
+  background: goldenrod;
   padding: 0 1.5rem 1.5rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;

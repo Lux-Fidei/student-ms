@@ -623,7 +623,7 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                   <div style="text-align: center; margin-top: 24px;">
                     <div>
                       <?php
-                          $query = "SELECT FirstName, LastName FROM tblfaculty WHERE assignedStrand = :strand;";
+                          $query = "SELECT FirstName, LastName FROM tblfaculty WHERE advisoryClasses = :strand;";
                           $query = $dbh->prepare($query);
                           $query->bindParam(':strand', $results[0]->Strand, PDO::PARAM_STR);
                           $query->execute();
