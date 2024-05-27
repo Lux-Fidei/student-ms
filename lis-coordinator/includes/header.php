@@ -5,9 +5,9 @@
         </a>
     </div>
     <?php
-    if(isset($_SESSION['record_examineer_id'])) {
+    if(isset($_SESSION['sturecmlisid'])) {
         $uid = $_SESSION['record_examineer_id'];
-        $sql = "SELECT * FROM tbl_record_examineer WHERE ID = :uid";
+        $sql = "SELECT * FROM tbl_record_examineer WHERE UserAccountID = :uid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
         $query->execute();
