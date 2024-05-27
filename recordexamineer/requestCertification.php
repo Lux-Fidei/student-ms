@@ -52,11 +52,14 @@ if (empty($_SESSION['record_examineer_id'])) {
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $docName = 'Certification';
+                                                $isApproved = 'Pending';
                                                     if(isset($_POST['submit']))
                                                     {
                                                         $stuID = $_POST['student_ID'];
-                                                        $query = $dbh->prepare("UPDATE request_docs SET isApproved = 'Approved' WHERE st_id = :stuID");
+                                                        $query = $dbh->prepare("UPDATE request_docs SET isApproved = 'Approved' WHERE st_id = :stuID AND docName = :docName");
                                                         $query->bindParam(':stuID', $stuID,PDO::PARAM_STR);
+                                                        $query->bindParam(':docName', $docName,PDO::PARAM_STR);
                                                         $query->execute();
                                                         $lastInsertId = $dbh->lastInsertId();
                                                     }
@@ -74,9 +77,12 @@ if (empty($_SESSION['record_examineer_id'])) {
                                             FROM 
                                                 request_docs r
                                             JOIN 
-                                                tblstudent s ON r.st_id = s.ID;
+                                                tblstudent s ON r.st_id = s.ID WHERE docName = :docName AND isApproved = :isApproved;
                                             ";
                                                 $query = $dbh->prepare($sql);
+                                                
+                                              $query->bindParam(':docName', $docName, PDO::PARAM_STR);
+                                              $query->bindParam(':isApproved', $isApproved, PDO::PARAM_STR);
                                                 $query->execute();
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
 

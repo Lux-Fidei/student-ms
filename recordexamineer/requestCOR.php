@@ -54,9 +54,11 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                 <?php
                                                     if(isset($_POST['submit']))
                                                     {
+                                                        $docName = 'COR';
                                                         $stuID = $_POST['stuID'];
-                                                        $query = $dbh->prepare("UPDATE request_docs SET isApproved = 'Approved' WHERE st_id = :stuID");
+                                                        $query = $dbh->prepare("UPDATE request_docs SET isApproved = 'Approved' WHERE st_id = :stuID AND docName = :docName");
                                                         $query->bindParam(':stuID', $stuID,PDO::PARAM_STR);
+                                                        $query->bindParam(':docName', $docName,PDO::PARAM_STR);
                                                         $query->execute();
                                                         $lastInsertId = $dbh->lastInsertId();
                                                     }
