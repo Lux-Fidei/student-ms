@@ -67,7 +67,6 @@ echo '<script>alert("About us has been updated")</script>';
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title" style="text-align: center;">Update About Us</h4>
-                   
                     <form class="forms-sample" method="post">
                       <?php
 

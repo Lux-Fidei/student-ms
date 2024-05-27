@@ -62,10 +62,17 @@ if (empty($_SESSION['record_examineer_id'])) {
                                                     }
                                                 ?>
                                                 <?php
-                                                $sql = "SELECT * FROM tblstudent";
-                                                $query = $dbh->prepare($sql);
-                                                $query->execute();
-                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                $docName = 'COR';
+                                                $isApproved = 'Pending';
+                                                $sql = "SELECT s.*
+                                                FROM request_docs r
+                                                JOIN tblstudent s ON  r.st_id = s.ID WHERE docName = :docName AND isApproved = :isApproved;
+                                                ";
+                                                $sql = $dbh->prepare($sql);
+                                                $sql->bindParam(':docName', $docName, PDO::PARAM_STR);
+                                                $sql->bindParam(':isApproved', $isApproved, PDO::PARAM_STR);
+                                                $sql->execute();
+                                                $results = $sql->fetchAll(PDO::FETCH_OBJ);
 
                                                 $cnt = 1;
                                                 foreach ($results as $row) {
