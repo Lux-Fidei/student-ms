@@ -29,7 +29,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $sql = "INSERT INTO tbl_record_examineer (fname,mname ,lname, email, age, strand, gender, address, contact,UserAccountID,image) VALUES (:fname, :mname,:lname, :email, :age, :strand, :gender, :address, :contact, :useraccountid, :image)";
             $query = $dbh->prepare($sql);
             $query->bindParam(':fname', $fname, PDO::PARAM_STR);
-            $query->bindParam(':mname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':mname', $mname, PDO::PARAM_STR);
             $query->bindParam(':lname', $lname, PDO::PARAM_STR);
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':age', $age, PDO::PARAM_INT);
@@ -100,7 +100,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
 
                                         <div class="form-group">
                                             <label for="exampleInputName1">Middle Name</label>
-                                            <input type="text" name="fname" class="form-control" required>
+                                            <input type="text" name="mname" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName1">Last Name</label>
