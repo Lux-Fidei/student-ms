@@ -45,7 +45,7 @@ if (strlen($_SESSION['record_examineer_id']) == 0) {
                             <div class="card-body">
                                 <?php
                                 $eid = $_SESSION['record_examineer_id'];
-                                $sql = "SELECT * FROM tbl_record_examineer WHERE id=:eid";
+                                $sql = "SELECT * FROM tbl_record_examineer WHERE UserAccountID=:eid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':eid', $eid, PDO::PARAM_STR);
                                 $query->execute();
