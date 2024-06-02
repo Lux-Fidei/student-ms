@@ -1,7 +1,7 @@
 <?php
 // Assuming you have a database connection established
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/dbconnection.php');
 // Get the student ID from the URL parameter
 if (strlen($_SESSION['sturecmfacaid']==0)) {

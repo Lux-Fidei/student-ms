@@ -48,7 +48,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       $query->execute();
                       $results = $query->fetchAll(PDO::FETCH_OBJ);
                     ?>
-                  (<?php echo htmlentities($row->assignedStrand); ?>):
+                  (<?php echo htmlentities('TVL-ICT 11-1') ?>):
                   </h5>
                   <table id="studentTable">
                     <thead>
