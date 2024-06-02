@@ -45,6 +45,7 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                   <span class="d-lg-flex align-items-center justify-content-center">
                     <?php
                       $uid=$_SESSION['sturecmfacaid'];
+                      $class_id = $_POST['class'];
                       $sql = "SELECT 
                       sub.SubjectName,
                       sub.SubjectID,
@@ -66,9 +67,10 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                       tbl_course c ON sch.strand_id = c.course_id
                       JOIN 
                       tblfaculty f ON sch.faculty_id = f.ID WHERE
-                      sch.faculty_id = :faculty_ID;";
+                      sch.faculty_id = :faculty_ID AND sch.schedule_id = :schedule_id;";
                       $query = $dbh -> prepare($sql);
                       $query->bindParam(':faculty_ID', $uid, PDO::PARAM_STR);
+                      $query->bindParam(':schedule_id', $class_id, PDO::PARAM_STR);
                       $query->execute();
                       $results=$query->fetchAll(PDO::FETCH_OBJ);
                       $cnt=1;
@@ -112,7 +114,8 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                             SELECT CONCAT(s.LastName, ', ',s.FirstName, ' ', s.MiddleInitial) AS FullName, s.ID, e.class_id
                             FROM tblstudent s JOIN enrollments e ON s.section = e.section
                             WHERE s.section = :section AND e.class_id = :class_id
-                            ORDER BY FullName ASC;";
+                            ORDER BY FullName ASC;
+                          ";
                           $query = $dbh->prepare($sql2);
                           $query->bindParam(':section', $row->section, PDO::PARAM_STR);
                           $query->bindParam(':class_id', $row->class_id, PDO::PARAM_STR);
