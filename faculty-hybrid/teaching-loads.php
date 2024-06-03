@@ -111,6 +111,25 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         </select>
                       </div>
                       <div class="form-group">
+                        <label for="faculty">Select Strand:</label>
+                        <select class="form-control" id="strand" name="strand">
+                          <option value="">Select strand</option>
+                          <?php
+                          $uid=$_SESSION['sturecmfacaid'];
+                          $sql="SELECT * from tbl_course";
+                          $query = $dbh -> prepare($sql);
+                          $query->execute();
+                          $results=$query->fetchAll(PDO::FETCH_OBJ);
+                          $cnt=1;
+                          if($query->rowCount() > 0)
+                          {
+                          foreach($results as $row)
+                          { ?>
+                          <option value="<?php echo htmlentities($row->course_name);?>"><?php echo htmlentities($row->course_name);?></option>
+                          <?php }} ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <label for="faculty">Select Subject:</label>
                         <select class="form-control" id="subject" name="subject" onchange="updateTimeslot()">
                           <option value="">Select Subject</option>
@@ -130,22 +149,12 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="faculty">Select Strand:</label>
-                        <select class="form-control" id="subject" name="strand">
-                          <option value="">Select strand</option>
-                          <?php
-                          $uid=$_SESSION['sturecmfacaid'];
-                          $sql="SELECT * from tbl_course";
-                          $query = $dbh -> prepare($sql);
-                          $query->execute();
-                          $results=$query->fetchAll(PDO::FETCH_OBJ);
-                          $cnt=1;
-                          if($query->rowCount() > 0)
-                          {
-                          foreach($results as $row)
-                          { ?>
-                          <option value="<?php echo htmlentities($row->course_name);?>"><?php echo htmlentities($row->course_name);?></option>
-                          <?php }} ?>
+                        <label for="days">Select Days:</label>
+                        <select class="form-control" id="days" name="days" onchange="updateAvailableTimeslot()">
+                          <option value="">Select Days:</option>
+                          <option value="MW">Monday & Wednesday (MW)</option>
+                          <option value="TTH">Tuesday & Thursday (TTH)</option>
+                          <option value="F">Friday (F)</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -241,32 +250,92 @@ if (strlen($_SESSION['sturecmfacaid']==0)) {
                                 option.text = "No TimeSlot Available";
                                 timeslot.add(option);
                               }
+                            };
+                            function updateAvailableTimeslot() {
+                              // Get all timeslots from the table
+                              var timeslotsInTable = [];
+                              $('#scheduleTable tbody tr').each(function() {
+                                  var timeslot = $(this).find('td').eq(3).text(); // Timeslot is in the 4th column (0-indexed)
+                                  var days = $(this).find('td').eq(4).text(); // Days is in the 5th column (0-indexed)
+                                  timeslotsInTable.push({timeslot: timeslot, days: days});
+                              });
+
+                              // Get the selected day
+                              var selectedDay = $('#days').val();
+
+                              // Get the timeslot select element
+                              var timeslotSelect = document.getElementById("timeslot");
+                              
+                              // Select a specific option
+                              for (var i = 0; i < timeslotSelect.options.length; i++) {
+                                var option = timeslotSelect.options[i];
+                                var optionText = option.text;
+                                var optionValue = option.value;
+                                if (optionText === "Select Timeslot") {
+                                  continue;
+                                }
+                                var optionIsAvailable = true;
+                                for (var j = 0; j < timeslotsInTable.length; j++) {
+                                  var timeslotInTable = timeslotsInTable[j];
+                                  if (timeslotInTable.timeslot === optionValue && timeslotInTable.days === selectedDay) {
+                                    optionIsAvailable = false;
+                                    break;
+                                  }
+                                }
+                                if (!optionIsAvailable) {
+                                  timeslotSelect.remove(i);
+                                }
+                              }
                             }
                           </script>
                         </select>
                       </div>
-                      <div class="form-group">
-                        <label for="days">Select Days:</label>
-                        <select class="form-control" id="days" name="days">
-                          <option value="">Select Days:</option>
-                          <option value="MW">Monday & Wednesday (MW)</option>
-                          <option value="TTH">Tuesday & Thursday (TTH)</option>
-                          <option value="F">Friday (F)</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
+                        <div class="form-group">
                         <label for="faculty">Select Building:</label>
-                        <input type="text" class="form-control" id="building" name="building" required="true">
-                      </div>
-                      <div class="form-group">
+                        <select class="form-control" id="building" name="building" required="true" onchange="updateRoomOptions()">
+                          <option value="">Select Building:</option>
+                          <option value="Annex">Annex</option>
+                          <option value="PUC">PUC Building</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
                         <label for="faculty">Select Room:</label>
-                        <input type="text" class="form-control" id="room" name="room" required="true">
-                      </div>
+                        <select class="form-control" id="room" name="room" required="true">
+                          <option value="">Select Room:</option>
+                        </select>
+                        </div>
+                        <script>
+                        function updateRoomOptions() {
+                          var buildingSelect = document.getElementById("building");
+                          var roomSelect = document.getElementById("room");
+                          var buildingValue = buildingSelect.value;
+                          roomSelect.innerHTML = "";
+                          var placeholderOption = document.createElement("option");
+                          placeholderOption.text = "Select Room";
+                          placeholderOption.value = "";
+                          roomSelect.add(placeholderOption);
+                          if (buildingValue === "Annex") {
+                            for (var i = 1; i <= 10; i++) {
+                              var option = document.createElement("option");
+                              option.text = "Annex " + i;
+                              option.value = "Annex " + i;
+                              roomSelect.add(option);
+                            }
+                          } else if (buildingValue === "PUC") {
+                            for (var i = 1; i <= 10; i++) {
+                              var option = document.createElement("option");
+                              option.text = "PUC " + i;
+                              option.value = "PUC " + i;
+                              roomSelect.add(option);
+                            }
+                          }
+                        }
+                        </script>
                       <div class="form-group text-right">
                         <button class="btn btn-primary" type="submit" name="submit">Add Schedule</button>
                       </div>
                     </form>
-                    <table class="table">
+                    <table class="table" id="scheduleTable">
                       <thead>
                         <tr>
                           <th>Faculty</th>
