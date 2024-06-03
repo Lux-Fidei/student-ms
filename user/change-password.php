@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
         // Fetch current password hash from the database
         $sql = "SELECT Password 
                 FROM tbl_user_accounts 
-                WHERE ID = :uid";
+                WHERE LRN = :uid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
         $query->execute();

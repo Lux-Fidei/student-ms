@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
     // Handle file upload
     if($image){
         $target_dir = "../admin/images/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . basename($image);    
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             // File uploaded successfully, proceed with database update
         } else {
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
     // Update the record in the database
     $sql = "UPDATE tblstudent SET 
                 Image=:image
-            WHERE ID=:eid";
+            WHERE LRN=:eid";
 
     $query = $dbh->prepare($sql);
     $query->bindParam(':image', $image, PDO::PARAM_STR);

@@ -39,7 +39,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="grades.php">
+            <a class="nav-link" href="select-subject.php">
                 <span class="menu-title">Grades</span>
                 <i class="icon-screen-desktop menu-icon"></i>
             </a>
