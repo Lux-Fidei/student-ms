@@ -42,10 +42,18 @@ if (strlen($_SESSION['sturecmfacaid'] == 0)) {
             <div class="row purchace-popup">
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary" style="border-radius: 16px; padding: 16px">
+<<<<<<< HEAD
                   <form method="post">
                     <span class="d-lg-flex align-items-center justify-content-center">
                       <?php
                       $uid = $_SESSION['sturecmfacaid'];
+=======
+                <form method="post">
+                  <span class="d-lg-flex align-items-center justify-content-center">
+                    <?php
+                      $uid=$_SESSION['sturecmfacaid'];
+                      $class_id = $_POST['class'];
+>>>>>>> 21e1da793910b23b065b68ff3b212a62cb2c4c82
                       $sql = "SELECT 
                       sub.SubjectName,
                       sub.SubjectID,
@@ -67,9 +75,15 @@ if (strlen($_SESSION['sturecmfacaid'] == 0)) {
                       tbl_course c ON sch.strand_id = c.course_id
                       JOIN 
                       tblfaculty f ON sch.faculty_id = f.ID WHERE
+<<<<<<< HEAD
                       sch.faculty_id = :faculty_ID;";
                       $query = $dbh->prepare($sql);
+=======
+                      sch.faculty_id = :faculty_ID AND sch.schedule_id = :schedule_id;";
+                      $query = $dbh -> prepare($sql);
+>>>>>>> 21e1da793910b23b065b68ff3b212a62cb2c4c82
                       $query->bindParam(':faculty_ID', $uid, PDO::PARAM_STR);
+                      $query->bindParam(':schedule_id', $class_id, PDO::PARAM_STR);
                       $query->execute();
                       $results = $query->fetchAll(PDO::FETCH_OBJ);
                       $cnt = 1;
@@ -111,7 +125,8 @@ if (strlen($_SESSION['sturecmfacaid'] == 0)) {
                             SELECT CONCAT(s.LastName, ', ',s.FirstName, ' ', s.MiddleInitial) AS FullName, s.ID, e.class_id
                             FROM tblstudent s JOIN enrollments e ON s.section = e.section
                             WHERE s.section = :section AND e.class_id = :class_id
-                            ORDER BY FullName ASC;";
+                            ORDER BY FullName ASC;
+                          ";
                           $query = $dbh->prepare($sql2);
                           $query->bindParam(':section', $row->section, PDO::PARAM_STR);
                           $query->bindParam(':class_id', $row->class_id, PDO::PARAM_STR);
