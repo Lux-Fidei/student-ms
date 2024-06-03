@@ -21,26 +21,26 @@ if (isset($_POST['submit'])) {
     if ($newpassword !== $confirmpassword) {
         showAlert("New Password and Confirm Password do not match.");
     } else {
+        
         // Fetch current password hash from the database
-        $sql = "SELECT ua.Password 
-                FROM tbl_user_accounts ua 
-                JOIN tblstudent s ON ua.ID = s.UserAccountID 
-                WHERE s.ID = :uid";
+        $sql = "SELECT Password 
+                FROM tbl_user_accounts 
+                WHERE ID = :uid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':uid', $uid, PDO::PARAM_STR);
         $query->execute();
-        $result = $query->fetch(PDO::FETCH_OBJ);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
             // Verify current password
-            if (password_verify($currentpassword, $result->Password)) {
+            if (password_verify($currentpassword, $result['Password'])) {
                 // Hash new password
                 $newpasswordHash = password_hash($newpassword, PASSWORD_DEFAULT);
                 
                 // Update new password in the database
                 $updateSql = "UPDATE tbl_user_accounts 
                               SET Password = :newpassword 
-                              WHERE ID = (SELECT UserAccountID FROM tblstudent WHERE ID = :uid)";
+                              WHERE ID = :uid";
                 $updateQuery = $dbh->prepare($updateSql);
                 $updateQuery->bindParam(':newpassword', $newpasswordHash, PDO::PARAM_STR);
                 $updateQuery->bindParam(':uid', $uid, PDO::PARAM_STR);
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
                 showAlert("Your current password is incorrect.");
             }
         } else {
-            showAlert("Something went wrong. Please try again.");
+            showAlert("User not found. Please try again.");
         }
     }
 }

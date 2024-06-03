@@ -155,15 +155,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['teacher_id'])) {
         }
 
         function createAndPopulateEvaluationSummaryTable(evaluations, totalAnswers) {
-            var tableDiv = document.getElementById("evaluationSummaryDiv");
-            var tableHTML = "<table class='table table-striped'><thead><tr><th>Question ID</th><th>Always</th><th>Often</th><th>Sometimes</th><th>Seldom</th><th>Never</th></tr></thead><tbody>";
-            evaluations.forEach(function(evaluation) {
-                tableHTML += "<tr><td>" + evaluation.question_id + "</td><td>" + evaluation.always_count + "</td><td>" + evaluation.often_count + "</td><td>" + evaluation.sometimes_count + "</td><td>" + evaluation.seldom_count + "</td><td>" + evaluation.never_count + "</td></tr>";
-            });
-            tableHTML += "</tbody></table>";
-            tableHTML += "<p>Total Answers: " + totalAnswers + "</p>";
-            tableDiv.innerHTML = tableHTML;
-        }
+    var tableDiv = document.getElementById("evaluationSummaryDiv");
+    var tableHTML = "<table class='table table-striped'><thead><tr><th>Question No.</th><th>Question ID</th><th>Always</th><th>Often</th><th>Sometimes</th><th>Seldom</th><th>Never</th></tr></thead><tbody>";
+    evaluations.forEach(function(evaluation, index) {
+        tableHTML += "<tr><td>" + (index + 1) + "</td><td>" + evaluation.question_id + "</td><td>" + evaluation.always_count + "</td><td>" + evaluation.often_count + "</td><td>" + evaluation.sometimes_count + "</td><td>" + evaluation.seldom_count + "</td><td>" + evaluation.never_count + "</td></tr>";
+    });
+    tableHTML += "</tbody></table>";
+    tableHTML += "<p>Total Answers: " + totalAnswers + "</p>";
+    tableDiv.innerHTML = tableHTML;
+}
 
         function createAndPopulateCommentsTable(comments) {
             var tableDiv = document.getElementById("commentsTableDiv");

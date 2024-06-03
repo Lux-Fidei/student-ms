@@ -91,9 +91,9 @@ if (strlen($_SESSION['sturecmsstuid']==0)) {
                     
                     <br />
                     <div style="display: flex; justify-content: center">
-                      <p style="width: 72%; text-align: justify">&emsp;&emsp;&emsp;This certification is issued on <?php echo date('F d, Y'); ?> upon the request of Mr. <?php
+                      <p style="width: 72%; text-align: justify">&emsp;&emsp;&emsp;This certification is issued on <?php echo date('F d, Y'); ?> upon the request of Mr./Ms. <?php
                       echo htmlentities($results[0]->LastName);
-                      ?> in support of his registration for a scholarship.</p>
+                      ?> in support of his/her registration for a scholarship.</p>
                       
                     </div>
 
