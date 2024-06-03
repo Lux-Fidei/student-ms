@@ -13,7 +13,7 @@ function showAlert($message) {
 
 if (isset($_POST['submit'])) {
     $uid = $_SESSION['sturecmsstuid'];
-    $currentpassword = $_POST['currentpassword'];
+    $currentpassword = MD5($_POST['currentpassword']);
     $newpassword = $_POST['newpassword'];
     $confirmpassword = $_POST['confirmpassword'];
 
@@ -23,19 +23,24 @@ if (isset($_POST['submit'])) {
     } else {
         
         // Fetch current password hash from the database
+        $uaID = "SELECT UserAccountID FROM tblstudent WHERE LRN = :uid";
+        $query2 = $dbh->prepare($uaID);
+        $query2->bindParam(':uid', $uid, PDO::PARAM_STR);
+        $query2->execute();
+        $result2 = $query2->fetch(PDO::FETCH_ASSOC);
         $sql = "SELECT Password 
                 FROM tbl_user_accounts 
                 WHERE LRN = :uid";
         $query = $dbh->prepare($sql);
-        $query->bindParam(':uid', $uid, PDO::PARAM_STR);
+        $query->bindParam(':uid', $result2['UserAccountID'], PDO::PARAM_STR);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
             // Verify current password
-            if (password_verify($currentpassword, $result['Password'])) {
+            if ($currentpassword === $result['Password']) {
                 // Hash new password
-                $newpasswordHash = password_hash($newpassword, PASSWORD_DEFAULT);
+                $newpasswordHash = MD5($newpassword);
                 
                 // Update new password in the database
                 $updateSql = "UPDATE tbl_user_accounts 
@@ -43,7 +48,7 @@ if (isset($_POST['submit'])) {
                               WHERE ID = :uid";
                 $updateQuery = $dbh->prepare($updateSql);
                 $updateQuery->bindParam(':newpassword', $newpasswordHash, PDO::PARAM_STR);
-                $updateQuery->bindParam(':uid', $uid, PDO::PARAM_STR);
+                $updateQuery->bindParam(':uid', $result2['UserAccountID'], PDO::PARAM_STR);
                 $updateQuery->execute();
 
                 showAlert("Your password has been successfully changed.");
